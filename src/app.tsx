@@ -1,7 +1,7 @@
 import Taro, { Component, Config } from "@tarojs/taro";
 
 import Home from "./pages/Home";
-import "./app.less";
+import 'taro-ui/dist/style/index.scss'
 
 class App extends Component {
   config: Config = {
