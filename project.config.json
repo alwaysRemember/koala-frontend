@@ -9,5 +9,6 @@
     "postcss": false,
     "minified": false
   },
+  "checkSiteMap": false,
   "compileType": "miniprogram"
 }
