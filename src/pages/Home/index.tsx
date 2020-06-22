@@ -6,7 +6,15 @@ const Home = () => {
   return (
     <View>
       <Text className={"text"}>Home</Text>
-      <AtButton type="primary" size="small" openType="getUserInfo">
+      <AtButton
+        type="primary"
+        size="small"
+        onClick={() => {
+          Taro.redirectTo({
+            url: "/pages/Login/index"
+          });
+        }}
+      >
         按钮
       </AtButton>
     </View>
