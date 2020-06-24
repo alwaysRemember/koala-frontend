@@ -2,17 +2,17 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-06-22 19:25:37
+ * @LastEditTime: 2020-06-24 16:49:45
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from "@tarojs/taro";
 import { IRequestOptions, TContentType, IResponse } from "./interface";
 import codeType from "./codeType";
 
-const host =
-  process.env.NODE_ENV === "development"
-    ? "http://yaer.free.idcfengye.com"
-    : "";
+const mockUrl = "http://localhost:3721";
+const serverTestUrl = "http://yaer.free.idcfengye.com";
+
+const host = process.env.NODE_ENV === "development" ? serverTestUrl : "";
 
 /**
  * 设置请求类型

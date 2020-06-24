@@ -1,10 +1,18 @@
 import Taro from "@tarojs/taro";
+import { Provider } from "@tarojs/redux";
+import configreStore from "./store";
 
 import Home from "./pages/Home";
 import "./app.scss";
 
+const store = configreStore();
+
 const App = () => {
-  return <Home />;
+  return (
+    <Provider store={store}>
+      <Home />
+    </Provider>
+  );
 };
 App.config = {
   pages: [
