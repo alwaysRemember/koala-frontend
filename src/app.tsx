@@ -2,6 +2,7 @@ import Taro from "@tarojs/taro";
 import { Provider } from "@tarojs/redux";
 import configreStore from "./store";
 
+import Global from "./pages/Global";
 import Home from "./pages/Home";
 import "./app.scss";
 
@@ -16,8 +17,9 @@ const App = () => {
 };
 App.config = {
   pages: [
-    "pages/Login/index",
+    "pages/Global/index",
     "pages/Home/index",
+    "pages/Login/index",
     "pages/PersonalCenter/index"
   ],
   window: {

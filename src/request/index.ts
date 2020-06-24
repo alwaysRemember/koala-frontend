@@ -2,12 +2,13 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-06-24 16:49:45
+ * @LastEditTime: 2020-06-24 21:58:06
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from "@tarojs/taro";
 import { IRequestOptions, TContentType, IResponse } from "./interface";
 import codeType from "./codeType";
+import { showToast } from "../utils/wxUtils";
 
 const mockUrl = "http://localhost:3721";
 const serverTestUrl = "http://yaer.free.idcfengye.com";
@@ -49,7 +50,7 @@ export const request = <T>({
 }: IRequestOptions): Promise<T> => {
   showLoading &&
     Taro.showLoading({
-      title: "Loading..."
+      title: "请稍等..."
     });
   return new Promise<T>(async (res, rej) => {
     try {
@@ -62,12 +63,18 @@ export const request = <T>({
           "content-type": _setContentType(contentType)
         }
       });
+      // 判断请求code是否为200
+      if (result.statusCode !== 200) throw new Error("服务器出错，请稍后重试");
+
       // 获取请求结果
       const { data } = await result;
       // 校验请求状态
       await codeType(data.code, data.message);
       res(data.data);
     } catch (e) {
+      await showToast({
+        title: e.message
+      });
       rej();
     } finally {
       Taro.hideLoading();

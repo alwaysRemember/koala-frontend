@@ -4,8 +4,7 @@ import Taro, {
   useState,
   useEffect,
   pxTransform,
-  login,
-  useCallback
+  login
 } from "@tarojs/taro";
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
@@ -14,20 +13,17 @@ import "./index.sass";
 import { ButtonProps } from "@tarojs/components/types/Button";
 import { BaseEventOrig } from "@tarojs/components/types/common";
 import { userLogin } from "../../api";
-import { IUserLoginParams, IFrontUserLoginResponse } from "./interface";
-import { useSelector, useDispatch } from "@tarojs/redux";
-import { IReducers } from "../../store/reducers/interface";
+import { IUserLoginParams } from "./interface";
+import { useDispatch } from "@tarojs/redux";
 import { updateUserInfo } from "../../store/actions";
+import { showToast } from "../../utils/wxUtils";
 
 const TITLE_HEI: number = 44; // 标题高度
 
 const Login: { config: Config } = () => {
   const [barHei, setBarHei] = useState<number>(0); // 顶部高度
 
-  const data = useSelector<IReducers, IReducers>(state => state);
   const dispatch = useDispatch();
-
-  console.log(data.userInfo);
 
   const getUserInfo = async (
     event: BaseEventOrig<ButtonProps.onGetUserInfoEventDetail>
@@ -38,9 +34,8 @@ const Login: { config: Config } = () => {
 
     // 判断是否同意授权
     if (errMsg !== "getUserInfo:ok") {
-      Taro.showToast({
-        title: "您拒绝了授权！",
-        icon: "none"
+      showToast({
+        title: "您拒绝了授权！"
       });
       return;
     }
@@ -52,6 +47,13 @@ const Login: { config: Config } = () => {
       );
       // 存储到redux
       dispatch(updateUserInfo(data));
+
+      await showToast({
+        title: "登录成功"
+      });
+      Taro.switchTab({
+        url: "/pages/Home/index"
+      });
     } catch (e) {}
   };
 
