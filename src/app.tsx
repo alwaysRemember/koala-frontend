@@ -17,10 +17,10 @@ const App = () => {
 };
 App.config = {
   pages: [
+    "pages/PersonalCenter/index",
     "pages/Global/index",
     "pages/Home/index",
-    "pages/Login/index",
-    "pages/PersonalCenter/index"
+    "pages/Login/index"
   ],
   window: {
     backgroundTextStyle: "light",

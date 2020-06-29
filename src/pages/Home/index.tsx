@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import { AtButton } from "taro-ui";
 import { View, Text } from "@tarojs/components";
-import "./index.less";
+import "./index.sass";
 const Home = () => {
   return (
     <View>
