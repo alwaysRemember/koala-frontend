@@ -1,2 +1,23 @@
-.text
-    color: red
+@import "../../common/css/custom-theme.scss"
+.home-wrapper
+    position: relative
+    .search
+        position: absolute
+        left: 50%
+        top: 20px
+        display: flex
+        flex-direction: row
+        justify-content: left
+        align-items: center
+        width: 660px
+        height: 60px
+        color: #999
+        border-radius: 30px
+        background: #fff
+        transform: translateX(-50%)
+        z-index: 2
+        .search-icon
+            font-size: 24px
+            margin: 0 14px 0 30px
+        .text
+            font-size: 26px

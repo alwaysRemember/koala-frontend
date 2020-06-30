@@ -20,7 +20,9 @@ const PersonalCenter = () => {
    * 菜单点击
    * @param data
    */
-  const menuClick = (data: IMenuItem) => {};
+  const menuClick = (data: IMenuItem) => {
+    // TODO 菜单点击
+  };
 
   return (
     <View className="user-wrapper">
@@ -44,6 +46,7 @@ const PersonalCenter = () => {
           </View>
         </View>
         <View className="order-status-list">
+          {/* TODO 菜单点击 */}
           <View className="order-status-item">
             <AtBadge value={10}>
               <Image src={pendingPayment} className="icon" />
