@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:48:55
- * @LastEditTime: 2020-06-22 19:17:45
+ * @LastEditTime: 2020-07-01 15:57:25
  * @FilePath: /koala-frontend/src/request/interface.ts
  */
 
@@ -13,7 +13,7 @@ export type TMethods = "POST" | "GET";
 
 export interface IRequestOptions {
   url: string;
-  params: any;
+  params?: any;
   method: TMethods;
   contentType?: TContentType;
   showLoading?: boolean;

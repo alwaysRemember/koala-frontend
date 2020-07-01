@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-06-24 21:58:06
+ * @LastEditTime: 2020-07-01 16:14:33
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from "@tarojs/taro";
@@ -10,10 +10,10 @@ import { IRequestOptions, TContentType, IResponse } from "./interface";
 import codeType from "./codeType";
 import { showToast } from "../utils/wxUtils";
 
-const mockUrl = "http://localhost:3721";
+const mockUrl = "http://192.168.50.198:3721";
 const serverTestUrl = "http://yaer.free.idcfengye.com";
 
-const host = process.env.NODE_ENV === "development" ? serverTestUrl : "";
+const host = process.env.NODE_ENV === "development" ? mockUrl : "";
 
 /**
  * 设置请求类型
@@ -50,7 +50,8 @@ export const request = <T>({
 }: IRequestOptions): Promise<T> => {
   showLoading &&
     Taro.showLoading({
-      title: "请稍等..."
+      title: "请稍等...",
+      mask:true
     });
   return new Promise<T>(async (res, rej) => {
     try {
@@ -73,7 +74,7 @@ export const request = <T>({
       res(data.data);
     } catch (e) {
       await showToast({
-        title: e.message
+        title: (e.message && e.message) || "服务器出错，请稍后重试"
       });
       rej();
     } finally {

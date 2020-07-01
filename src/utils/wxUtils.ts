@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-24 21:31:22
- * @LastEditTime: 2020-06-24 21:37:18
+ * @LastEditTime: 2020-07-01 16:14:03
  * @FilePath: /koala-frontend/src/utils/wxUtils.ts
  */
 
@@ -25,7 +25,8 @@ export const showToast = ({
     wx.showToast({
       title,
       icon,
-      duration
+      duration,
+      mask: true
     });
     setTimeout(() => {
       res();

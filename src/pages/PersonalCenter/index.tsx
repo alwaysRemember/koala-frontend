@@ -75,11 +75,11 @@ const PersonalCenter = () => {
       </View>
       {/* 菜单部分 */}
       <AtList className="menu-list" hasBorder={false}>
-        {menuList.map((item: IMenuItem, key: number) => (
+        {menuList.map((item: IMenuItem) => (
           <AtListItem
             title={item.label}
             arrow="right"
-            key={key}
+            key={item.label}
             onClick={() => menuClick(item)}
           />
         ))}
