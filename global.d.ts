@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-19 14:26:50
- * @LastEditTime: 2020-06-19 17:17:42
+ * @LastEditTime: 2020-07-15 14:13:19
  * @FilePath: /koala-frontend/global.d.ts
  */
 
@@ -16,6 +16,13 @@ declare module "*.less";
 declare module "*.scss";
 declare module "*.sass";
 declare module "*.styl";
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    import: any;
+    template: any;
+  }
+}
 
 // @ts-ignore
 declare const process: {

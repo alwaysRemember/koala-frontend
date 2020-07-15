@@ -16,6 +16,7 @@ const App = () => {
 };
 App.config = {
   pages: [
+    "components/ParseCom/index",
     "pages/Home/index",
     "pages/PersonalCenter/index",
     "pages/Global/index",

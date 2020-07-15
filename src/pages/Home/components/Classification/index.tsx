@@ -11,7 +11,6 @@ const Classification = ({
   categoriesList: Array<ICategoriesItem>;
   showCategoriesMore: boolean;
 }) => {
-  console.log(showCategoriesMore);
   
   /**
    * 分类菜单点击
