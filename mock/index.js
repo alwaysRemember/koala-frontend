@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-23 16:54:12
- * @LastEditTime: 2020-07-01 16:01:53
+ * @LastEditTime: 2020-07-15 11:39:59
  * @FilePath: /koala-frontend/mock/index.js
  */
 
@@ -51,49 +51,42 @@ module.exports = {
               path: ""
             }
           ],
-          showClassificationMore: true,
-          classificationList: [
+          showCategoriesMore: true,
+          categoriesList: [
             {
               id: 1,
-              name: "苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果",
+              categoriesIconUrl: testImg,
             },
             {
               id: 2,
-              name: "苹果苹果苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果苹果苹果",
+              categoriesIconUrl: testImg,
             },
             {
               id: 3,
-              name: "苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果",
+              categoriesIconUrl: testImg,
             },
             {
               id: 4,
-              name: "苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果",
+              categoriesIconUrl: testImg,
             },
             {
               id: 5,
-              name: "苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果",
+              categoriesIconUrl: testImg,
             },
             {
               id: 6,
-              name: "苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果",
+              categoriesIconUrl: testImg,
             },
             {
               id: 7,
-              name: "苹果",
-              imgUrl: testImg,
-              path: ""
+              categoriesName: "苹果",
+              categoriesIconUrl: testImg,
             }
           ],
           featuredList: [

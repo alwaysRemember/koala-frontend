@@ -14,8 +14,8 @@ const Home = () => {
   const [showPage, setShowPage] = useState<boolean>(false);
   const [data, setData] = useState<IHomeData>({
     bannerList: [],
-    showClassificationMore: true,
-    classificationList: [],
+    showCategoriesMore: true,
+    categoriesList: [],
     featuredList: []
   });
 
@@ -49,8 +49,8 @@ const Home = () => {
           <Banner bannerList={data.bannerList} />
           {/* 分类 */}
           <Classification
-            showClassificationMore={data.showClassificationMore}
-            classificationList={data.classificationList}
+            showCategoriesMore={data.showCategoriesMore}
+            categoriesList={data.categoriesList}
           />
           {/* 精选推荐 */}
           <Featured featuredList={data.featuredList} />
