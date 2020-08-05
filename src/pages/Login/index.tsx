@@ -12,19 +12,27 @@ import logo from "../../images/global/logo.png";
 import "./index.sass";
 import { ButtonProps } from "@tarojs/components/types/Button";
 import { BaseEventOrig } from "@tarojs/components/types/common";
-import { userLogin } from "../../api";
+import { userLogin, updateUserPhone } from "../../api";
 import { IUserLoginParams } from "./interface";
-import { useDispatch } from "@tarojs/redux";
+import { useDispatch, useSelector } from "@tarojs/redux";
 import { updateUserInfo } from "../../store/actions";
 import { showToast } from "../../utils/wxUtils";
+import { IReducers } from "src/store/reducers/interface";
 
 const TITLE_HEI: number = 44; // 标题高度
 
 const Login: { config: Config } = () => {
   const [barHei, setBarHei] = useState<number>(0); // 顶部高度
+  const [isNext, setIsNext] = useState<boolean>(false); // 是否进行下一步操作
 
   const dispatch = useDispatch();
 
+  const { userInfo } = useSelector<IReducers, IReducers>(state => state);
+
+  /**
+   * 获取用户信息
+   * @param event
+   */
   const getUserInfo = async (
     event: BaseEventOrig<ButtonProps.onGetUserInfoEventDetail>
   ) => {
@@ -48,6 +56,39 @@ const Login: { config: Config } = () => {
       // 存储到redux
       dispatch(updateUserInfo(data));
 
+      setIsNext(true);
+    } catch (e) {}
+  };
+
+  /**
+   * 获取用户手机号
+   * @param param0
+   */
+  const getPhoneNumber = async ({
+    detail: { errMsg, iv, encryptedData }
+  }: {
+    detail: ButtonProps.onGetPhoneNumberEventDetail;
+  }) => {
+    if (errMsg !== "getPhoneNumber:ok") {
+      showToast({
+        title: "获取手机号失败，请稍后重试"
+      });
+      return;
+    }
+
+    try {
+      const { phone } = await updateUserPhone({
+        iv,
+        encryptedData,
+      });
+      // 更新redux
+      dispatch(
+        updateUserInfo(
+          Object.assign({}, userInfo, {
+            phone
+          })
+        )
+      );
       await showToast({
         title: "登录成功"
       });
@@ -71,15 +112,28 @@ const Login: { config: Config } = () => {
     >
       <View className="login-con">
         <Image src={logo} className="logo" mode="aspectFit" />
-        <Text className="login-msg">您好，使用小程序需要授权登录!</Text>
-        <AtButton
-          type="primary"
-          className="login"
-          openType="getUserInfo"
-          onGetUserInfo={getUserInfo}
-        >
-          登录
-        </AtButton>
+        <Text className="login-msg">
+          您好，使用小程序需要授权微信登录以及手机号!
+        </Text>
+        {isNext ? (
+          <AtButton
+            type="primary"
+            className="login"
+            openType="getPhoneNumber"
+            onGetPhoneNumber={getPhoneNumber}
+          >
+            获取手机号
+          </AtButton>
+        ) : (
+          <AtButton
+            type="primary"
+            className="login"
+            openType="getUserInfo"
+            onGetUserInfo={getUserInfo}
+          >
+            登录
+          </AtButton>
+        )}
       </View>
     </View>
   );

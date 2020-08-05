@@ -1,11 +1,10 @@
 import Taro from "@tarojs/taro";
 import { Provider } from "@tarojs/redux";
-import configreStore from "./store";
+import store from "./store";
 
 import Home from "./pages/Home";
 import "./app.scss";
 
-const store = configreStore();
 
 const App = () => {
   return (
@@ -16,11 +15,11 @@ const App = () => {
 };
 App.config = {
   pages: [
-    "components/ParseCom/index",
-    "pages/Home/index",
-    "pages/PersonalCenter/index",
     "pages/Global/index",
-    "pages/Login/index"
+    "pages/Home/index",
+    "pages/Login/index",
+    "components/ParseCom/index",
+    "pages/PersonalCenter/index",
   ],
   window: {
     backgroundTextStyle: "light",

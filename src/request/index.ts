@@ -2,18 +2,19 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-07-01 16:14:33
+ * @LastEditTime: 2020-08-05 17:17:35
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from "@tarojs/taro";
 import { IRequestOptions, TContentType, IResponse } from "./interface";
 import codeType from "./codeType";
 import { showToast } from "../utils/wxUtils";
+import store from "../store";
 
 const mockUrl = "http://192.168.50.198:3721";
 const serverTestUrl = "http://yaer.free.idcfengye.com";
 
-const host = process.env.NODE_ENV === "development" ? mockUrl : "";
+const host = process.env.NODE_ENV === "development" ? serverTestUrl : "";
 
 /**
  * 设置请求类型
@@ -51,17 +52,18 @@ export const request = <T>({
   showLoading &&
     Taro.showLoading({
       title: "请稍等...",
-      mask:true
+      mask: true
     });
   return new Promise<T>(async (res, rej) => {
     try {
       // 发起请求
       const result = await Taro.request<IResponse<T>>({
-        url: host + url,
+        url: `${host}/api${url}`,
         data: params,
         method,
         header: {
-          "content-type": _setContentType(contentType)
+          "content-type": _setContentType(contentType),
+          openid: store.getState().userInfo.openid
         }
       });
       // 判断请求code是否为200
