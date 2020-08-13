@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 17:39:39
- * @LastEditTime: 2020-08-05 15:14:15
+ * @LastEditTime: 2020-08-13 17:27:26
  * @FilePath: /koala-frontend/src/api/index.ts
  */
 import { request } from "../request/index";
@@ -29,7 +29,7 @@ export const userLogin = (params: IUserLoginParams) =>
  */
 export const getHomeInfo = () =>
   request<IHomeData>({
-    url: "/front/home",
+    url: "/front/home/get-home-data",
     method: "GET"
   });
 

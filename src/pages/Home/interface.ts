@@ -2,9 +2,11 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-30 14:19:31
- * @LastEditTime: 2020-07-15 11:37:43
+ * @LastEditTime: 2020-08-13 15:43:52
  * @FilePath: /koala-frontend/src/pages/Home/interface.ts
  */
+
+import { EBannerTypeEnum } from "./components/Banner/enums";
 
 export interface IHomeData {
   bannerList: Array<IBannerItem>;
@@ -16,19 +18,19 @@ export interface IHomeData {
 export interface IBannerItem {
   id: number;
   imgUrl: string;
-  path: string;
+  type: EBannerTypeEnum;
 }
 
 // 分类
 export interface ICategoriesItem {
-  id: number;
+  id: string;
   categoriesName: string;
   categoriesIconUrl: string;
 }
 
 // 精选推荐
 export interface IFeaturedItem {
-  id: number;
+  id: string;
   logo: string;
   name: string;
   introduction: string;

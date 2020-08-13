@@ -39,6 +39,7 @@ const Login: { config: Config } = () => {
     const {
       detail: { userInfo, errMsg }
     } = event;
+    console.log(errMsg);
 
     // 判断是否同意授权
     if (errMsg !== "getUserInfo:ok") {
@@ -56,7 +57,17 @@ const Login: { config: Config } = () => {
       // 存储到redux
       dispatch(updateUserInfo(data));
 
-      setIsNext(true);
+      // 如果手机号存在则证明非首次登陆直接跳转首页
+      if (!data.phone) {
+        setIsNext(true);
+        return;
+      }
+      await showToast({
+        title: "登录成功"
+      });
+      Taro.switchTab({
+        url: "/pages/Home/index"
+      });
     } catch (e) {}
   };
 
@@ -79,7 +90,7 @@ const Login: { config: Config } = () => {
     try {
       const { phone } = await updateUserPhone({
         iv,
-        encryptedData,
+        encryptedData
       });
       // 更新redux
       dispatch(
