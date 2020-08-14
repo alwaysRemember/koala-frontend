@@ -5,7 +5,6 @@ import store from "./store";
 import Home from "./pages/Home";
 import "./app.scss";
 
-
 const App = () => {
   return (
     <Provider store={store}>
@@ -16,10 +15,11 @@ const App = () => {
 App.config = {
   pages: [
     "pages/Global/index",
+    "pages/SearchPage/index",
     "pages/Home/index",
     "pages/Login/index",
     "components/ParseCom/index",
-    "pages/PersonalCenter/index",
+    "pages/PersonalCenter/index"
   ],
   window: {
     backgroundTextStyle: "light",

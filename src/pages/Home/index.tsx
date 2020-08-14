@@ -7,9 +7,8 @@ import { IHomeData } from "./interface";
 import Featured from "./components/Featured";
 import HomeSkeleton from "./components/HomeSkeleton";
 import { getHomeInfo } from "../../api";
+import SearchInput from "../../components/SearchInput";
 
-const testImg =
-  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593508914657&di=d9a9d65d06873fd71d634976e0cbcbe2&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D2247852322%2C986532796%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D853";
 const Home = () => {
   const [showPage, setShowPage] = useState<boolean>(false);
   const [data, setData] = useState<IHomeData>({
@@ -41,9 +40,14 @@ const Home = () => {
         <View className="home-wrapper">
           {/* 搜索 */}
           {/* TODO 点击搜索 */}
-          <View className="search">
-            <View className="at-icon at-icon-search search-icon" />
-            <Text className="text">点击搜索喜爱的商品</Text>
+          <View
+            onClick={() => {
+              Taro.navigateTo({
+                url: "/pages/SearchPage/index"
+              });
+            }}
+          >
+            <SearchInput isDisable={true} />
           </View>
           {/* banner */}
           <Banner bannerList={data.bannerList} />
@@ -63,10 +67,10 @@ const Home = () => {
 };
 
 Home.config = {
-  navigationBarTitleText: "主页",
+  navigationBarTitleText: "首页",
   navigationBarBackgroundColor: "#e93b3d",
   navigationBarTextStyle: "white",
-  enablePullDownRefresh:true
+  enablePullDownRefresh: true
 };
 
 export default Home;
