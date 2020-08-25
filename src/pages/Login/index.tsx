@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "@tarojs/redux";
 import { updateUserInfo } from "../../store/actions";
 import { showToast } from "../../utils/wxUtils";
 import { IReducers } from "src/store/reducers/interface";
+import { appletHomePath } from "../../router";
 
 const TITLE_HEI: number = 44; // 标题高度
 
@@ -66,7 +67,7 @@ const Login: { config: Config } = () => {
         title: "登录成功"
       });
       Taro.switchTab({
-        url: "/pages/Home/index"
+        url: appletHomePath()
       });
     } catch (e) {}
   };
