@@ -14,8 +14,8 @@ const App = () => {
 };
 App.config = {
   pages: [
-    "pages/SearchPage/index",
     "pages/Global/index",
+    "pages/SearchPage/index",
     "pages/Home/index",
     "pages/Login/index",
     "components/ParseCom/index",

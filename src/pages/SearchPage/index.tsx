@@ -39,7 +39,7 @@ const SearchPage: { config: Config } = () => {
    * @param searchValue
    */
   const goToProductList = (searchValue: string) => {
-    // TODO  跳转产品列表页面(redirect)
+    // TODO  跳转产品列表页面(redirect),并且把搜索参数带过去进行请求数据
     console.log(searchValue);
   };
 
@@ -50,7 +50,7 @@ const SearchPage: { config: Config } = () => {
     return (
       Taro.getStorageSync(ESearchHistoryRecordLocalKey.SEARCH_HISTORY_RECORD) ||
       []
-    );
+    ).reverse();
   };
 
   useEffect(() => {
