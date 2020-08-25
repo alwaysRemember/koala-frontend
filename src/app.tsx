@@ -15,6 +15,7 @@ const App = () => {
 App.config = {
   pages: [
     "pages/Global/index",
+    "pages/ProductDetail/index",
     "pages/SearchPage/index",
     "pages/Home/index",
     "pages/Login/index",

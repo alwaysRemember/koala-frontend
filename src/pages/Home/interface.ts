@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-30 14:19:31
- * @LastEditTime: 2020-08-13 15:43:52
+ * @LastEditTime: 2020-08-25 16:19:45
  * @FilePath: /koala-frontend/src/pages/Home/interface.ts
  */
 
@@ -16,9 +16,10 @@ export interface IHomeData {
 }
 
 export interface IBannerItem {
-  id: number;
+  id: string;
   imgUrl: string;
   type: EBannerTypeEnum;
+  productId?:string;
 }
 
 // 分类

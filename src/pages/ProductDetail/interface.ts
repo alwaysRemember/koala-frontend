@@ -4,12 +4,16 @@ import { EProductStatus } from "src/enums/EProduct";
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-08-20 14:21:42
+ * @LastEditTime: 2020-08-25 16:16:07
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 
+export interface IProductDetailPathParams {
+  productId: string;
+}
+
 // 产品详情数据
-// TODO 缺少数据： 产品销量 产品评价
+// TODO 缺少数据： 产品评价
 export interface IProductDetailResponse {
   productId: string;
   productVideo: IProductDetailVideo;
@@ -23,6 +27,7 @@ export interface IProductDetailResponse {
   productParameter: Array<{ key: string; value: string }>; // 产品参数
   productConfigList: Array<IProductConfig>;
   productDeliveryCity: string; // 发货地点
+  productSales: number; // 产品销量
 }
 
 // 产品配置

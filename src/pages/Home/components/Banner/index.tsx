@@ -1,14 +1,29 @@
-import Taro from "@Tarojs/taro";
 import { Swiper, SwiperItem, Image } from "@tarojs/components";
 import { IBannerItem } from "../../interface";
 import "./index.sass";
+import { EBannerTypeEnum } from "./enums";
+import { productDetailPath } from "../../../../router";
+
 const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
   /**
    * banner点击
    * @param data
    */
-  const bannerClick = (data: IBannerItem) => {
-    // TODO Banner点击
+  const bannerClick = ({ type, productId }: IBannerItem) => {
+    let url: string;
+    switch (type) {
+      case EBannerTypeEnum.PRODUCT:
+        url = productDetailPath({ productId: productId as string });
+        break;
+      default:
+        url = "";
+    }
+    if (!url) return;
+    console.log(url);
+    
+    Taro.navigateTo({
+      url
+    });
   };
   return (
     <Swiper

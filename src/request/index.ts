@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-08-13 17:24:53
+ * @LastEditTime: 2020-08-25 16:00:02
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from "@tarojs/taro";
@@ -14,7 +14,7 @@ import store from "../store";
 const mockUrl = "http://192.168.50.198:3721";
 const serverTestUrl = "http://yaer.ngrok2.xiaomiqiu.cn";
 
-const host = process.env.NODE_ENV === "development" ? serverTestUrl : "";
+const host = process.env.NODE_ENV === "development" ? serverTestUrl : serverTestUrl;
 
 /**
  * 设置请求类型
@@ -58,7 +58,7 @@ export const request = <T>({
     try {
       // 发起请求
       const result = await Taro.request<IResponse<T>>({
-        url: `${host}/api${url}`,
+        url: `${host}/api/front${url}`,
         data: params,
         method,
         header: {
