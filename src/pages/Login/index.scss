@@ -12,17 +12,17 @@
     top: 30%;
     width: 100%;
     transform: translate(-50%, -50%);
-  }
-  .logo {
-    width: 400px;
-    height: 240px;
-  }
-  .login-msg {
-    text-align: center;
-    color: $color-brand;
-  }
-  .login {
-    width: 400px;
-    margin-top: 40px;
+    .logo {
+      width: 400px;
+      height: 240px;
+    }
+    .login-msg {
+      text-align: center;
+      color: $color-brand;
+    }
+    .login {
+      width: 400px;
+      margin-top: 40px;
+    }
   }
 }

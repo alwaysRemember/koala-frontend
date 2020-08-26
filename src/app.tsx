@@ -15,12 +15,12 @@ const App = () => {
 App.config = {
   pages: [
     "pages/ProductDetail/index",
+    "pages/PersonalCenter/index",
     "pages/Login/index",
     "pages/Global/index",
     "pages/SearchPage/index",
     "pages/Home/index",
-    "components/ParseCom/index",
-    "pages/PersonalCenter/index"
+    "components/ParseCom/index"
   ],
   window: {
     backgroundTextStyle: "light",
