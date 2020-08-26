@@ -1,0 +1,28 @@
+@import "../../common/css/custom-theme.scss";
+.login-wrapper {
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100%;
+  .login-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+  .logo {
+    width: 400px;
+    height: 240px;
+  }
+  .login-msg {
+    text-align: center;
+    color: $color-brand;
+  }
+  .login {
+    width: 400px;
+    margin-top: 40px;
+  }
+}

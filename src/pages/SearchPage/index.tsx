@@ -2,7 +2,7 @@ import Taro, { Config, useState, useEffect } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import SearchInput from "../../components/SearchInput";
 import { AtTag, AtButton } from "taro-ui";
-import "./index.sass";
+import "./index.scss";
 import { ESearchHistoryRecordLocalKey } from "../../enums/EProduct";
 
 const SearchPage: { config: Config } = () => {

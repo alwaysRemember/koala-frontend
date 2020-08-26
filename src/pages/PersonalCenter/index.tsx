@@ -8,7 +8,7 @@ import completed from "../../images/personalCenter/completed.png";
 import pendingPayment from "../../images/personalCenter/pending-payment.png";
 import toBeDelivered from "../../images/personalCenter/to_be_delivered.png";
 import toBeReceived from "../../images/personalCenter/to_be_received.png";
-import "./index.sass";
+import "./index.scss";
 import { menuList } from "./data";
 import { IMenuItem } from "./interface";
 

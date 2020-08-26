@@ -1,6 +1,6 @@
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
-import "./index.sass";
+import "./index.scss";
 import { IFeaturedItem } from "../../interface";
 import { productDetailPath } from "../../../../router";
 

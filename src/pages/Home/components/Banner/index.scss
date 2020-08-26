@@ -1,0 +1,14 @@
+@import "../../global.scss";
+
+.banner-wrapper {
+  width: 100%;
+  height: $banner-hei;
+  .banner-item {
+    width: 100%;
+    height: 100%;
+  }
+  .banner-img {
+    width: 100%;
+    height: 100%;
+  }
+}

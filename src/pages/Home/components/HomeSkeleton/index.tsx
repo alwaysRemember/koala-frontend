@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
-import "./index.sass";
+import "./index.scss";
 const HomeSkeleton = () => {
   return (
     <View className="home-skeleton">

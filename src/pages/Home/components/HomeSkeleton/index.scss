@@ -1,0 +1,24 @@
+@import "../../../../common/css/custom-theme.scss";
+@import "../../global.scss";
+@import "../Classification/index.scss";
+@import "../Featured/index.scss";
+.home-skeleton {
+  height: 100%;
+  .banner {
+    height: $banner-hei;
+    background: $color-skeleton;
+  }
+  .skeleton-classification-item-text {
+    width: 94px;
+    height: 26px;
+    background: $color-skeleton;
+  }
+  .skeleton-featured-item-logo {
+    background: $color-skeleton;
+  }
+  .skeleton-featured-item-product-name {
+    width: 256px;
+    height: 32px;
+    background: $color-skeleton;
+  }
+}

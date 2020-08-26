@@ -1,7 +1,7 @@
 import Taro, { useState } from "@tarojs/taro";
 import { View } from "@tarojs/components";
 import { AtSearchBar } from "taro-ui";
-import "./index.sass";
+import "./index.scss";
 import { ISearchInputProps } from "./interface";
 import { ESearchHistoryRecordLocalKey } from "../../enums/EProduct";
 

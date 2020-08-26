@@ -1,0 +1,78 @@
+.user-wrapper {
+  padding-bottom: 30px;
+  .user-avatar-wrpper {
+    box-sizing: border-box;
+    padding: 30px;
+    display: flex;
+  }
+  .user-info {
+    padding: 0 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .name {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+  }
+  .address {
+    font-size: 28px;
+    color: #666;
+  }
+  .order {
+    box-sizing: border-box;
+    padding: 24px 34px;
+    width: 690px;
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.04),
+      -2px -2px 6px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    margin: 0 auto;
+  }
+  .order-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .label {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+  }
+  .view-order {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 28px;
+    color: #999;
+  }
+  .order-status-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 60px;
+  }
+  .order-status-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 28px;
+    color: #666;
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 10px;
+  }
+  .menu-list {
+    width: 690px;
+    margin: 30px auto 0;
+  }
+  .contact {
+    width: 690px;
+    margin-top: 60px;
+  }
+}

@@ -9,7 +9,7 @@ import Taro, {
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
 import logo from "../../images/global/logo.png";
-import "./index.sass";
+import "./index.scss";
 import { ButtonProps } from "@tarojs/components/types/Button";
 import { BaseEventOrig } from "@tarojs/components/types/common";
 import { userLogin, updateUserPhone } from "../../api";

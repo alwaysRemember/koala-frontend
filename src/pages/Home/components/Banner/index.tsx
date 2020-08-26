@@ -1,6 +1,6 @@
 import { Swiper, SwiperItem, Image } from "@tarojs/components";
 import { IBannerItem } from "../../interface";
-import "./index.sass";
+import "./index.scss";
 import { EBannerTypeEnum } from "./enums";
 import { productDetailPath } from "../../../../router";
 
@@ -19,7 +19,6 @@ const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
         url = "";
     }
     if (!url) return;
-    console.log(url);
     
     Taro.navigateTo({
       url

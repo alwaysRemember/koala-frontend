@@ -2,7 +2,7 @@ import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import { AtAvatar, AtIcon } from "taro-ui";
 import { ICategoriesItem } from "../../interface";
-import "./index.sass";
+import "./index.scss";
 
 const Classification = ({
   categoriesList,

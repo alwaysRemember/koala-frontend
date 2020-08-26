@@ -2,7 +2,7 @@ import Taro, { useState, useEffect, usePullDownRefresh } from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import Banner from "./components/Banner";
 import Classification from "./components/Classification";
-import "./index.sass";
+import "./index.scss";
 import { IHomeData } from "./interface";
 import Featured from "./components/Featured";
 import HomeSkeleton from "./components/HomeSkeleton";
