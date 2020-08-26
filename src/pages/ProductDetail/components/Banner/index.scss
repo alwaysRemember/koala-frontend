@@ -11,11 +11,23 @@
   }
   .module-switch {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
+    .button{
+      padding: 0 10px;
+      line-height: 34px;
+      text-align: center;
+      font-size: 20px;
+      color: #666;
+      background: #fff;
+      border-radius: 40px;
+      &:last-child{
+        margin-left: 10px;
+      }
+    }
   }
 }

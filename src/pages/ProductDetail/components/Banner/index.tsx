@@ -1,8 +1,7 @@
-import { View, Video } from "@tarojs/components";
+import { View, Video,Text } from "@tarojs/components";
 import { IBannerProps, IModuleListItem, EModuleSwitch } from "./interface";
 import "./index.scss";
-import { useState, useCallback, useEffect } from "@tarojs/taro";
-import { AtButton } from "taro-ui";
+import { useState, useEffect } from "@tarojs/taro";
 const Banner = ({ video, bannerList }: IBannerProps) => {
   const [showModule, setShowModule] = useState<boolean>(false); // false = video true = banner
   const [moduleList, setModuleList] = useState<Array<IModuleListItem>>([]);
@@ -39,16 +38,9 @@ const Banner = ({ video, bannerList }: IBannerProps) => {
       {/* 模块切换 */}
       <View className="module-switch">
         {moduleList.map(item => (
-          <AtButton
-            key={item.title}
-            size="small"
-            circle={true}
-            type="secondary"
-            onClick={item.click}
-            className="button"
-          >
-            {item.title}
-          </AtButton>
+          <View className="button" key={item.title} onClick={item.click}>
+            <Text>{item.title}</Text>
+          </View>
         ))}
       </View>
     </View>
