@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-26 16:10:58
- * @LastEditTime: 2020-08-26 16:31:41
+ * @LastEditTime: 2020-08-31 16:43:44
  * @FilePath: /koala-frontend/src/pages/ProductDetail/components/Banner/interface.ts
  */
 
@@ -15,7 +15,7 @@ export interface IBannerProps {
 
 export enum EModuleSwitch {
   VIDEO = "VIDEO",
-  "IMG" = "IMG"
+  IMG = "IMG"
 }
 
 export interface IModuleListItem {

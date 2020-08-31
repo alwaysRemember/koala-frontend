@@ -1,9 +1,18 @@
-import { View, Video,Text } from "@tarojs/components";
+import {
+  View,
+  Video,
+  Text,
+  Image,
+  Swiper,
+  SwiperItem
+} from "@tarojs/components";
 import { IBannerProps, IModuleListItem, EModuleSwitch } from "./interface";
 import "./index.scss";
 import { useState, useEffect } from "@tarojs/taro";
 const Banner = ({ video, bannerList }: IBannerProps) => {
-  const [showModule, setShowModule] = useState<boolean>(false); // false = video true = banner
+  const [showModule, setShowModule] = useState<EModuleSwitch>(
+    EModuleSwitch.VIDEO
+  );
   const [moduleList, setModuleList] = useState<Array<IModuleListItem>>([]);
 
   useEffect(() => {
@@ -12,7 +21,7 @@ const Banner = ({ video, bannerList }: IBannerProps) => {
         title: "视频",
         type: EModuleSwitch.VIDEO,
         click: () => {
-          setShowModule(false);
+          setShowModule(EModuleSwitch.VIDEO);
         },
         status: !!video.url
       },
@@ -20,25 +29,47 @@ const Banner = ({ video, bannerList }: IBannerProps) => {
         title: "图片",
         type: EModuleSwitch.IMG,
         click: () => {
-          setShowModule(true);
+          setShowModule(EModuleSwitch.IMG);
         },
         status: !!bannerList.length
       }
     ]);
   }, [video, bannerList]);
+
+  useEffect(() => {
+    setShowModule(!!video.url ? EModuleSwitch.VIDEO : EModuleSwitch.IMG);
+  }, [video]);
+
   return (
     <View className="banner-wapper">
       {/* video */}
-      {!!video.url && (
+      {showModule === EModuleSwitch.VIDEO ? (
         <View className="video-wrapper">
           <Video src={video.url} className="video" />
         </View>
+      ) : (
+        <Swiper
+          circular
+          autoplay
+          interval={3000}
+          className="img-wrapper"
+        >
+          {bannerList.map(item => (
+            <SwiperItem key={item.id} className="banner-item">
+              <Image src={item.url} className="banner-img" />
+            </SwiperItem>
+          ))}
+        </Swiper>
       )}
 
       {/* 模块切换 */}
       <View className="module-switch">
         {moduleList.map(item => (
-          <View className="button" key={item.title} onClick={item.click}>
+          <View
+            className={`button ${item.type === showModule ? "on" : ""}`}
+            key={item.title}
+            onClick={item.click}
+          >
             <Text>{item.title}</Text>
           </View>
         ))}
