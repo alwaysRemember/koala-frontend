@@ -1,0 +1,43 @@
+@import "../../common/css/custom-theme.scss";
+.detail-wrapper {
+  .product-info {
+    border-bottom: 10px solid #f7f7f7;
+    padding: 30px 0 20px;
+    .product-amount {
+      box-sizing: border-box;
+      padding: 0 30px;
+      color: $color-brand;
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 54px;
+    }
+    .product-name {
+      box-sizing: border-box;
+      padding: 0 30px;
+      display: block;
+      font-size: 32px;
+      line-height: 46px;
+      color: #333;
+      margin: 23px 0;
+    }
+    .select-product-config {
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 0 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: 98px;
+      background: #f5f5f5;
+      .tips {
+        font-size: 28px;
+        color: #999;
+        line-height: 28px;
+      }
+      .icon{
+          color: #999;
+      }
+    }
+  }
+}

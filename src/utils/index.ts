@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:08:27
- * @LastEditTime: 2020-08-25 16:12:50
+ * @LastEditTime: 2020-08-31 18:20:34
  * @FilePath: /koala-frontend/src/utils/index.ts
  */
 
@@ -20,4 +20,21 @@ export const pathParamsTransfer = (params: { [key: string]: any }): string => {
         }`
     )
     .join("");
+};
+
+/**
+ * 金额转换
+ * @param value
+ * @param type
+ */
+export const transferAmount = (
+  value: number | string,
+  type: 'yuan' | 'fen' = 'yuan',
+): number | string => {
+  switch (type) {
+    case 'yuan':
+      return (Number(value) / 100).toFixed(2);
+    case 'fen':
+      return Number(value) * 100;
+  }
 };
