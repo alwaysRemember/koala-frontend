@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-23 16:54:12
- * @LastEditTime: 2020-08-25 15:30:31
+ * @LastEditTime: 2020-09-01 14:52:07
  * @FilePath: /koala-frontend/mock/index.js
  */
 
@@ -160,7 +160,8 @@ module.exports = {
             }
           ],
           productDeliveryCity: "黑龙江省,黑河市",
-          productSales: 100
+          productSales: 100,
+          productShipping: 1000
         })
       );
     });

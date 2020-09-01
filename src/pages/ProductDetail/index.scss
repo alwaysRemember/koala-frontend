@@ -1,11 +1,19 @@
 @import "../../common/css/custom-theme.scss";
+$content-bg: #fff;
+$wrapper-bg:#F7F7F7;
+$pd: 30px;
 .detail-wrapper {
+    min-height: 100%;
+    background: $wrapper-bg;
   .product-info {
-    border-bottom: 10px solid #f7f7f7;
-    padding: 30px 0 20px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    background: $content-bg;
     .product-amount {
+      display: block;
+      width: 100%;
       box-sizing: border-box;
-      padding: 0 30px;
+      padding: 0 $pd;
       color: $color-brand;
       font-weight: bold;
       font-size: 36px;
@@ -13,30 +21,48 @@
     }
     .product-name {
       box-sizing: border-box;
-      padding: 0 30px;
+      padding: 0 $pd 10px;
       display: block;
+      font-weight: bold;
       font-size: 32px;
       line-height: 46px;
       color: #333;
-      margin: 23px 0;
+      border-bottom: 10px solid $wrapper-bg;
+    }
+    .delivery-info {
+      box-sizing: border-box;
+      padding:20px $pd;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border-bottom: 10px solid $wrapper-bg;
+      .delivery-info-item {
+        flex: 0 0 50%;
+        font-size: 28px;
+        line-height: 32px;
+        color: #333;
+        margin-bottom: 10px;
+        .label{
+            color: #999;
+        }
+      }
     }
     .select-product-config {
       overflow: hidden;
       box-sizing: border-box;
-      padding: 0 30px;
+      padding: 0 $pd;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       height: 98px;
-      background: #f5f5f5;
       .tips {
         font-size: 28px;
         color: #999;
         line-height: 28px;
       }
-      .icon{
-          color: #999;
+      .icon {
+        color: #999;
       }
     }
   }

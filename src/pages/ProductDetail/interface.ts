@@ -4,7 +4,7 @@ import { EProductStatus } from "src/enums/EProduct";
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-08-25 16:16:07
+ * @LastEditTime: 2020-09-01 14:42:53
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 
@@ -28,6 +28,7 @@ export interface IProductDetailResponse {
   productConfigList: Array<IProductConfig>;
   productDeliveryCity: string; // 发货地点
   productSales: number; // 产品销量
+  productShipping: number; // 运费
 }
 
 // 产品配置

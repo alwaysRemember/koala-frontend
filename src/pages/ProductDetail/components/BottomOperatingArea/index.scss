@@ -1,0 +1,11 @@
+.operating-area-wrapper {
+  height: 128px;
+  .operating-area-con {
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 128px;
+    background: #fff;
+  }
+}

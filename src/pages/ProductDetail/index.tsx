@@ -7,6 +7,7 @@ import { showToast } from "../../utils/wxUtils";
 import Banner from "./components/Banner";
 import "./index.scss";
 import { transferAmount } from "../../utils";
+import BottomOperatingArea from "./components/BottomOperatingArea/incex";
 const ProductDetail = () => {
   let {
     params: { productId }
@@ -28,7 +29,8 @@ const ProductDetail = () => {
     productParameter: [], // 产品参数
     productConfigList: [], // 产品配置
     productDeliveryCity: "", // 发货地点
-    productSales: 0 // 产品销量
+    productSales: 0, // 产品销量
+    productShipping: 0
   });
 
   const [productAmount, setProductAmount] = useState<string>("235.99"); // 显示在页面中的金额，可能为区间
@@ -112,6 +114,18 @@ const ProductDetail = () => {
       <View className="product-info">
         <Text className="product-amount">¥ {productAmount}</Text>
         <Text className="product-name">{data.productName}</Text>
+        <View className="delivery-info">
+          <Text className="delivery-info-item">
+            <Text className="label">发货</Text> : {data.productDeliveryCity}
+          </Text>
+          <Text className="delivery-info-item">
+            <Text className="label">快递费</Text> : ¥
+            {transferAmount(data.productShipping, "yuan")}元
+          </Text>
+          <Text className="delivery-info-item">
+            <Text className="label">销量</Text> : {data.productSales}
+          </Text>
+        </View>
         {/* 选择规格 */}
         {data.productConfigList.length && (
           <View className="select-product-config">
@@ -121,10 +135,13 @@ const ProductDetail = () => {
                 <Text key={index}> {value}</Text>
               ))}
             </Text>
-            <View className='at-icon at-icon-chevron-right icon' />
+            <View className="at-icon at-icon-chevron-right icon" />
           </View>
         )}
       </View>
+
+      {/* 底部操作区 */}
+      <BottomOperatingArea />
     </View>
   );
 };
