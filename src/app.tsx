@@ -4,6 +4,7 @@ import store from "./store";
 
 import Home from "./pages/Home";
 import "./app.scss";
+import "./common/iconfont/iconfont.css";
 
 const App = () => {
   return (

@@ -28,7 +28,8 @@
 		"useMultiFrameRuntime": true,
 		"useApiHook": false,
 		"packNpmManually": false,
-		"packNpmRelationList": []
+		"packNpmRelationList": [],
+		"compileHotReLoad": false
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
