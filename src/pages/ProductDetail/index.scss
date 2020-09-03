@@ -1,10 +1,11 @@
 @import "../../common/css/custom-theme.scss";
+$border-radius: 8px;
 $content-bg: #fff;
-$wrapper-bg:#F7F7F7;
+$wrapper-bg: #f7f7f7;
 $pd: 30px;
 .detail-wrapper {
-    min-height: 100%;
-    background: $wrapper-bg;
+  min-height: 100%;
+  background: $wrapper-bg;
   .product-info {
     margin-bottom: 10px;
     padding-top: 20px;
@@ -31,7 +32,7 @@ $pd: 30px;
     }
     .delivery-info {
       box-sizing: border-box;
-      padding:20px $pd;
+      padding: 20px $pd;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -42,8 +43,8 @@ $pd: 30px;
         line-height: 32px;
         color: #333;
         margin-bottom: 10px;
-        .label{
-            color: #999;
+        .label {
+          color: #999;
         }
       }
     }

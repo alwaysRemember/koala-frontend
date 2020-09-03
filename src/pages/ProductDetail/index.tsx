@@ -30,7 +30,8 @@ const ProductDetail = () => {
     productConfigList: [], // 产品配置
     productDeliveryCity: "", // 发货地点
     productSales: 0, // 产品销量
-    productShipping: 0
+    productShipping: 0,
+    productFavorites: false
   });
 
   const [productAmount, setProductAmount] = useState<string>("235.99"); // 显示在页面中的金额，可能为区间
@@ -141,7 +142,7 @@ const ProductDetail = () => {
       </View>
 
       {/* 底部操作区 */}
-      <BottomOperatingArea />
+      <BottomOperatingArea favorites={data.productFavorites} />
     </View>
   );
 };
