@@ -1,52 +1,15 @@
 import Taro from "@tarojs/taro";
-import { Provider } from "@tarojs/redux";
+import React, { Component } from "react";
+import { StoreContext } from 'redux-react-hook';
 import store from "./store";
-
-import Home from "./pages/Home";
 import "./app.scss";
 import "./common/iconfont/iconfont.css";
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <Home />
-    </Provider>
-  );
-};
-App.config = {
-  pages: [
-    "pages/ProductDetail/index",
-    "pages/PersonalCenter/index",
-    "pages/Login/index",
-    "pages/Global/index",
-    "pages/SearchPage/index",
-    "pages/Home/index",
-    "components/ParseCom/index"
-  ],
-  window: {
-    backgroundTextStyle: "light",
-    navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "WeChat",
-    navigationBarTextStyle: "black"
-  },
-  tabBar: {
-    selectedColor: "#E93B3D",
-    color: "#707070",
-    list: [
-      {
-        pagePath: "pages/Home/index",
-        text: "首页",
-        iconPath: "./images/tabbar/home.png", // 35*38
-        selectedIconPath: "./images/tabbar/home_selected.png"
-      },
-      {
-        pagePath: "pages/PersonalCenter/index",
-        text: "个人中心",
-        iconPath: "./images/tabbar/personal_center.png",
-        selectedIconPath: "./images/tabbar/personal_center_selected.png"
-      }
-    ]
+class App extends Component {
+  props: any;
+  render() {
+    return <StoreContext.Provider value={store}>{this.props.children}</StoreContext.Provider>;
   }
-};
+}
 
-Taro.render(<App />, document.getElementById("app"));
+export default App;

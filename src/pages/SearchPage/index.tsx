@@ -1,4 +1,6 @@
-import Taro, { Config, useState, useEffect } from "@tarojs/taro";
+import React from "react";
+import Taro, { Config } from "@tarojs/taro";
+import { useState, useEffect } from "react";
 import { View, Text } from "@tarojs/components";
 import SearchInput from "../../components/SearchInput";
 import { AtTag, AtButton } from "taro-ui";
@@ -14,7 +16,7 @@ const SearchPage: { config: Config } = () => {
    * 搜索组件确认搜索
    * @param value
    */
-  const searchConfirm = value => {
+  const searchConfirm = (value) => {
     goToProductList(value);
   };
 
@@ -22,7 +24,7 @@ const SearchPage: { config: Config } = () => {
    * 点击历史记录tag
    * @param value
    */
-  const historyRecordItemClick = value => {
+  const historyRecordItemClick = (value) => {
     goToProductList(value);
   };
 
@@ -75,7 +77,7 @@ const SearchPage: { config: Config } = () => {
             </AtButton>
           )}
         </View>
-        {searchHistoryRecordList.map(item => (
+        {searchHistoryRecordList.map((item) => (
           <AtTag
             className="search-history-record-item"
             key={item}
@@ -94,7 +96,7 @@ const SearchPage: { config: Config } = () => {
 };
 
 SearchPage.config = {
-  navigationBarTitleText: "搜索商品"
+  navigationBarTitleText: "搜索商品",
 };
 
 export default SearchPage;

@@ -1,3 +1,4 @@
+import React from "react";
 import { Swiper, SwiperItem, Image } from "@tarojs/components";
 import { IBannerItem } from "../../interface";
 import "./index.scss";

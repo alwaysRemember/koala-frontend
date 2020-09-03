@@ -6,9 +6,10 @@ import {
   Swiper,
   SwiperItem
 } from "@tarojs/components";
+import React from "react";
 import { IBannerProps, IModuleListItem, EModuleSwitch } from "./interface";
 import "./index.scss";
-import { useState, useEffect } from "@tarojs/taro";
+import { useState, useEffect } from "react";
 const Banner = ({ video, bannerList }: IBannerProps) => {
   const [showModule, setShowModule] = useState<EModuleSwitch>(
     EModuleSwitch.VIDEO

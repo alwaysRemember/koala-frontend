@@ -1,101 +1,77 @@
-const path = require("path");
-
+/*
+ * @Author: Always
+ * @LastEditors: Always
+ * @Date: 2020-09-03 17:35:16
+ * @LastEditTime: 2020-09-03 17:48:52
+ * @FilePath: /koala-frontend/config/index.js
+ */
 const config = {
-  projectName: "koala-frontend",
-  date: "2020-6-19",
+  projectName: 'myApp',
+  date: '2020-9-3',
   designWidth: 750,
-  alias: {
-    "@": path.resolve(__dirname, "..", "src")
-  },
   deviceRatio: {
-    "640": 2.34 / 2,
-    "750": 1,
-    "828": 1.81 / 2
+    640: 2.34 / 2,
+    750: 1,
+    828: 1.81 / 2
   },
-  sourceRoot: "src",
-  outputRoot: "dist",
-  babel: {
-    sourceMap: true,
-    presets: [
-      [
-        "env",
-        {
-          modules: false
-        }
-      ]
+  sourceRoot: 'src',
+  outputRoot: 'dist',
+  plugins: [],
+  defineConstants: {
+  },
+  copy: {
+    patterns: [
     ],
-    plugins: [
-      "transform-decorators-legacy",
-      "transform-class-properties",
-      "transform-object-rest-spread",
-      [
-        "transform-runtime",
-        {
-          helpers: false,
-          polyfill: false,
-          regenerator: true,
-          moduleName: "babel-runtime"
-        }
-      ]
-    ]
+    options: {
+    }
   },
-  plugins: [
-    "@tarojs/plugin-less",
-    "@tarojs/plugin-terser",
-    "@tarojs/plugin-sass"
-  ],
-  defineConstants: {},
+  framework: 'react',
   mini: {
     postcss: {
-      autoprefixer: {
-        enable: true,
-        config: {
-          browsers: ["last 3 versions", "Android >= 4.1", "ios >= 8"]
-        }
-      },
       pxtransform: {
         enable: true,
-        config: {}
+        config: {
+
+        }
       },
       url: {
         enable: true,
         config: {
-          limit: 10240 // 设定转换尺寸上限
+          limit: 1024 // 设定转换尺寸上限
         }
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
         config: {
-          namingPattern: "module", // 转换模式，取值为 global/module
-          generateScopedName: "[name]__[local]___[hash:base64:5]"
+          namingPattern: 'module', // 转换模式，取值为 global/module
+          generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
     }
   },
   h5: {
-    publicPath: "/",
-    staticDirectory: "static",
+    publicPath: '/',
+    staticDirectory: 'static',
     postcss: {
       autoprefixer: {
         enable: true,
         config: {
-          browsers: ["last 3 versions", "Android >= 4.1", "ios >= 8"]
         }
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
         config: {
-          namingPattern: "module", // 转换模式，取值为 global/module
-          generateScopedName: "[name]__[local]___[hash:base64:5]"
+          namingPattern: 'module', // 转换模式，取值为 global/module
+          generateScopedName: '[name]__[local]___[hash:base64:5]'
         }
       }
     }
   }
-};
+}
 
-module.exports = function(merge) {
-  if (process.env.NODE_ENV === "development") {
-    return merge({}, config, require("./dev"));
+module.exports = function (merge) {
+  if (process.env.NODE_ENV === 'development') {
+    return merge({}, config, require('./dev'))
   }
-  return merge({}, config, require("./prod"));
-};
+  return merge({}, config, require('./prod'))
+}

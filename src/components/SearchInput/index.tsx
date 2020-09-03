@@ -1,4 +1,5 @@
-import Taro, { useState } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
+import React,{ useState } from "react";
 import { View } from "@tarojs/components";
 import { AtSearchBar } from "taro-ui";
 import "./index.scss";
@@ -7,7 +8,7 @@ import { ESearchHistoryRecordLocalKey } from "../../enums/EProduct";
 
 const SearchInput = ({
   isDisable = false,
-  searchConfirm
+  searchConfirm,
 }: ISearchInputProps) => {
   const [value, setValue] = useState<string>("");
 

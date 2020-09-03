@@ -2,19 +2,37 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-24 15:23:05
- * @LastEditTime: 2020-08-05 15:48:37
+ * @LastEditTime: 2020-09-03 18:27:44
  * @FilePath: /koala-frontend/src/store/index.ts
  */
 
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
-import { createLogger } from "redux-logger";
 import reducers from "./reducers";
 
-const middlewares = [thunkMiddleware, createLogger()];
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose
 
+const middlewares = [
+  thunkMiddleware
+]
+
+if (process.env.NODE_ENV === 'development' && process.env.TARO_ENV !== 'quickapp') {
+  middlewares.push(require('redux-logger').createLogger())
+}
+
+const enhancer = composeEnhancers(
+  applyMiddleware(...middlewares),
+  // other store enhancers if any
+  )
+
+  
 const create = () => {
-  const store = createStore(reducers, applyMiddleware(...middlewares));
+  const store = createStore(reducers, enhancer)
   return store;
 };
 

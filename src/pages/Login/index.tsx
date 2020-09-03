@@ -1,11 +1,10 @@
 import Taro, {
   Config,
   getSystemInfoSync,
-  useState,
-  useEffect,
   pxTransform,
-  login
+  login,
 } from "@tarojs/taro";
+import React,{ useState, useEffect } from "react";
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
 import logo from "../../images/global/logo.png";
@@ -14,7 +13,7 @@ import { ButtonProps } from "@tarojs/components/types/Button";
 import { BaseEventOrig } from "@tarojs/components/types/common";
 import { userLogin, updateUserPhone } from "../../api";
 import { IUserLoginParams } from "./interface";
-import { useDispatch, useSelector } from "@tarojs/redux";
+import { useDispatch, useMappedState } from "redux-react-hook";
 import { updateUserInfo } from "../../store/actions";
 import { showToast } from "../../utils/wxUtils";
 import { IReducers } from "src/store/reducers/interface";
@@ -22,13 +21,13 @@ import { appletHomePath } from "../../router";
 
 const TITLE_HEI: number = 44; // 标题高度
 
-const Login: { config: Config } = () => {
+const Login= () => {
   const [barHei, setBarHei] = useState<number>(0); // 顶部高度
   const [isNext, setIsNext] = useState<boolean>(false); // 是否进行下一步操作
 
   const dispatch = useDispatch();
 
-  const { userInfo } = useSelector<IReducers, IReducers>(state => state);
+  const { userInfo } = useMappedState<IReducers>((state) => state);
 
   /**
    * 获取用户信息
@@ -38,14 +37,14 @@ const Login: { config: Config } = () => {
     event: BaseEventOrig<ButtonProps.onGetUserInfoEventDetail>
   ) => {
     const {
-      detail: { userInfo, errMsg }
+      detail: { userInfo, errMsg },
     } = event;
     console.log(errMsg);
 
     // 判断是否同意授权
     if (errMsg !== "getUserInfo:ok") {
       showToast({
-        title: "您拒绝了授权！"
+        title: "您拒绝了授权！",
       });
       return;
     }
@@ -64,10 +63,10 @@ const Login: { config: Config } = () => {
         return;
       }
       await showToast({
-        title: "登录成功"
+        title: "登录成功",
       });
       Taro.switchTab({
-        url: appletHomePath()
+        url: appletHomePath(),
       });
     } catch (e) {}
   };
@@ -77,13 +76,13 @@ const Login: { config: Config } = () => {
    * @param param0
    */
   const getPhoneNumber = async ({
-    detail: { errMsg, iv, encryptedData }
+    detail: { errMsg, iv, encryptedData },
   }: {
     detail: ButtonProps.onGetPhoneNumberEventDetail;
   }) => {
     if (errMsg !== "getPhoneNumber:ok") {
       showToast({
-        title: "获取手机号失败，请稍后重试"
+        title: "获取手机号失败，请稍后重试",
       });
       return;
     }
@@ -91,21 +90,21 @@ const Login: { config: Config } = () => {
     try {
       const { phone } = await updateUserPhone({
         iv,
-        encryptedData
+        encryptedData,
       });
       // 更新redux
       dispatch(
         updateUserInfo(
           Object.assign({}, userInfo, {
-            phone
+            phone,
           })
         )
       );
       await showToast({
-        title: "登录成功"
+        title: "登录成功",
       });
       Taro.switchTab({
-        url: "/pages/Home/index"
+        url: "/pages/Home/index",
       });
     } catch (e) {}
   };
@@ -119,7 +118,7 @@ const Login: { config: Config } = () => {
     <View
       className="login-wrapper"
       style={{
-        paddingTop: pxTransform(barHei)
+        paddingTop: pxTransform(barHei),
       }}
     >
       <View className="login-con">
@@ -149,9 +148,5 @@ const Login: { config: Config } = () => {
       </View>
     </View>
   );
-};
-Login.config = {
-  navigationBarTitleText: "登录",
-  navigationStyle: "custom"
 };
 export default Login;

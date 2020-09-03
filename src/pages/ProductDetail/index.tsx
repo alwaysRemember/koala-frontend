@@ -1,7 +1,8 @@
-import Taro, { useRouter, useState, useEffect } from "@tarojs/taro";
+import Taro, { useRouter } from "@tarojs/taro";
+import React, { useState, useEffect } from "react";
 import { AtTabs, AtTabsPane } from "taro-ui";
 import { View, Text } from "@tarojs/components";
-import { IProductDetailResponse, IProductConfig, ITabItem } from "./interface";
+import { IProductDetailResponse, IProductConfig } from "./interface";
 import { EProductStatus } from "../../enums/EProduct";
 import { getProductDetail } from "../../api/product";
 import { showToast } from "../../utils/wxUtils";
@@ -13,14 +14,14 @@ import ProductParameter from "./components/ProductParameter";
 import ProductContent from "./components/ProductContent";
 const ProductDetail = () => {
   let {
-    params: { productId }
+    params: { productId },
   } = useRouter();
   productId = "9d3e5e9a-dc99-47ce-8520-63c4c937b44d";
   const [data, setData] = useState<IProductDetailResponse>({
     productId: "",
     productVideo: {
       id: "",
-      url: ""
+      url: "",
     },
     productBanner: [],
     productAmount: 0,
@@ -34,13 +35,13 @@ const ProductDetail = () => {
     productDeliveryCity: "", // 发货地点
     productSales: 0, // 产品销量
     productShipping: 0,
-    productFavorites: false
+    productFavorites: false,
   });
 
   const [productAmount, setProductAmount] = useState<string>("235.99"); // 显示在页面中的金额，可能为区间
   const [
     productConfigCategoriesList,
-    setProductConfigCategoriesList
+    setProductConfigCategoriesList,
   ] = useState<Array<string>>([]); // 产品配置中的分类
 
   const [currentTab, setCurrentTab] = useState<number>(0); // 当前选中的标签页
@@ -49,6 +50,7 @@ const ProductDetail = () => {
 
   const getData = async () => {
     try {
+      if (!productId) return;
       const data = await getProductDetail({ productId });
       setData(data);
     } catch (e) {}
@@ -61,7 +63,7 @@ const ProductDetail = () => {
   const _transferProductAmount = (type: "min" | "max"): string => {
     const { productConfigList, productAmount } = data;
     let currentData: IProductConfig = productConfigList[0];
-    productConfigList.forEach(item => {
+    productConfigList.forEach((item) => {
       const result: boolean =
         type === "min"
           ? item.amount < currentData.amount
@@ -78,7 +80,7 @@ const ProductDetail = () => {
     const list: Array<string> = [];
     data.productConfigList.forEach(({ categoryName }) => {
       const result: string | undefined = list.find(
-        value => value === categoryName
+        (value) => value === categoryName
       );
       if (!result) list.push(categoryName);
     });
@@ -88,13 +90,13 @@ const ProductDetail = () => {
   useEffect(() => {
     (productId && getData()) ||
       showToast({
-        title: "产品ID为空"
+        title: "产品ID为空",
       });
   }, [productId]);
 
   useEffect(() => {
     Taro.setNavigationBarTitle({
-      title: data.productName
+      title: data.productName,
     });
     // 设置显示的产品金额
     const { productConfigList, productAmount } = data;
@@ -148,7 +150,7 @@ const ProductDetail = () => {
       <AtTabs
         tabList={[{ title: "商品详情" }, { title: "商品参数" }]}
         current={currentTab}
-        onClick={value => setCurrentTab(value)}
+        onClick={(value) => setCurrentTab(value)}
       >
         <AtTabsPane current={currentTab} index={0}>
           <ProductContent data={data.productContent} />

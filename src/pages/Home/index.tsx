@@ -1,5 +1,7 @@
-import Taro, { useState, useEffect, usePullDownRefresh } from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
+import Taro, { usePullDownRefresh } from "@tarojs/taro";
+import React from "react";
+import { useState, useEffect } from "react";
+import { View } from "@tarojs/components";
 import Banner from "./components/Banner";
 import Classification from "./components/Classification";
 import "./index.scss";
@@ -15,7 +17,7 @@ const Home = () => {
     bannerList: [],
     showCategoriesMore: true,
     categoriesList: [],
-    featuredList: []
+    featuredList: [],
   });
 
   const getData = async (isPullDownRefresh: boolean = false) => {
@@ -43,7 +45,7 @@ const Home = () => {
           <View
             onClick={() => {
               Taro.navigateTo({
-                url: "/pages/SearchPage/index"
+                url: "/pages/SearchPage/index",
               });
             }}
           >
@@ -64,13 +66,6 @@ const Home = () => {
       )}
     </View>
   );
-};
-
-Home.config = {
-  navigationBarTitleText: "首页",
-  navigationBarBackgroundColor: "#e93b3d",
-  navigationBarTextStyle: "white",
-  enablePullDownRefresh: true
 };
 
 export default Home;

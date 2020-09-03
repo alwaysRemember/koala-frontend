@@ -1,3 +1,5 @@
+import React from "react";
+import Taro from "@tarojs/taro";
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
 import "./index.scss";

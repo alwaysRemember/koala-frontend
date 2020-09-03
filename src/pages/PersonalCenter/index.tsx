@@ -1,7 +1,8 @@
 import Taro from "@tarojs/taro";
+import React from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { AtAvatar, AtBadge, AtList, AtListItem, AtButton } from "taro-ui";
-import { useSelector } from "@tarojs/redux";
+import { useMappedState } from "redux-react-hook";
 import { IReducers } from "src/store/reducers/interface";
 import { IFrontUserLoginResponse } from "../Login/interface";
 import completed from "../../images/personalCenter/completed.png";
@@ -13,7 +14,7 @@ import { menuList } from "./data";
 import { IMenuItem } from "./interface";
 
 const PersonalCenter = () => {
-  let { userInfo } = useSelector<IReducers, IReducers>(state => state);
+  let { userInfo } = useMappedState<IReducers>(state => state);
   userInfo = userInfo as IFrontUserLoginResponse;
 
   /**

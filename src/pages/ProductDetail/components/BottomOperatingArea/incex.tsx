@@ -1,4 +1,5 @@
-import Taro, { useState } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
+import React from "react";
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
 import { AtIcon } from "taro-ui";
