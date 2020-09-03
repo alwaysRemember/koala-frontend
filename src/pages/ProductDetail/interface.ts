@@ -4,7 +4,7 @@ import { EProductStatus } from "src/enums/EProduct";
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-09-03 15:11:59
+ * @LastEditTime: 2020-09-03 16:23:01
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 

@@ -1,6 +1,7 @@
 import Taro, { useRouter, useState, useEffect } from "@tarojs/taro";
+import { AtTabs, AtTabsPane } from "taro-ui";
 import { View, Text } from "@tarojs/components";
-import { IProductDetailResponse, IProductConfig } from "./interface";
+import { IProductDetailResponse, IProductConfig, ITabItem } from "./interface";
 import { EProductStatus } from "../../enums/EProduct";
 import { getProductDetail } from "../../api/product";
 import { showToast } from "../../utils/wxUtils";
@@ -8,6 +9,8 @@ import Banner from "./components/Banner";
 import "./index.scss";
 import { transferAmount } from "../../utils";
 import BottomOperatingArea from "./components/BottomOperatingArea/incex";
+import ProductParameter from "./components/ProductParameter";
+import ProductContent from "./components/ProductContent";
 const ProductDetail = () => {
   let {
     params: { productId }
@@ -40,6 +43,7 @@ const ProductDetail = () => {
     setProductConfigCategoriesList
   ] = useState<Array<string>>([]); // 产品配置中的分类
 
+  const [currentTab, setCurrentTab] = useState<number>(0); // 当前选中的标签页
   /* 提交参数 */
   const [productConfig, setProductConfig] = useState<undefined | number>(); // 可选参数，产品配置,当没有配置要选的时候为undefined
 
@@ -140,6 +144,19 @@ const ProductDetail = () => {
           </View>
         )}
       </View>
+      {/* tabs页面 */}
+      <AtTabs
+        tabList={[{ title: "商品详情" }, { title: "商品参数" }]}
+        current={currentTab}
+        onClick={value => setCurrentTab(value)}
+      >
+        <AtTabsPane current={currentTab} index={0}>
+          <ProductContent data={data.productContent} />
+        </AtTabsPane>
+        <AtTabsPane current={currentTab} index={1}>
+          <ProductParameter />
+        </AtTabsPane>
+      </AtTabs>
 
       {/* 底部操作区 */}
       <BottomOperatingArea favorites={data.productFavorites} />
