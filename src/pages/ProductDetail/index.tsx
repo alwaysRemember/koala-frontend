@@ -7,8 +7,8 @@ import { EProductStatus } from "../../enums/EProduct";
 import { getProductDetail } from "../../api/product";
 import { showToast } from "../../utils/wxUtils";
 import Banner from "./components/Banner";
-import "./index.scss";
-import { transferAmount } from "../../utils";
+import styles from "./index.module.scss";
+import { transferAmount, setClassName } from "../../utils";
 import BottomOperatingArea from "./components/BottomOperatingArea/incex";
 import ProductParameter from "./components/ProductParameter";
 import ProductContent from "./components/ProductContent";
@@ -114,35 +114,42 @@ const ProductDetail = () => {
     setProductConfigCategoriesList(_getproductConfigCategoriesList());
   }, [data]);
   return (
-    <View className="detail-wrapper">
+    <View className={styles["detail-wrapper"]}>
       {/* banner */}
       <Banner video={data.productVideo} bannerList={data.productBanner} />
       {/* 主要产品介绍 */}
-      <View className="product-info">
-        <Text className="product-amount">¥ {productAmount}</Text>
-        <Text className="product-name">{data.productName}</Text>
-        <View className="delivery-info">
-          <Text className="delivery-info-item">
-            <Text className="label">发货</Text> : {data.productDeliveryCity}
+      <View className={styles["product-info"]}>
+        <Text className={styles["product-amount"]}>¥ {productAmount}</Text>
+        <Text className={styles["product-name"]}>{data.productName}</Text>
+        <View className={styles["delivery-info"]}>
+          <Text className={styles["delivery-info-item"]}>
+            <Text className={styles["label"]}>发货</Text> :{" "}
+            {data.productDeliveryCity}
           </Text>
-          <Text className="delivery-info-item">
-            <Text className="label">快递费</Text> : ¥
+          <Text className={styles["delivery-info-item"]}>
+            <Text className={styles["label"]}>快递费</Text> : ¥
             {transferAmount(data.productShipping, "yuan")}元
           </Text>
-          <Text className="delivery-info-item">
-            <Text className="label">销量</Text> : {data.productSales}
+          <Text className={styles["delivery-info-item"]}>
+            <Text className={styles["label"]}>销量</Text> : {data.productSales}
           </Text>
         </View>
         {/* 选择规格 */}
         {data.productConfigList.length && (
-          <View className="select-product-config">
-            <Text className="tips">
+          <View className={styles["select-product-config"]}>
+            <Text className={styles["tips"]}>
               请选择
               {productConfigCategoriesList.map((value, index) => (
                 <Text key={index}> {value}</Text>
               ))}
             </Text>
-            <View className="at-icon at-icon-chevron-right icon" />
+            <View
+              className={setClassName([
+                "at-icon",
+                "at-icon-chevron-right",
+                styles["icon"],
+              ])}
+            />
           </View>
         )}
       </View>

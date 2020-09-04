@@ -4,12 +4,13 @@ import {
   Text,
   Image,
   Swiper,
-  SwiperItem
+  SwiperItem,
 } from "@tarojs/components";
 import React from "react";
 import { IBannerProps, IModuleListItem, EModuleSwitch } from "./interface";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { useState, useEffect } from "react";
+import { setClassName } from "../../../../utils";
 const Banner = ({ video, bannerList }: IBannerProps) => {
   const [showModule, setShowModule] = useState<EModuleSwitch>(
     EModuleSwitch.VIDEO
@@ -24,7 +25,7 @@ const Banner = ({ video, bannerList }: IBannerProps) => {
         click: () => {
           setShowModule(EModuleSwitch.VIDEO);
         },
-        status: !!video.url
+        status: !!video.url,
       },
       {
         title: "图片",
@@ -32,8 +33,8 @@ const Banner = ({ video, bannerList }: IBannerProps) => {
         click: () => {
           setShowModule(EModuleSwitch.IMG);
         },
-        status: !!bannerList.length
-      }
+        status: !!bannerList.length,
+      },
     ]);
   }, [video, bannerList]);
 
@@ -42,32 +43,35 @@ const Banner = ({ video, bannerList }: IBannerProps) => {
   }, [video]);
 
   return (
-    <View className="banner-wapper">
+    <View className={styles["banner-wapper"]}>
       {/* video */}
       {showModule === EModuleSwitch.VIDEO ? (
-        <View className="video-wrapper">
-          <Video src={video.url} className="video" />
+        <View className={styles["video-wrapper"]}>
+          <Video src={video.url} className={styles["video"]} />
         </View>
       ) : (
         <Swiper
           circular
           autoplay
           interval={3000}
-          className="img-wrapper"
+          className={styles["img-wrapper"]}
         >
-          {bannerList.map(item => (
-            <SwiperItem key={item.id} className="banner-item">
-              <Image src={item.url} className="banner-img" />
+          {bannerList.map((item) => (
+            <SwiperItem key={item.id} className={styles["banner-item"]}>
+              <Image src={item.url} className={styles["banner-img"]} />
             </SwiperItem>
           ))}
         </Swiper>
       )}
 
       {/* 模块切换 */}
-      <View className="module-switch">
-        {moduleList.map(item => (
+      <View className={styles["module-switch"]}>
+        {moduleList.map((item) => (
           <View
-            className={`button ${item.type === showModule ? "on" : ""}`}
+            className={setClassName([
+              styles["button"],
+              (item.type === showModule && styles["on"]) || "",
+            ])}
             key={item.title}
             onClick={item.click}
           >

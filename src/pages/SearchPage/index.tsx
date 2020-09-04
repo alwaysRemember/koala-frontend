@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { View, Text } from "@tarojs/components";
 import SearchInput from "../../components/SearchInput";
 import { AtTag, AtButton } from "taro-ui";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { ESearchHistoryRecordLocalKey } from "../../enums/EProduct";
 
 const SearchPage: { config: Config } = () => {
@@ -60,18 +60,19 @@ const SearchPage: { config: Config } = () => {
   }, []);
 
   return (
-    <View className="search-page-wrapper">
+    <View className={styles["search-page-wrapper"]}>
       {/* 搜索组件 */}
       <SearchInput searchConfirm={searchConfirm} />
       {/* 历史记录 */}
-      <View className="search-history-record">
-        <View className="search-history-record-title">
-          <Text className="title">历史记录</Text>
+      <View className={styles["search-history-record"]}>
+        <View className={styles["search-history-record-title"]}>
+          <Text className={styles["title"]}>历史记录</Text>
           {!!searchHistoryRecordList.length && (
             <AtButton
               size="small"
               onClick={clearSearchHistoryRecord}
               type="primary"
+              className={styles["clear"]}
             >
               清除
             </AtButton>
@@ -79,7 +80,7 @@ const SearchPage: { config: Config } = () => {
         </View>
         {searchHistoryRecordList.map((item) => (
           <AtTag
-            className="search-history-record-item"
+            className={styles["search-history-record-item"]}
             key={item}
             type="primaray"
             size="small"

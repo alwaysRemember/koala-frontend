@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { View } from "@tarojs/components";
 import Banner from "./components/Banner";
 import Classification from "./components/Classification";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { IHomeData } from "./interface";
 import Featured from "./components/Featured";
 import HomeSkeleton from "./components/HomeSkeleton";
@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <View>
       {showPage ? (
-        <View className="home-wrapper">
+        <View className={styles["home-wrapper"]}>
           {/* 搜索 */}
           {/* TODO 点击搜索 */}
           <View

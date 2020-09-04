@@ -4,11 +4,11 @@ import Taro, {
   pxTransform,
   login,
 } from "@tarojs/taro";
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
 import logo from "../../images/global/logo.png";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { ButtonProps } from "@tarojs/components/types/Button";
 import { BaseEventOrig } from "@tarojs/components/types/common";
 import { userLogin, updateUserPhone } from "../../api";
@@ -21,7 +21,7 @@ import { appletHomePath } from "../../router";
 
 const TITLE_HEI: number = 44; // 标题高度
 
-const Login= () => {
+const Login = () => {
   const [barHei, setBarHei] = useState<number>(0); // 顶部高度
   const [isNext, setIsNext] = useState<boolean>(false); // 是否进行下一步操作
 
@@ -116,20 +116,20 @@ const Login= () => {
   }, []);
   return (
     <View
-      className="login-wrapper"
+      className={styles["login-wrapper"]}
       style={{
         paddingTop: pxTransform(barHei),
       }}
     >
-      <View className="login-con">
-        <Image src={logo} className="logo" mode="aspectFit" />
-        <Text className="login-msg">
+      <View className={styles["login-con"]}>
+        <Image src={logo} className={styles["logo"]} mode="aspectFit" />
+        <Text className={styles["login-msg"]}>
           您好，使用小程序需要授权微信登录以及手机号!
         </Text>
         {isNext ? (
           <AtButton
             type="primary"
-            className="login"
+            className={styles["login"]}
             openType="getPhoneNumber"
             onGetPhoneNumber={getPhoneNumber}
           >
@@ -138,7 +138,7 @@ const Login= () => {
         ) : (
           <AtButton
             type="primary"
-            className="login"
+            className={styles["login"]}
             openType="getUserInfo"
             onGetUserInfo={getUserInfo}
           >

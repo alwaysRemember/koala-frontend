@@ -9,7 +9,7 @@ import completed from "../../images/personalCenter/completed.png";
 import pendingPayment from "../../images/personalCenter/pending-payment.png";
 import toBeDelivered from "../../images/personalCenter/to_be_delivered.png";
 import toBeReceived from "../../images/personalCenter/to_be_received.png";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { menuList } from "./data";
 import { IMenuItem } from "./interface";
 
@@ -26,56 +26,56 @@ const PersonalCenter = () => {
   };
 
   return (
-    <View className="user-wrapper">
+    <View className={styles["user-wrapper"]}>
       {/* 头像部分 */}
-      <View className="user-avatar-wrpper">
+      <View className={styles["user-avatar-wrpper"]}>
         <AtAvatar circle image={userInfo.avatarUrl} />
-        <View className="user-info">
-          <Text className="name">{userInfo.nickName}</Text>
-          <Text className="address">
+        <View className={styles["user-info"]}>
+          <Text className={styles["name"]}>{userInfo.nickName}</Text>
+          <Text className={styles["address"]}>
             {userInfo.country} {userInfo.province}
           </Text>
         </View>
       </View>
       {/* 订单部分 */}
-      <View className="order">
-        <View className="order-title">
-          <Text className="label">我的订单</Text>
-          <View className="view-order">
+      <View className={styles["order"]}>
+        <View className={styles["order-title"]}>
+          <Text className={styles["label"]}>我的订单</Text>
+          <View className={styles["view-order"]}>
             <Text>查看全部订单</Text>
-            <View className="at-icon at-icon-chevron-right" />
+            <View className={styles["at-icon at-icon-chevron-right"]} />
           </View>
         </View>
-        <View className="order-status-list">
+        <View className={styles["order-status-list"]}>
           {/* TODO 菜单点击 */}
-          <View className="order-status-item">
+          <View className={styles["order-status-item"]}>
             <AtBadge value={10}>
-              <Image src={pendingPayment} className="icon" />
+              <Image src={pendingPayment} className={styles["icon"]} />
             </AtBadge>
             <Text>待付款</Text>
           </View>
-          <View className="order-status-item">
+          <View className={styles["order-status-item"]}>
             <AtBadge value={0}>
-              <Image src={toBeDelivered} className="icon" />
+              <Image src={toBeDelivered} className={styles["icon"]} />
             </AtBadge>
             <Text>待发货</Text>
           </View>
-          <View className="order-status-item">
+          <View className={styles["order-status-item"]}>
             <AtBadge value="">
-              <Image src={toBeReceived} className="icon" />
+              <Image src={toBeReceived} className={styles["icon"]} />
             </AtBadge>
             <Text>待收货</Text>
           </View>
-          <View className="order-status-item">
+          <View className={styles["order-status-item"]}>
             <AtBadge value="">
-              <Image src={completed} className="icon" />
+              <Image src={completed} className={styles["icon"]} />
             </AtBadge>
             <Text>已完成</Text>
           </View>
         </View>
       </View>
       {/* 菜单部分 */}
-      <AtList className="menu-list" hasBorder={false}>
+      <AtList className={styles["menu-list"]} hasBorder={false}>
         {menuList.map((item: IMenuItem) => (
           <AtListItem
             title={item.label}
@@ -87,7 +87,7 @@ const PersonalCenter = () => {
       </AtList>
 
       {/* 联系客服 */}
-      <AtButton type="primary" openType="contact" className="contact">
+      <AtButton type="primary" openType="contact" className={styles["contact"]}>
         联系客服
       </AtButton>
     </View>

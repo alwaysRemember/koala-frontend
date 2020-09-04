@@ -1,7 +1,7 @@
 import React from "react";
 import { Swiper, SwiperItem, Image } from "@tarojs/components";
 import { IBannerItem } from "../../interface";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { EBannerTypeEnum } from "./enums";
 import { productDetailPath } from "../../../../router";
 
@@ -27,7 +27,7 @@ const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
   };
   return (
     <Swiper
-      className="banner-wrapper"
+      className={styles["banner-wrapper"]}
       indicatorDots
       circular
       autoplay
@@ -37,10 +37,10 @@ const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
     >
       {bannerList &&
         bannerList.map((data: IBannerItem) => (
-          <SwiperItem key={data.id} className="banner-item">
+          <SwiperItem key={data.id} className={styles["banner-item"]}>
             <Image
               src={data.imgUrl}
-              className="banner-img"
+              className={styles["banner-img"]}
               onClick={() => bannerClick(data)}
             />
           </SwiperItem>

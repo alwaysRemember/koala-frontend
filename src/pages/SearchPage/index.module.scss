@@ -12,6 +12,9 @@
       flex-direction: row;
       justify-content: space-between;
       margin-top: 20px;
+      .clear{
+        margin: 0;
+      }
     }
     .search-history-record-item {
       margin: 10px;

@@ -3,7 +3,7 @@ import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import { AtAvatar, AtIcon } from "taro-ui";
 import { ICategoriesItem } from "../../interface";
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const Classification = ({
   categoriesList,
@@ -21,11 +21,11 @@ const Classification = ({
     // TODO 菜单点击
   };
   return (
-    <View className="classification-wrapper">
+    <View className={styles["classification-wrapper"]}>
       {categoriesList &&
         categoriesList.map((item: ICategoriesItem) => (
           <View
-            className="classification-item"
+            className={styles["classification-item"]}
             key={item.id}
             onClick={() => menuClick(item)}
           >
@@ -33,20 +33,20 @@ const Classification = ({
               size="small"
               circle
               image={item.categoriesIconUrl}
-              className="icon"
+              className={styles["icon"]}
             />
-            <Text className="name">{item.categoriesName}</Text>
+            <Text className={styles["name"]}>{item.categoriesName}</Text>
           </View>
         ))}
 
       {/* 是否显示更多分类项 */}
       {showCategoriesMore && (
-        <View className="classification-item">
-          <View className="icon">
+        <View className={styles["classification-item"]}>
+          <View className={styles["icon"]}>
             <AtIcon value="list" size="24" color="#fff" />
           </View>
           <Text
-            className="name"
+            className={styles["name"]}
             onClick={() => {
               // TODO 更多点击
             }}

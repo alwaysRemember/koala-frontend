@@ -2,7 +2,7 @@ import React from "react";
 import Taro from "@tarojs/taro";
 import { AtButton } from "taro-ui";
 import { View, Text, Image } from "@tarojs/components";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { IFeaturedItem } from "../../interface";
 import { productDetailPath } from "../../../../router";
 
@@ -17,23 +17,23 @@ const Featured = ({ featuredList }: { featuredList: Array<IFeaturedItem> }) => {
     });
   };
   return (
-    <View className="featured-wrapper">
-      <Text className="featured-title">精选推荐</Text>
+    <View className={styles["featured-wrapper"]}>
+      <Text className={styles["featured-title"]}>精选推荐</Text>
       {featuredList &&
         featuredList.map((item: IFeaturedItem) => (
           <View
-            className="featured-product-item"
+            className={styles["featured-product-item"]}
             key={item.id}
             onClick={() => productClick(item.id)}
           >
-            <Image src={item.logo} lazyLoad={true} className="logo" />
-            <View className="featured-product-info">
-              <Text className="prodcut-name">{item.name}</Text>
-              <Text className="product-introduction">{item.introduction}</Text>
-              <View className="product-amount-wrapper">
-                <View className="product-amount">
-                  <Text className="amount-label">限时价 </Text>
-                  <Text className="amount">¥{item.amount / 100}</Text>
+            <Image src={item.logo} lazyLoad={true} className={styles["logo"]} />
+            <View className={styles["featured-product-info"]}>
+              <Text className={styles["prodcut-name"]}>{item.name}</Text>
+              <Text className={styles["product-introduction"]}>{item.introduction}</Text>
+              <View className={styles["product-amount-wrapper"]}>
+                <View className={styles["product-amount"]}>
+                  <Text className={styles["amount-label"]}>限时价 </Text>
+                  <Text className={styles["amount"]}>¥{item.amount / 100}</Text>
                 </View>
                 <AtButton type="primary" size="small" circle>
                   立即抢购

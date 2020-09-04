@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:35:16
- * @LastEditTime: 2020-09-03 17:48:52
+ * @LastEditTime: 2020-09-03 19:00:12
  * @FilePath: /koala-frontend/config/index.js
  */
 const config = {
@@ -41,7 +41,7 @@ const config = {
         }
       },
       cssModules: {
-        enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+        enable: true, // 默认为 false，如需使用 css modules 功能，则设为 true
         config: {
           namingPattern: 'module', // 转换模式，取值为 global/module
           generateScopedName: '[name]__[local]___[hash:base64:5]'
