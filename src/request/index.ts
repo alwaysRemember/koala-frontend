@@ -2,19 +2,20 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-08-26 15:19:26
+ * @LastEditTime: 2020-09-04 16:47:10
  * @FilePath: /koala-frontend/src/request/index.ts
  */
-import Taro from "@tarojs/taro";
-import { IRequestOptions, TContentType, IResponse } from "./interface";
-import codeType from "./codeType";
-import { showToast } from "../utils/wxUtils";
-import store from "../store";
+import Taro from '@tarojs/taro';
+import { IRequestOptions, TContentType, IResponse } from './interface';
+import codeType from './codeType';
+import { showToast } from '../utils/wxUtils';
+import store from '../store';
 
-const mockUrl = "http://192.168.50.198:3721";
-const serverTestUrl = "http://yaer.guyubao.com";
+const mockUrl = 'http://192.168.50.199:3721';
+const serverTestUrl = 'http://yaer.guyubao.com';
 
-const host = process.env.NODE_ENV === "development" ? serverTestUrl : serverTestUrl;
+const host =
+  process.env.NODE_ENV === 'development' ? serverTestUrl : serverTestUrl;
 
 /**
  * 设置请求类型
@@ -23,17 +24,17 @@ const host = process.env.NODE_ENV === "development" ? serverTestUrl : serverTest
 const _setContentType = (ct: TContentType): string => {
   let contentType: string;
   switch (ct) {
-    case "form":
-      contentType = "application/x-www-form-urlencoded";
+    case 'form':
+      contentType = 'application/x-www-form-urlencoded';
       break;
-    case "formData":
-      contentType = "multipart/form-data";
+    case 'formData':
+      contentType = 'multipart/form-data';
       break;
-    case "json":
-      contentType = "application/json";
+    case 'json':
+      contentType = 'application/json';
       break;
     default:
-      contentType = "application/json";
+      contentType = 'application/json';
   }
   return contentType;
 };
@@ -46,13 +47,13 @@ export const request = <T>({
   url,
   params,
   method,
-  contentType = "json",
-  showLoading = true
+  contentType = 'json',
+  showLoading = true,
 }: IRequestOptions): Promise<T> => {
   showLoading &&
     Taro.showLoading({
-      title: "请稍等...",
-      mask: true
+      title: '请稍等...',
+      mask: true,
     });
   return new Promise<T>(async (res, rej) => {
     try {
@@ -62,12 +63,12 @@ export const request = <T>({
         data: params,
         method,
         header: {
-          "content-type": _setContentType(contentType),
-          openid: store.getState().userInfo.openid
-        }
+          'content-type': _setContentType(contentType),
+          openid: store.getState().userInfo.openid,
+        },
       });
       // 判断请求code是否为200
-      if (result.statusCode !== 200) throw new Error("服务器出错，请稍后重试");
+      if (result.statusCode !== 200) throw new Error('服务器出错，请稍后重试');
 
       // 获取请求结果
       const { data } = await result;
@@ -76,7 +77,7 @@ export const request = <T>({
       res(data.data);
     } catch (e) {
       await showToast({
-        title: (e.message && e.message) || "服务器出错，请稍后重试"
+        title: (e.message && e.message) || '服务器出错，请稍后重试',
       });
       rej();
     } finally {

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build:weapp": "taro build --type weapp",
-    "dev:weapp": "taro build --type weapp --watch",
+    "dev:weapp": " taro build --type weapp --watch",
     "mock": "mocker ./mock"
   },
   "author": "always",

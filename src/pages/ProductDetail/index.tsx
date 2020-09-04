@@ -1,44 +1,44 @@
-import Taro, { useRouter } from "@tarojs/taro";
-import React, { useState, useEffect } from "react";
-import { AtTabs, AtTabsPane } from "taro-ui";
-import { View, Text } from "@tarojs/components";
-import { IProductDetailResponse, IProductConfig } from "./interface";
-import { EProductStatus } from "../../enums/EProduct";
-import { getProductDetail } from "../../api/product";
-import { showToast } from "../../utils/wxUtils";
-import Banner from "./components/Banner";
-import styles from "./index.module.scss";
-import { transferAmount, setClassName } from "../../utils";
-import BottomOperatingArea from "./components/BottomOperatingArea/incex";
-import ProductParameter from "./components/ProductParameter";
-import ProductContent from "./components/ProductContent";
+import Taro, { useRouter } from '@tarojs/taro';
+import React, { useState, useEffect } from 'react';
+import { AtTabs, AtTabsPane } from 'taro-ui';
+import { View, Text } from '@tarojs/components';
+import { IProductDetailResponse, IProductConfig } from './interface';
+import { EProductStatus } from '../../enums/EProduct';
+import { getProductDetail } from '../../api/product';
+import { showToast } from '../../utils/wxUtils';
+import Banner from './components/Banner';
+import styles from './index.module.scss';
+import { transferAmount, setClassName } from '../../utils';
+import BottomOperatingArea from './components/BottomOperatingArea/incex';
+import ProductParameter from './components/ProductParameter';
+import ProductContent from './components/ProductContent';
 const ProductDetail = () => {
   let {
     params: { productId },
   } = useRouter();
-  productId = "9d3e5e9a-dc99-47ce-8520-63c4c937b44d";
+  productId = '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
   const [data, setData] = useState<IProductDetailResponse>({
-    productId: "",
+    productId: '',
     productVideo: {
-      id: "",
-      url: "",
+      id: '',
+      url: '',
     },
     productBanner: [],
     productAmount: 0,
-    productName: "",
+    productName: '',
     productStatus: EProductStatus.PUT_ON_SHELF,
     productType: true, // 是否为7天无理由退款商品
-    productBrief: "", // 产品简介
-    productContent: "", // 产品内容介绍
+    productBrief: '', // 产品简介
+    productContent: '<p>123</p>', // 产品内容介绍
     productParameter: [], // 产品参数
     productConfigList: [], // 产品配置
-    productDeliveryCity: "", // 发货地点
+    productDeliveryCity: '', // 发货地点
     productSales: 0, // 产品销量
     productShipping: 0,
     productFavorites: false,
   });
 
-  const [productAmount, setProductAmount] = useState<string>("235.99"); // 显示在页面中的金额，可能为区间
+  const [productAmount, setProductAmount] = useState<string>('235.99'); // 显示在页面中的金额，可能为区间
   const [
     productConfigCategoriesList,
     setProductConfigCategoriesList,
@@ -47,7 +47,6 @@ const ProductDetail = () => {
   const [currentTab, setCurrentTab] = useState<number>(0); // 当前选中的标签页
   /* 提交参数 */
   const [productConfig, setProductConfig] = useState<undefined | number>(); // 可选参数，产品配置,当没有配置要选的时候为undefined
-
   const getData = async () => {
     try {
       if (!productId) return;
@@ -60,17 +59,17 @@ const ProductDetail = () => {
    * 根据产品配置转换为产品金额
    * @param type  取最小值还是最大值
    */
-  const _transferProductAmount = (type: "min" | "max"): string => {
+  const _transferProductAmount = (type: 'min' | 'max'): string => {
     const { productConfigList, productAmount } = data;
     let currentData: IProductConfig = productConfigList[0];
     productConfigList.forEach((item) => {
       const result: boolean =
-        type === "min"
+        type === 'min'
           ? item.amount < currentData.amount
           : item.amount > currentData.amount;
       if (result) currentData = item;
     });
-    return transferAmount(currentData.amount + productAmount, "yuan") as string;
+    return transferAmount(currentData.amount + productAmount, 'yuan') as string;
   };
 
   /**
@@ -80,7 +79,7 @@ const ProductDetail = () => {
     const list: Array<string> = [];
     data.productConfigList.forEach(({ categoryName }) => {
       const result: string | undefined = list.find(
-        (value) => value === categoryName
+        (value) => value === categoryName,
       );
       if (!result) list.push(categoryName);
     });
@@ -90,7 +89,7 @@ const ProductDetail = () => {
   useEffect(() => {
     (productId && getData()) ||
       showToast({
-        title: "产品ID为空",
+        title: '产品ID为空',
       });
   }, [productId]);
 
@@ -104,7 +103,7 @@ const ProductDetail = () => {
     // 设置显示的产品金额
     if (productConfigList.length) {
       setProductAmount(
-        `${_transferProductAmount("min")}-${_transferProductAmount("max")}`
+        `${_transferProductAmount('min')}-${_transferProductAmount('max')}`,
       );
     } else {
       setProductAmount(String(productAmount));
@@ -114,30 +113,30 @@ const ProductDetail = () => {
     setProductConfigCategoriesList(_getproductConfigCategoriesList());
   }, [data]);
   return (
-    <View className={styles["detail-wrapper"]}>
+    <View className={styles['detail-wrapper']}>
       {/* banner */}
       <Banner video={data.productVideo} bannerList={data.productBanner} />
       {/* 主要产品介绍 */}
-      <View className={styles["product-info"]}>
-        <Text className={styles["product-amount"]}>¥ {productAmount}</Text>
-        <Text className={styles["product-name"]}>{data.productName}</Text>
-        <View className={styles["delivery-info"]}>
-          <Text className={styles["delivery-info-item"]}>
-            <Text className={styles["label"]}>发货</Text> :{" "}
+      <View className={styles['product-info']}>
+        <Text className={styles['product-amount']}>¥ {productAmount}</Text>
+        <Text className={styles['product-name']}>{data.productName}</Text>
+        <View className={styles['delivery-info']}>
+          <Text className={styles['delivery-info-item']}>
+            <Text className={styles['label']}>发货</Text> :{' '}
             {data.productDeliveryCity}
           </Text>
-          <Text className={styles["delivery-info-item"]}>
-            <Text className={styles["label"]}>快递费</Text> : ¥
-            {transferAmount(data.productShipping, "yuan")}元
+          <Text className={styles['delivery-info-item']}>
+            <Text className={styles['label']}>快递费</Text> : ¥
+            {transferAmount(data.productShipping, 'yuan')}元
           </Text>
-          <Text className={styles["delivery-info-item"]}>
-            <Text className={styles["label"]}>销量</Text> : {data.productSales}
+          <Text className={styles['delivery-info-item']}>
+            <Text className={styles['label']}>销量</Text> : {data.productSales}
           </Text>
         </View>
         {/* 选择规格 */}
         {data.productConfigList.length && (
-          <View className={styles["select-product-config"]}>
-            <Text className={styles["tips"]}>
+          <View className={styles['select-product-config']}>
+            <Text className={styles['tips']}>
               请选择
               {productConfigCategoriesList.map((value, index) => (
                 <Text key={index}> {value}</Text>
@@ -145,9 +144,9 @@ const ProductDetail = () => {
             </Text>
             <View
               className={setClassName([
-                "at-icon",
-                "at-icon-chevron-right",
-                styles["icon"],
+                'at-icon',
+                'at-icon-chevron-right',
+                styles['icon'],
               ])}
             />
           </View>
@@ -155,7 +154,7 @@ const ProductDetail = () => {
       </View>
       {/* tabs页面 */}
       <AtTabs
-        tabList={[{ title: "商品详情" }, { title: "商品参数" }]}
+        tabList={[{ title: '商品详情' }, { title: '商品参数' }]}
         current={currentTab}
         onClick={(value) => setCurrentTab(value)}
       >
