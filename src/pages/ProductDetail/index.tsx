@@ -154,6 +154,7 @@ const ProductDetail = () => {
       </View>
       {/* tabs页面 */}
       <AtTabs
+      className={styles["tabs-wrapper"]}
         tabList={[{ title: '商品详情' }, { title: '商品参数' }]}
         current={currentTab}
         onClick={(value) => setCurrentTab(value)}
@@ -162,7 +163,7 @@ const ProductDetail = () => {
           <ProductContent data={data.productContent} />
         </AtTabsPane>
         <AtTabsPane current={currentTab} index={1}>
-          <ProductParameter />
+          <ProductParameter data={data.productParameter} />
         </AtTabsPane>
       </AtTabs>
 

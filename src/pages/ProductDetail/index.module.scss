@@ -1,4 +1,4 @@
-@import "../../common/css/custom-theme.scss";
+@import '../../common/css/custom-theme.scss';
 $border-radius: 8px;
 $content-bg: #fff;
 $wrapper-bg: #f7f7f7;
@@ -67,5 +67,8 @@ $pd: 30px;
         color: #999;
       }
     }
+  }
+  .tabs-wrapper {
+    background: #fff;
   }
 }

@@ -1,0 +1,32 @@
+.product-parameter-wrapper {
+  padding: 20px 0;
+  .product-parameter-title {
+    display: block;
+    color: #333;
+    font-size: 42px;
+    line-height: 42px;
+    text-align: center;
+  }
+  .product-parameter-list {
+    padding: 0 20px;
+    .product-parameter-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      .label,
+      .value {
+        font-size: 28px;
+        line-height: 32px;
+      }
+      .label {
+        flex: 2;
+        color: #333;
+      }
+      .value {
+        text-align: right;
+        flex: 3;
+      }
+    }
+  }
+}
