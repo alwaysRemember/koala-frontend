@@ -11,8 +11,6 @@ const BottomOperatingArea = ({
   favorites = false,
   favoriteChange,
 }: IBottomOperatingArea) => {
-  console.log(favorites);
-
   return (
     <View className={styles['operating-area-wrapper']}>
       <View className={styles['operating-area-con']}>

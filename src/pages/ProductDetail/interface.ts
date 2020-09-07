@@ -1,10 +1,10 @@
-import { EProductStatus } from "src/enums/EProduct";
+import { EProductStatus } from 'src/enums/EProduct';
 
 /*
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-09-03 16:23:01
+ * @LastEditTime: 2020-09-07 17:56:55
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 
@@ -47,3 +47,8 @@ export interface IProductDetailFile {
 export interface IProductDetailVideo extends IProductDetailFile {}
 
 export interface IProductDetailBanner extends IProductDetailFile {}
+
+export interface IProductConfigModuleItem {
+  categoryName: string;
+  list: Array<IProductConfig>;
+}

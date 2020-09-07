@@ -2,7 +2,11 @@ import Taro, { useRouter } from '@tarojs/taro';
 import React, { useState, useEffect } from 'react';
 import { AtTabs, AtTabsPane } from 'taro-ui';
 import { View, Text } from '@tarojs/components';
-import { IProductDetailResponse, IProductConfig } from './interface';
+import {
+  IProductDetailResponse,
+  IProductConfig,
+  IProductConfigModuleItem,
+} from './interface';
 import { EProductStatus } from '../../enums/EProduct';
 import { getProductDetail, favoriteProduct } from '../../api/product';
 import { showToast } from '../../utils/wxUtils';
@@ -39,10 +43,9 @@ const ProductDetail = () => {
   });
 
   const [productAmount, setProductAmount] = useState<string>('235.99'); // 显示在页面中的金额，可能为区间
-  const [
-    productConfigCategoriesList,
-    setProductConfigCategoriesList,
-  ] = useState<Array<string>>([]); // 产品配置中的分类
+  const [productConfigList, setProductConfigList] = useState<
+    Array<IProductConfigModuleItem>
+  >([]); // 产品配置中的分类
 
   const [currentTab, setCurrentTab] = useState<number>(0); // 当前选中的标签页
   /* 提交参数 */
@@ -93,13 +96,20 @@ const ProductDetail = () => {
   /**
    * 获取产品配置中的分类
    */
-  const _getproductConfigCategoriesList = (): Array<string> => {
-    const list: Array<string> = [];
-    data.productConfigList.forEach(({ categoryName }) => {
-      const result: string | undefined = list.find(
-        (value) => value === categoryName,
+  const _formatProductConfigList = (): Array<IProductConfigModuleItem> => {
+    const list: Array<IProductConfigModuleItem> = [];
+    data.productConfigList.forEach((item) => {
+      const index: number = list.findIndex(
+        (current) => current.categoryName === item.categoryName,
       );
-      if (!result) list.push(categoryName);
+      if (index > -1) {
+        list[index].list = list[index].list.concat([item]);
+      } else {
+        list.push({
+          categoryName: item.categoryName,
+          list: [item],
+        });
+      }
     });
     return list;
   };
@@ -128,7 +138,7 @@ const ProductDetail = () => {
     }
 
     // 设置产品配置分类
-    setProductConfigCategoriesList(_getproductConfigCategoriesList());
+    setProductConfigList(_formatProductConfigList());
   }, [data]);
   return (
     <View className={styles['detail-wrapper']}>
@@ -156,8 +166,8 @@ const ProductDetail = () => {
           <View className={styles['select-product-config']}>
             <Text className={styles['tips']}>
               请选择
-              {productConfigCategoriesList.map((value, index) => (
-                <Text key={index}> {value}</Text>
+              {productConfigList.map(({ categoryName }) => (
+                <Text key={categoryName}> {categoryName}</Text>
               ))}
             </Text>
             <View
