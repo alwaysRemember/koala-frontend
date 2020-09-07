@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { View } from '@tarojs/components';
 import styles from './index.module.scss';
 import '@tarojs/taro/html.css';
-// import ParseCom from '../../../../components/ParseCom';
 const ProductContent = ({ data }: { data: string }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   useEffect(() => {
