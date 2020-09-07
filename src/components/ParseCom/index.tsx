@@ -20,7 +20,7 @@ export default class ParseCom extends Taro.Component<
 
   getNodes() {
     WxParse.wxParse('content', 'html', this.props.content, this.$scope, 5);
-    this.setState((prev) =>
+    this.setState(prev =>
       Object.assign({}, prev, {
         nodes: this.$scope.data.content.nodes,
       }),

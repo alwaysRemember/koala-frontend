@@ -29,7 +29,7 @@ const ProductDetail = () => {
     productStatus: EProductStatus.PUT_ON_SHELF,
     productType: true, // 是否为7天无理由退款商品
     productBrief: '', // 产品简介
-    productContent: '<p>123</p>', // 产品内容介绍
+    productContent: '', // 产品内容介绍
     productParameter: [], // 产品参数
     productConfigList: [], // 产品配置
     productDeliveryCity: '', // 发货地点
