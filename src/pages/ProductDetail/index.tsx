@@ -4,18 +4,18 @@ import { AtTabs, AtTabsPane } from 'taro-ui';
 import { View, Text } from '@tarojs/components';
 import { IProductDetailResponse, IProductConfig } from './interface';
 import { EProductStatus } from '../../enums/EProduct';
-import { getProductDetail } from '../../api/product';
+import { getProductDetail, favoriteProduct } from '../../api/product';
 import { showToast } from '../../utils/wxUtils';
 import Banner from './components/Banner';
 import styles from './index.module.scss';
 import { transferAmount, setClassName } from '../../utils';
-import BottomOperatingArea from './components/BottomOperatingArea/incex';
+import BottomOperatingArea from './components/BottomOperatingArea';
 import ProductParameter from './components/ProductParameter';
 import ProductContent from './components/ProductContent';
 const ProductDetail = () => {
   let {
     params: { productId },
-  } = useRouter();
+  } = useRouter<{ productId: string }>();
   productId = '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
   const [data, setData] = useState<IProductDetailResponse>({
     productId: '',
@@ -52,6 +52,24 @@ const ProductDetail = () => {
       if (!productId) return;
       const data = await getProductDetail({ productId });
       setData(data);
+    } catch (e) {}
+  };
+
+  /**
+   * 收藏状态切换
+   * @param type  当前的收藏状态
+   */
+  const favoriteChange = async (type) => {
+    try {
+      const { favoriteType } = await favoriteProduct({
+        productId,
+        favoriteType: !type,
+      });
+      setData((prev) =>
+        Object.assign({}, prev, {
+          productFavorites: favoriteType,
+        }),
+      );
     } catch (e) {}
   };
 
@@ -154,7 +172,7 @@ const ProductDetail = () => {
       </View>
       {/* tabs页面 */}
       <AtTabs
-      className={styles["tabs-wrapper"]}
+        className={styles['tabs-wrapper']}
         tabList={[{ title: '商品详情' }, { title: '商品参数' }]}
         current={currentTab}
         onClick={(value) => setCurrentTab(value)}
@@ -168,7 +186,10 @@ const ProductDetail = () => {
       </AtTabs>
 
       {/* 底部操作区 */}
-      <BottomOperatingArea favorites={data.productFavorites} />
+      <BottomOperatingArea
+        favorites={data.productFavorites}
+        favoriteChange={favoriteChange}
+      />
     </View>
   );
 };

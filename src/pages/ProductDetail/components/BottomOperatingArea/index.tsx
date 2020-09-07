@@ -7,7 +7,12 @@ import { AtIcon } from 'taro-ui';
 import { IBottomOperatingArea } from './interface';
 import { setClassName } from '../../../../utils';
 
-const BottomOperatingArea = ({ favorites = false }: IBottomOperatingArea) => {
+const BottomOperatingArea = ({
+  favorites = false,
+  favoriteChange,
+}: IBottomOperatingArea) => {
+  console.log(favorites);
+
   return (
     <View className={styles['operating-area-wrapper']}>
       <View className={styles['operating-area-con']}>
@@ -15,12 +20,17 @@ const BottomOperatingArea = ({ favorites = false }: IBottomOperatingArea) => {
           <AtIcon prefixClass="icon" className={styles['icon']} value="kefu" />
           <Text className={styles['label']}>客服</Text>
         </View>
-        <View className={styles['operating-area-item']}>
+        <View
+          className={styles['operating-area-item']}
+          onClick={() => favoriteChange(favorites)}
+        >
           <AtIcon
             prefixClass="icon"
-            className={setClassName(['iconfont', styles['icon']])}
+            className={setClassName([
+              'iconfont',
+              favorites ? styles['icon'] : '',
+            ])}
             value="shoucang1"
-            color={`${favorites ? '#e93b3d' : ''}`}
           />
           <Text className={styles['label']}>收藏</Text>
         </View>
