@@ -4,7 +4,7 @@ import { EProductStatus } from 'src/enums/EProduct';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-09-08 15:04:01
+ * @LastEditTime: 2020-09-08 17:21:37
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 
@@ -49,7 +49,10 @@ export interface IProductDetailVideo extends IProductDetailFile {}
 
 export interface IProductDetailBanner extends IProductDetailFile {}
 
+export interface IProductConfigModuleOption extends IProductConfig {
+  isSelect: boolean;
+}
 export interface IProductConfigModuleItem {
   categoryName: string;
-  list: Array<IProductConfig>;
+  list: Array<IProductConfigModuleOption>;
 }

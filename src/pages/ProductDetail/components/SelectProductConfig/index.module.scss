@@ -1,3 +1,7 @@
+@import '../../../../common/css/custom-theme.scss';
+$fontSize: 34px;
+$moduleTitleColor: #666;
+$moduleMarginTop: 40px;
 .product-config-modal-wrapper {
   :global {
     .at-float-layout__container {
@@ -7,13 +11,99 @@
   .product-config-modal-con {
     box-sizing: border-box;
     padding: 20px;
-    .product-info {
+    .product-info-con {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .product-main-img {
+        width: 215px;
+        margin-right: 40px;
+      }
+      .product-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        .amount,
+        .inventory {
+          margin-bottom: 20px;
+        }
+        .amount {
+          font-size: 32px;
+          font-weight: bold;
+          color: $color-brand;
+          line-height: 32px;
+        }
+        .inventory,
+        .selected {
+          font-size: 28px;
+          color: #666;
+          line-height: 32px;
+        }
+      }
+    }
+    .product-config-list-con {
+      margin-top: $moduleMarginTop;
+      .product-config-category-item {
+        margin-bottom: 20px;
+        .category-title {
+          color: $moduleTitleColor;
+          font-size: $fontSize;
+          line-height: $fontSize;
+        }
+        .product-config-options-wrapper {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin-top: 20px;
+          .product-config-option {
+            padding: 12px 20px;
+            color: #666;
+            font-size: 26px;
+            line-height: 26px;
+            background: rgb(228, 228, 228);
+            border-radius: 14px;
+            margin-right: 10px;
+            &.select {
+              color: #fff;
+              background: $color-brand;
+            }
+          }
+        }
+      }
+    }
+    .buy-quantity {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      .product-main-img {
-        width: 215px;
+      margin-top: $moduleMarginTop;
+      .label {
+        font-size: $fontSize;
+        color: $moduleTitleColor;
+        line-height: $fontSize;
+      }
+      .input-quantity-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        .quantity-change-btn {
+          box-sizing: border-box;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          .change-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+        .input-quantity {
+          width: auto;
+          height: 50px;
+          text-align: center;
+        }
       }
     }
   }

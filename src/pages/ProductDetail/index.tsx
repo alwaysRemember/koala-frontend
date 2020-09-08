@@ -6,6 +6,7 @@ import {
   IProductDetailResponse,
   IProductConfig,
   IProductConfigModuleItem,
+  IProductConfigModuleOption,
 } from './interface';
 import { EProductStatus } from '../../enums/EProduct';
 import { getProductDetail, favoriteProduct } from '../../api/product';
@@ -107,12 +108,15 @@ const ProductDetail = () => {
       const index: number = list.findIndex(
         (current) => current.categoryName === item.categoryName,
       );
+      const data: IProductConfigModuleOption = Object.assign({}, item, {
+        isSelect: false,
+      });
       if (index > -1) {
-        list[index].list = list[index].list.concat([item]);
+        list[index].list = list[index].list.concat([data]);
       } else {
         list.push({
           categoryName: item.categoryName,
-          list: [item],
+          list: [data],
         });
       }
     });
@@ -139,7 +143,7 @@ const ProductDetail = () => {
         `${_transferProductAmount('min')}-${_transferProductAmount('max')}`,
       );
     } else {
-      setProductAmount(String(productAmount));
+      setProductAmount(productAmount.toFixed(2));
     }
 
     // 设置产品配置分类
@@ -213,8 +217,8 @@ const ProductDetail = () => {
       <SelectProductConfig
         cref={selectProductConfigRef}
         productConfig={productConfigList}
-        productMainImg={data.productMainImg}
-        productAmount={productAmount}
+        productShowAmount={productAmount}
+        data={data}
       />
     </View>
   );
