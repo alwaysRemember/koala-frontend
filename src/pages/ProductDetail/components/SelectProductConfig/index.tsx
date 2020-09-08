@@ -27,9 +27,13 @@ const SelectProductConfig = ({
     >
       <View className={styles['product-config-modal-con']}>
         <View className={styles['product-info']}>
-          {/* <Image src={productMainImg} mode="widthFix" lazyLoad className={styles["product-main-img"]} /> */}
           <View className={styles['product-main-img']}>
-            <ImagePreload src={productMainImg} width={215} height={215} />
+            <ImagePreload
+              src={productMainImg}
+              width={215}
+              height={215}
+              borderRadius={14}
+            />
           </View>
         </View>
       </View>

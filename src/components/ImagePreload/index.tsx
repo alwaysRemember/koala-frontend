@@ -7,11 +7,15 @@ import { setClassName } from '../../utils';
 import { AtIcon } from 'taro-ui';
 
 /* 图片预加载 */
-const ImagePreload = ({ src, width, height }: IImagePreload) => {
+const ImagePreload = ({
+  src,
+  width,
+  height,
+  borderRadius = 0,
+}: IImagePreload) => {
   const [isLoad, setIsLoad] = useState<boolean>(false); // 是否加载成功
   const [isError, setIsError] = useState<boolean>(false); // 是否加载失败
 
-  useEffect(() => {}, []);
   return (
     <View className={styles['image-preload-wrapper']}>
       {(!isLoad || isError) && (
@@ -42,6 +46,9 @@ const ImagePreload = ({ src, width, height }: IImagePreload) => {
         mode="widthFix"
         lazyLoad
         className={styles['image']}
+        style={{
+          borderRadius: pxTransform(borderRadius),
+        }}
         onLoad={() => {
           setIsLoad(true);
         }}

@@ -1,6 +1,9 @@
 .image-preload-wrapper {
+  position: relative;
   .image-preload {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     background: #ccc;
     border-radius: 14px;
     .icon {
