@@ -1,0 +1,21 @@
+.product-config-modal-wrapper {
+  :global {
+    .at-float-layout__container {
+      border-radius: 20px 20px 0 0;
+    }
+  }
+  .product-config-modal-con {
+    box-sizing: border-box;
+    padding: 20px;
+    .product-info {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .product-main-img {
+        width: 215px;
+        border-radius: 14px;
+      }
+    }
+  }
+}

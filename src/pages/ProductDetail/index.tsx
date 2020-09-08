@@ -1,5 +1,5 @@
 import Taro, { useRouter } from '@tarojs/taro';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AtTabs, AtTabsPane } from 'taro-ui';
 import { View, Text } from '@tarojs/components';
 import {
@@ -16,6 +16,8 @@ import { transferAmount, setClassName } from '../../utils';
 import BottomOperatingArea from './components/BottomOperatingArea';
 import ProductParameter from './components/ProductParameter';
 import ProductContent from './components/ProductContent';
+import SelectProductConfig from './components/SelectProductConfig';
+import { ISelectProductConfigRef } from './components/SelectProductConfig/interface';
 const ProductDetail = () => {
   let {
     params: { productId },
@@ -40,16 +42,19 @@ const ProductDetail = () => {
     productSales: 0, // 产品销量
     productShipping: 0,
     productFavorites: false,
+    productMainImg: '',
   });
 
-  const [productAmount, setProductAmount] = useState<string>('235.99'); // 显示在页面中的金额，可能为区间
+  const [productAmount, setProductAmount] = useState<string>(''); // 显示在页面中的金额，可能为区间
   const [productConfigList, setProductConfigList] = useState<
     Array<IProductConfigModuleItem>
   >([]); // 产品配置中的分类
 
   const [currentTab, setCurrentTab] = useState<number>(0); // 当前选中的标签页
+  const selectProductConfigRef = useRef<ISelectProductConfigRef>();
   /* 提交参数 */
   const [productConfig, setProductConfig] = useState<undefined | number>(); // 可选参数，产品配置,当没有配置要选的时候为undefined
+
   const getData = async () => {
     try {
       if (!productId) return;
@@ -163,7 +168,10 @@ const ProductDetail = () => {
         </View>
         {/* 选择规格 */}
         {data.productConfigList.length && (
-          <View className={styles['select-product-config']}>
+          <View
+            className={styles['select-product-config']}
+            onClick={() => selectProductConfigRef.current?.changeShow(true)}
+          >
             <Text className={styles['tips']}>
               请选择
               {productConfigList.map(({ categoryName }) => (
@@ -199,6 +207,14 @@ const ProductDetail = () => {
       <BottomOperatingArea
         favorites={data.productFavorites}
         favoriteChange={favoriteChange}
+      />
+
+      {/* 选择产品配置 */}
+      <SelectProductConfig
+        cref={selectProductConfigRef}
+        productConfig={productConfigList}
+        productMainImg={data.productMainImg}
+        productAmount={productAmount}
       />
     </View>
   );
