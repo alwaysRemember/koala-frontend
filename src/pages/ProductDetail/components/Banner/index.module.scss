@@ -1,7 +1,10 @@
-@import "../../../../common/css/custom-theme.scss";
+@import '../../../../common/css/custom-theme.scss';
 .banner-wapper {
   position: relative;
   width: 100%;
+  &.skeleton {
+    background: $color-skeleton;
+  }
   .video-wrapper {
     width: 100%;
     height: auto;

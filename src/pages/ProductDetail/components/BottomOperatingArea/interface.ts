@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 15:09:53
- * @LastEditTime: 2020-09-07 16:55:53
+ * @LastEditTime: 2020-09-07 16:54:38
  * @FilePath: /koala-frontend/src/pages/ProductDetail/components/BottomOperatingArea/interface.ts
  */
 export interface IBottomOperatingArea {

@@ -22,6 +22,7 @@ import { ISelectProductConfigRef } from './components/SelectProductConfig/interf
 const ProductDetail = () => {
   let { params, path } = useRouter<{ productId: string }>();
   const productId = params.productId || '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [data, setData] = useState<IProductDetailResponse>({
     productId: '',
     productVideo: {
@@ -59,6 +60,7 @@ const ProductDetail = () => {
       if (!productId) return;
       const data = await getProductDetail({ productId });
       setData(data);
+      setPageLoading(true);
     } catch (e) {}
   };
 
@@ -161,9 +163,18 @@ const ProductDetail = () => {
     };
   });
   return (
-    <View className={styles['detail-wrapper']}>
+    <View
+      className={setClassName([
+        styles['detail-wrapper'],
+        pageLoading ? '' : styles['skeleton'],
+      ])}
+    >
       {/* banner */}
-      <Banner video={data.productVideo} bannerList={data.productBanner} />
+      <Banner
+        video={data.productVideo}
+        bannerList={data.productBanner}
+        pageLoading={pageLoading}
+      />
       {/* 主要产品介绍 */}
       <View className={styles['product-info']}>
         <Text className={styles['product-amount']}>¥ {productAmount}</Text>
@@ -182,7 +193,7 @@ const ProductDetail = () => {
           </Text>
         </View>
         {/* 选择规格 */}
-        {data.productConfigList.length && (
+        {!!data.productConfigList.length && (
           <View
             className={styles['select-product-config']}
             onClick={() => selectProductConfigRef.current?.changeShow(true)}

@@ -2,20 +2,24 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-26 16:10:58
- * @LastEditTime: 2020-08-31 16:43:44
+ * @LastEditTime: 2020-09-09 16:08:03
  * @FilePath: /koala-frontend/src/pages/ProductDetail/components/Banner/interface.ts
  */
 
-import { IProductDetailVideo, IProductDetailBanner } from "../../interface";
+import {
+  IProductDetailVideo,
+  IProductDetailBanner,
+  IPageGlobal,
+} from '../../interface';
 
-export interface IBannerProps {
+export interface IBannerProps extends IPageGlobal {
   video: IProductDetailVideo;
   bannerList: Array<IProductDetailBanner>;
 }
 
 export enum EModuleSwitch {
-  VIDEO = "VIDEO",
-  IMG = "IMG"
+  VIDEO = 'VIDEO',
+  IMG = 'IMG',
 }
 
 export interface IModuleListItem {
