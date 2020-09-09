@@ -16,12 +16,13 @@ const SelectProductConfig = ({
   productConfig,
   data,
   cref,
+  buyNow,
+  selectProductConfigListChange,
 }: ISelectProductConfig) => {
   useImperativeHandle(cref, () => ({
     changeShow: (type) => {
       setShow(type);
     },
-    getProductConfigList: () => selectProductConfigOptionList,
     getBuyQuantity: () => buyQuantity,
   }));
 
@@ -128,6 +129,7 @@ const SelectProductConfig = ({
           }, data.productAmount)
           .toFixed(2),
       );
+    selectProductConfigListChange(selectProductConfigOptionList);
   }, [selectProductConfigOptionList]);
 
   return (
@@ -240,6 +242,9 @@ const SelectProductConfig = ({
             size="small"
             type="primary"
             className={setClassName([styles['buy-now'], styles['btn']])}
+            onClick={() => {
+              buyNow('modal');
+            }}
           >
             立即购买
           </AtButton>

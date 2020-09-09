@@ -19,9 +19,13 @@ import ProductParameter from './components/ProductParameter';
 import ProductContent from './components/ProductContent';
 import SelectProductConfig from './components/SelectProductConfig';
 import { ISelectProductConfigRef } from './components/SelectProductConfig/interface';
+import { useDispatch } from 'redux-react-hook';
+import { updateOrderConfirmDefaultParams } from '../../store/actions';
+import { orderConfirmPath } from '../../router';
 const ProductDetail = () => {
   let { params, path } = useRouter<{ productId: string }>();
   const productId = params.productId || '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
+  const dispatch = useDispatch();
   const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [data, setData] = useState<IProductDetailResponse>({
     productId: '',
@@ -50,10 +54,15 @@ const ProductDetail = () => {
     Array<IProductConfigModuleItem>
   >([]); // 产品配置中的分类
 
+  const [selectProductConfigList, setProducgtConfitList] = useState<
+    Array<IProductConfigModuleOption>
+  >([]); // 选择的数据
+
   const [currentTab, setCurrentTab] = useState<number>(0); // 当前选中的标签页
-  const selectProductConfigRef = useRef<ISelectProductConfigRef>();
-  /* 提交参数 */
-  const [productConfig, setProductConfig] = useState<undefined | number>(); // 可选参数，产品配置,当没有配置要选的时候为undefined
+  const selectProductConfigRef = useRef<ISelectProductConfigRef>({
+    changeShow: () => {},
+    getBuyQuantity: () => 1,
+  });
 
   const getData = async () => {
     try {
@@ -80,6 +89,46 @@ const ProductDetail = () => {
         }),
       );
     } catch (e) {}
+  };
+
+  /**
+   * 立即购买
+   * @param type  调用的地方
+   */
+  const buyNow = (type: 'page' | 'modal' = 'page') => {
+    // 需要选择配置的情况 判断是否选择了配置
+    if (productConfigList.length && !selectProductConfigList?.length) {
+      // 判断是否在主页调用的method
+      if (type === 'page') {
+        selectProductConfigRef.current.changeShow(true);
+      } else {
+        showToast({
+          title: `请选择商品的${productConfigList.map(
+            ({ categoryName }) => categoryName,
+          )}`,
+        });
+      }
+      return;
+    }
+
+    // 存储下单数据
+    dispatch(
+      updateOrderConfirmDefaultParams({
+        productId,
+        productAmount: data.productAmount,
+        selectProductConfigList: selectProductConfigList?.length
+          ? selectProductConfigList
+          : undefined,
+        buyQuantity: selectProductConfigRef.current.getBuyQuantity(),
+      }),
+    );
+    // 在选择配置modal中下单则需要在跳转前关闭modal
+    if (type === 'modal') {
+      selectProductConfigRef.current.changeShow(false);
+    }
+    Taro.navigateTo({
+      url: orderConfirmPath(),
+    });
   };
 
   /**
@@ -196,14 +245,19 @@ const ProductDetail = () => {
         {!!data.productConfigList.length && (
           <View
             className={styles['select-product-config']}
-            onClick={() => selectProductConfigRef.current?.changeShow(true)}
+            onClick={() => selectProductConfigRef.current.changeShow(true)}
           >
             <Text className={styles['tips']}>
-              请选择
-              {productConfigList.map(({ categoryName }) => (
-                <Text key={categoryName}> {categoryName}</Text>
-              ))}
+              {!!selectProductConfigList.length ? '当前选择' : '请选择'}
+              {!!selectProductConfigList.length
+                ? selectProductConfigList.map(({ name }) => (
+                    <Text key={name}> {name}</Text>
+                  ))
+                : productConfigList.map(({ categoryName }) => (
+                    <Text key={categoryName}> {categoryName}</Text>
+                  ))}
             </Text>
+
             <View
               className={setClassName([
                 'at-icon',
@@ -233,6 +287,7 @@ const ProductDetail = () => {
       <BottomOperatingArea
         favorites={data.productFavorites}
         favoriteChange={favoriteChange}
+        buyNow={buyNow}
       />
 
       {/* 选择产品配置 */}
@@ -240,7 +295,11 @@ const ProductDetail = () => {
         cref={selectProductConfigRef}
         productConfig={productConfigList}
         productShowAmount={productAmount}
+        selectProductConfigListChange={(list) => {
+          setProducgtConfitList(list);
+        }}
         data={data}
+        buyNow={buyNow}
       />
     </View>
   );

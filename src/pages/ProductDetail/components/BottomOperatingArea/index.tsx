@@ -10,6 +10,7 @@ import { setClassName } from '../../../../utils';
 const BottomOperatingArea = ({
   favorites = false,
   favoriteChange,
+  buyNow,
 }: IBottomOperatingArea) => {
   return (
     <View className={styles['operating-area-wrapper']}>
@@ -49,6 +50,9 @@ const BottomOperatingArea = ({
             styles['operating-area-item'],
             styles['btn'],
           ])}
+          onClick={() => {
+            buyNow();
+          }}
         >
           立即购买
         </AtButton>
