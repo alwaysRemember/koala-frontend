@@ -6,6 +6,7 @@ import styles from './index.module.scss';
 import { AtIcon } from 'taro-ui';
 import { IBottomOperatingArea } from './interface';
 import { setClassName } from '../../../../utils';
+import { appletHomePath } from '../../../../router';
 
 const BottomOperatingArea = ({
   favorites = false,
@@ -15,9 +16,16 @@ const BottomOperatingArea = ({
   return (
     <View className={styles['operating-area-wrapper']}>
       <View className={styles['operating-area-con']}>
-        <View className={styles['operating-area-item']}>
-          <AtIcon prefixClass="icon" className={styles['icon']} value="kefu" />
-          <Text className={styles['label']}>客服</Text>
+        <View
+          className={styles['operating-area-item']}
+          onClick={() => {
+            Taro.switchTab({
+              url: appletHomePath(),
+            });
+          }}
+        >
+          <AtIcon prefixClass="icon" className={styles['icon']} value="zhuye" />
+          <Text className={styles['label']}>主页</Text>
         </View>
         <View
           className={styles['operating-area-item']}

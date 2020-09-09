@@ -24,7 +24,7 @@ import { updateOrderConfirmDefaultParams } from '../../store/actions';
 import { orderConfirmPath } from '../../router';
 const ProductDetail = () => {
   let { params, path } = useRouter<{ productId: string }>();
-  const productId = params.productId || '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
+  const productId = params.productId;
   const dispatch = useDispatch();
   const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [data, setData] = useState<IProductDetailResponse>({
