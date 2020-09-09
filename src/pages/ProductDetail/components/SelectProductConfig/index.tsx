@@ -69,7 +69,7 @@ const SelectProductConfig = ({
       <View className={styles['product-config-category-item']}>
         <Text className={styles['category-title']}>{categoryName}</Text>
         <View className={styles['product-config-options-wrapper']}>
-          {list.map(({ id, name, isSelect }, i) => (
+          {list.map(({ name, isSelect }, i) => (
             <Text
               className={setClassName([
                 styles['product-config-option'],
@@ -130,9 +130,6 @@ const SelectProductConfig = ({
       );
   }, [selectProductConfigOptionList]);
 
-  useEffect(() => {
-    console.log(buyQuantity);
-  }, [buyQuantity]);
   return (
     <AtFloatLayout
       isOpened={show}

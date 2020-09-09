@@ -1,4 +1,4 @@
-import Taro, { useRouter } from '@tarojs/taro';
+import Taro, { useRouter, useShareAppMessage } from '@tarojs/taro';
 import React, { useState, useEffect, useRef } from 'react';
 import { AtTabs, AtTabsPane } from 'taro-ui';
 import { View, Text } from '@tarojs/components';
@@ -13,17 +13,15 @@ import { getProductDetail, favoriteProduct } from '../../api/product';
 import { showToast } from '../../utils/wxUtils';
 import Banner from './components/Banner';
 import styles from './index.module.scss';
-import { transferAmount, setClassName } from '../../utils';
+import { transferAmount, setClassName, pathParamsTransfer } from '../../utils';
 import BottomOperatingArea from './components/BottomOperatingArea';
 import ProductParameter from './components/ProductParameter';
 import ProductContent from './components/ProductContent';
 import SelectProductConfig from './components/SelectProductConfig';
 import { ISelectProductConfigRef } from './components/SelectProductConfig/interface';
 const ProductDetail = () => {
-  let {
-    params: { productId },
-  } = useRouter<{ productId: string }>();
-  productId = '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
+  let { params, path } = useRouter<{ productId: string }>();
+  const productId = params.productId || '9d3e5e9a-dc99-47ce-8520-63c4c937b44d';
   const [data, setData] = useState<IProductDetailResponse>({
     productId: '',
     productVideo: {
@@ -149,6 +147,19 @@ const ProductDetail = () => {
     // 设置产品配置分类
     setProductConfigList(_formatProductConfigList());
   }, [data]);
+
+  /* 设置分享功能 */
+  useEffect(() => {
+    Taro.showShareMenu({
+      withShareTicket: true,
+    });
+  }, []);
+  useShareAppMessage(() => {
+    return {
+      title: data.productName,
+      path: `${path}${pathParamsTransfer(params)}`,
+    };
+  });
   return (
     <View className={styles['detail-wrapper']}>
       {/* banner */}
