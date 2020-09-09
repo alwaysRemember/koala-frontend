@@ -3,17 +3,21 @@
   .product-parameter-title {
     display: block;
     color: #333;
-    font-size: 42px;
-    line-height: 42px;
+    font-size: 36px;
+    line-height: 36px;
     text-align: center;
   }
   .product-parameter-list {
-    padding: 0 20px;
     .product-parameter-item {
+      box-sizing: border-box;
+      padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
+      border-bottom: 1px solid #e3e3e3;
+      &:last-child {
+        border: none;
+      }
       .label,
       .value {
         font-size: 28px;
@@ -21,9 +25,10 @@
       }
       .label {
         flex: 2;
-        color: #333;
+        color: #5e5e5e;
       }
       .value {
+        color: #666;
         text-align: right;
         flex: 3;
       }

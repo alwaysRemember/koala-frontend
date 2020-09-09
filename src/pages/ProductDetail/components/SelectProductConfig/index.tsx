@@ -21,10 +21,12 @@ const SelectProductConfig = ({
     changeShow: (type) => {
       setShow(type);
     },
+    getProductConfigList: () => selectProductConfigOptionList,
+    getBuyQuantity: () => buyQuantity,
   }));
 
   const [amount, setAmount] = useState<string>(productShowAmount);
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
   const [productConfigList, setProductConfigList] = useState<
     Array<IProductConfigModuleItem>
   >(productConfig);
@@ -153,7 +155,11 @@ const SelectProductConfig = ({
             <Text className={styles['amount']}>¥ {amount}</Text>
             <Text className={styles['inventory']}>库存: --</Text>
             <Text className={styles['selected']}>
-              已选:{' '}
+              {!!selectProductConfigOptionList.length ? '已选: ' : '请选择:'}
+              {!selectProductConfigOptionList.length &&
+                productConfigList.map(({ categoryName }) => (
+                  <Text key={categoryName}>&nbsp;{categoryName}</Text>
+                ))}
               {selectProductConfigOptionList.map((item) => (
                 <Text key={item.id}>{item.name}&nbsp;</Text>
               ))}
@@ -220,6 +226,26 @@ const SelectProductConfig = ({
               />
             </AtButton>
           </View>
+        </View>
+        {/* 下单操作 */}
+        <View className={styles['operation-wrapper']}>
+          <AtButton
+            type="primary"
+            size="small"
+            className={setClassName([
+              styles['add-shopping-cart'],
+              styles['btn'],
+            ])}
+          >
+            加入购物车
+          </AtButton>
+          <AtButton
+            size="small"
+            type="primary"
+            className={setClassName([styles['buy-now'], styles['btn']])}
+          >
+            立即购买
+          </AtButton>
         </View>
       </View>
     </AtFloatLayout>
