@@ -2,13 +2,14 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:05:12
- * @LastEditTime: 2020-09-10 16:00:18
+ * @LastEditTime: 2020-09-11 11:32:40
  * @FilePath: /koala-frontend/src/router/index.ts
  */
 
 import { pathParamsTransfer } from '../utils';
 import { IProductDetailPathParams } from 'src/pages/ProductDetail/interface';
 import { IAddressListPathParams } from 'src/pages/AddressList/interface';
+import { IAddShoppingAddressPathParams } from 'src/pages/AddShoppingAddress/interface';
 
 type TPath<T extends {} | null> = (params?: T) => string;
 
@@ -42,7 +43,10 @@ export const addressListPath: TPath<IAddressListPathParams> = (params) =>
   `/pages/AddressList/index${params ? pathParamsTransfer(params) : ''}`;
 
 /**
- * 添加收货地址
+ * 添加/修改 收货地址
+ * @param params
  */
-export const addShoppingAddressPath: TPath<null> = () =>
-  `/pages/AddShoppingAddress/index`;
+export const addShoppingAddressPath: TPath<IAddShoppingAddressPathParams> = (
+  params,
+) =>
+  `/pages/AddShoppingAddress/index${params ? pathParamsTransfer(params) : ''}`;

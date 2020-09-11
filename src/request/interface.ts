@@ -2,14 +2,14 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:48:55
- * @LastEditTime: 2020-07-01 15:57:25
+ * @LastEditTime: 2020-09-11 15:11:40
  * @FilePath: /koala-frontend/src/request/interface.ts
  */
 
-import { EResponseCode } from "./enum";
+import { EResponseCode } from './enum';
 
-export type TContentType = "form" | "json" | "formData";
-export type TMethods = "POST" | "GET";
+export type TContentType = 'form' | 'json' | 'formData';
+export type TMethods = 'POST' | 'GET';
 
 export interface IRequestOptions {
   url: string;
@@ -17,6 +17,7 @@ export interface IRequestOptions {
   method: TMethods;
   contentType?: TContentType;
   showLoading?: boolean;
+  isStaticResources?: boolean; // 是否为静态资源
 }
 
 export interface IResponse<T> {

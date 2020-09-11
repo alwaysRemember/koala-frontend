@@ -1,0 +1,21 @@
+.input-item {
+  text-align: right;
+}
+.picker-item {
+  :global {
+    .at-list__item-container {
+      .item-content {
+        flex: 2;
+      }
+      .item-extra {
+        overflow: hidden;
+        flex: 3;
+        max-width: none;
+        .item-extra__info {
+          text-overflow: initial;
+          white-space: normal;
+        }
+      }
+    }
+  }
+}

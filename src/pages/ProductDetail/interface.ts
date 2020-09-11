@@ -4,11 +4,12 @@ import { EProductStatus } from 'src/enums/EProduct';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-09-09 16:06:57
+ * @LastEditTime: 2020-09-11 11:37:50
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 
-export interface IProductDetailPathParams {
+export interface IProductDetailPathParams
+  extends Partial<Record<string, string>> {
   productId: string;
 }
 

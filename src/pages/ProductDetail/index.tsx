@@ -7,6 +7,7 @@ import {
   IProductConfig,
   IProductConfigModuleItem,
   IProductConfigModuleOption,
+  IProductDetailPathParams,
 } from './interface';
 import { EProductStatus } from '../../enums/EProduct';
 import { getProductDetail, favoriteProduct } from '../../api/product';
@@ -23,7 +24,7 @@ import { useDispatch } from 'redux-react-hook';
 import { updateOrderConfirmDefaultParams } from '../../store/actions';
 import { orderConfirmPath } from '../../router';
 const ProductDetail = () => {
-  let { params, path } = useRouter<{ productId: string }>();
+  let { params, path } = useRouter<IProductDetailPathParams>();
   const productId = params.productId;
   const dispatch = useDispatch();
   const [pageLoading, setPageLoading] = useState<boolean>(false);
