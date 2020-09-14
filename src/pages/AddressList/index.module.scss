@@ -1,0 +1,47 @@
+@import '../../common/css/custom-theme.scss';
+.address-list {
+  box-sizing: border-box;
+  padding: 0 30px;
+  .address-item {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #d7d7d7;
+    .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      .info-top {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 14px;
+        .name-and-phone {
+          color: #333;
+          font-optical-sizing: 38px;
+        }
+        .default-selection {
+          padding: 0 14px;
+          color: #fff;
+          font-size: 26px;
+          line-height: 36px;
+          border-radius: 18px;
+          background: $color-brand;
+          margin-left: 24px;
+        }
+      }
+      .address {
+        font-size: 28px;
+        color: #666;
+        line-height: 40px;
+      }
+    }
+    .setting {
+      width: 75px;
+      color: $color-brand;
+      font-size: 32px;
+      text-align: center;
+    }
+  }
+}
