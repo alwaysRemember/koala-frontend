@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Taro, { useRouter } from '@tarojs/taro';
-import { AtInput, AtListItem } from 'taro-ui';
+import { AtInput, AtListItem, AtTextarea, AtButton, AtSwitch } from 'taro-ui';
 import { View, Picker } from '@tarojs/components';
 import styles from './index.module.scss';
 import { IAddShoppingAddressPathParams, ICityDataItem } from './interface';
 import { EPageType } from './enums';
-import { getCityData } from '../../api';
 import { PickerMultiSelectorProps } from '_@tarojs_components@3.0.8@@tarojs/components/types/Picker';
+import { checkPhone } from '../../utils';
+import { showToast } from '../../utils/wxUtils';
+import city from '../../common/json/city.json';
+import { addShoppingAddress } from '../../api';
+import { EToastIcon } from '../../enums/EWXUtils';
 const AddShoppingAddress = () => {
   const {
     params: { type = EPageType.ADD },
@@ -14,11 +18,13 @@ const AddShoppingAddress = () => {
 
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
-  const [area, setArea] = useState<Array<string>>([]);
+  const [area, setArea] = useState<Array<string>>([]); // 选择的地区
+  const [address, setAddress] = useState<string>(''); // 详细地址
+  const [isDefaultSelection, setIsDefaultSelection] = useState<boolean>(false); // 是否默认选择
 
   const [cityIndexList, setCityIndexList] = useState<Array<number>>([]);
 
-  const [cityData, setCityData] = useState<Array<ICityDataItem>>([]); // 地区数据
+  const [cityData] = useState<Array<ICityDataItem>>(city.data); // 地区数据
 
   const [pickerData, setPickerData] = useState<Array<Array<ICityDataItem>>>([
     [],
@@ -26,13 +32,13 @@ const AddShoppingAddress = () => {
     [],
   ]); // 选择器所需数据
 
+  const [disable, setDisable] = useState<boolean>(true);
+
   /**
    * picker选择后触发
    * @param indexList
    */
   const cityPickerChange = (indexList: Array<number>) => {
-    console.log(indexList);
-
     setCityIndexList(indexList);
   };
 
@@ -65,10 +71,23 @@ const AddShoppingAddress = () => {
     setCityIndexList(indexList);
   };
 
-  const getData = async () => {
+  /**
+   * 提交数据
+   */
+  const submit = async () => {
     try {
-      const data = await getCityData();
-      setCityData(data);
+      await addShoppingAddress({
+        name,
+        phone,
+        area,
+        address,
+        isDefaultSelection,
+      });
+      await showToast({
+        title: '新增成功',
+        icon: EToastIcon.SUCCESS,
+      });
+      Taro.navigateBack();
     } catch (e) {}
   };
 
@@ -92,10 +111,6 @@ const AddShoppingAddress = () => {
     });
     setArea(list);
   }, [cityIndexList]);
-
-  useEffect(() => {
-    getData();
-  }, []);
   /* 根据type设置title */
   useEffect(() => {
     let title: string;
@@ -114,6 +129,11 @@ const AddShoppingAddress = () => {
     });
   }, []);
 
+  // 监听必要的输入数据
+  useEffect(() => {
+    setDisable(!name || !checkPhone(phone) || !area.length || !address);
+  }, [name, phone, area, address]);
+
   return (
     <View className={styles['add-shopping-address-wrapper']}>
       <AtInput
@@ -122,16 +142,26 @@ const AddShoppingAddress = () => {
         title="收件人"
         value={name}
         placeholder="请输入收件人"
+        required
         onChange={(value) => setName(value as string)}
       />
       <AtInput
         className={styles['input-item']}
         name="phone"
         title="联系电话"
-        type="number"
+        type="phone"
         value={phone}
+        maxlength={11}
         placeholder="请输入手机号"
+        required
         onChange={(value) => setPhone(value as string)}
+        onBlur={(value) => {
+          if (!checkPhone(String(value))) {
+            showToast({
+              title: '手机号格式错误',
+            });
+          }
+        }}
       />
       <Picker
         value={cityIndexList}
@@ -147,10 +177,33 @@ const AddShoppingAddress = () => {
           className={styles['picker-item']}
           arrow="right"
           title="所在地区"
-          extraText={area.join(' ')}
-          switchIsCheck
+          extraText={area.length ? area.join(' ') : '请选择地区'}
         />
       </Picker>
+      <View className={styles['address']}>
+        <AtTextarea
+          value={address}
+          onChange={(value) => setAddress(value)}
+          placeholder="请输入详细地址"
+          count={false}
+        />
+      </View>
+
+      <AtSwitch
+        title="是否设为默认选项"
+        checked={isDefaultSelection}
+        color="#e93b3d"
+        onChange={(value) => setIsDefaultSelection(value)}
+      />
+
+      <AtButton
+        type="primary"
+        disabled={disable}
+        className={styles['submit']}
+        onClick={submit}
+      >
+        提交
+      </AtButton>
     </View>
   );
 };

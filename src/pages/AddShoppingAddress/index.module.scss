@@ -1,21 +1,32 @@
-.input-item {
-  text-align: right;
-}
-.picker-item {
-  :global {
-    .at-list__item-container {
-      .item-content {
-        flex: 2;
-      }
-      .item-extra {
-        overflow: hidden;
-        flex: 3;
-        max-width: none;
-        .item-extra__info {
-          text-overflow: initial;
-          white-space: normal;
+.add-shopping-address-wrapper {
+  .input-item {
+    text-align: right;
+  }
+  .picker-item {
+    :global {
+      .at-list__item-container {
+        .item-content {
+          flex: 2;
+        }
+        .item-extra {
+          overflow: hidden;
+          flex: 3;
+          max-width: none;
+          .item-extra__info {
+            text-overflow: initial;
+            white-space: normal;
+          }
         }
       }
     }
+  }
+  .address {
+    box-sizing: border-box;
+    padding: 0 20px;
+    margin-top: 30px;
+  }
+  .submit {
+    width: 710px;
+    margin: 90px auto;
   }
 }

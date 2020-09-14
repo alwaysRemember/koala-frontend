@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:08:27
- * @LastEditTime: 2020-09-04 11:37:29
+ * @LastEditTime: 2020-09-14 14:40:19
  * @FilePath: /koala-frontend/src/utils/index.ts
  */
 
@@ -15,11 +15,11 @@ export const pathParamsTransfer = (params: { [key: string]: any }): string => {
   return arr
     .map(
       (key, index) =>
-        `${!index ? "?" : ""}${key}=${params[key]}${
-          index !== arr.length - 1 ? "&" : ""
-        }`
+        `${!index ? '?' : ''}${key}=${params[key]}${
+          index !== arr.length - 1 ? '&' : ''
+        }`,
     )
-    .join("");
+    .join('');
 };
 
 /**
@@ -29,15 +29,22 @@ export const pathParamsTransfer = (params: { [key: string]: any }): string => {
  */
 export const transferAmount = (
   value: number | string,
-  type: "yuan" | "fen" = "yuan"
+  type: 'yuan' | 'fen' = 'yuan',
 ): number | string => {
   switch (type) {
-    case "yuan":
+    case 'yuan':
       return (Number(value) / 100).toFixed(2);
-    case "fen":
+    case 'fen':
       return Number(value) * 100;
   }
 };
 
 export const setClassName = (classNameList: Array<string>) =>
-  classNameList.join(" ");
+  classNameList.join(' ');
+
+/**
+ * 校验手机号
+ * @param phone
+ */
+export const checkPhone = (phone: string) =>
+  /^1[3|4|5|7|8][0-9]{9}$/.test(phone);
