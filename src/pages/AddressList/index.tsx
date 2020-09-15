@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Taro, { useDidShow, useRouter } from '@tarojs/taro';
-import { AtSwipeAction } from 'taro-ui';
+import { AtSwipeAction, AtDivider, AtButton } from 'taro-ui';
 import { View, Text } from '@tarojs/components';
 import styles from './index.module.scss';
 import { IAddressItem, IAddressListPathParams } from './interface';
@@ -33,8 +33,6 @@ const AddressList = () => {
    * @param id
    */
   const addressClick = (id: number) => {
-    console.log('addressClick');
-
     if (source !== EAddressListPathSource.ORDER_CONFIRM) return;
   };
 
@@ -43,8 +41,6 @@ const AddressList = () => {
    * @param index
    */
   const actionClick = (index: number) => {
-    console.log('actionClick');
-
     // 删除
     if (index === 0) {
     }
@@ -55,8 +51,6 @@ const AddressList = () => {
    * @param data
    */
   const modifyAddress = (data: IAddressItem) => {
-    console.log('modifyAddress');
-
     dispatch(selectShoppingAddress(data));
     Taro.navigateTo({
       url: addShoppingAddressPath({ type: EPageType.UPDATE }),
@@ -124,6 +118,25 @@ const AddressList = () => {
           </View>
         </AtSwipeAction>
       ))}
+      {!data.length && (
+        <AtDivider content="暂无记录" fontColor="#e93b3d" lineColor="#e93b3d" />
+      )}
+      <View className={styles['add-address-wrapper']}>
+        <AtButton
+          className={styles['add-address']}
+          type="primary"
+          full
+          onClick={() => {
+            Taro.navigateTo({
+              url: addShoppingAddressPath({
+                type: EPageType.ADD,
+              }),
+            });
+          }}
+        >
+          添加收货地址
+        </AtButton>
+      </View>
     </View>
   );
 };

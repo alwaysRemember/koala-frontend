@@ -1,9 +1,8 @@
 @import '../../common/css/custom-theme.scss';
 .address-list {
   box-sizing: border-box;
-  padding: 0 30px;
   .address-item {
-    padding: 24px 0;
+    padding: 24px 30px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -43,5 +42,11 @@
       font-size: 32px;
       text-align: center;
     }
+  }
+  .add-address-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 92px;
   }
 }
