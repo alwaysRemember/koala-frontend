@@ -4,13 +4,14 @@ import { AtSwipeAction, AtDivider, AtButton } from 'taro-ui';
 import { View, Text } from '@tarojs/components';
 import styles from './index.module.scss';
 import { IAddressItem, IAddressListPathParams } from './interface';
-import { getShoppingAddressList } from '../../api';
+import { deleteShoppingAddress, getShoppingAddressList } from '../../api';
 import { EAddressListPathSource } from './enums';
 import { setClassName } from '../../utils';
 import { useDispatch } from 'redux-react-hook';
 import { selectShoppingAddress } from '../../store/actions';
 import { addShoppingAddressPath } from '../../router';
 import { EPageType } from '../AddShoppingAddress/enums';
+import { showToast } from '../../utils/wxUtils';
 
 const AddressList = () => {
   const {
@@ -19,7 +20,7 @@ const AddressList = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState<Array<IAddressItem>>([]);
 
-  const [addressItemOpenedId, setAddressItemOpenedId] = useState<number>();
+  const [addressItemOpenedId, setAddressItemOpenedId] = useState<number>(); // 当前滑动打开的地址操作栏id
 
   const getData = async () => {
     try {
@@ -32,17 +33,25 @@ const AddressList = () => {
    * 地址点击
    * @param id
    */
-  const addressClick = (id: number) => {
+  const addressClick = (data: IAddressItem) => {
     if (source !== EAddressListPathSource.ORDER_CONFIRM) return;
+    dispatch(selectShoppingAddress(data));
+    Taro.navigateBack();
   };
 
   /**
    * 滑动操作栏点击
-   * @param index
+   * @param index 0 删除
+   * @param id
    */
-  const actionClick = (index: number) => {
+  const actionClick = async (index: number, { id }: IAddressItem) => {
     // 删除
     if (index === 0) {
+      await deleteShoppingAddress({ id });
+      await showToast({
+        title: '删除成功',
+      });
+      getData();
     }
   };
 
@@ -72,7 +81,7 @@ const AddressList = () => {
       {data.map((item) => (
         <AtSwipeAction
           onClick={(_, index) => {
-            actionClick(index);
+            actionClick(index, item);
           }}
           isOpened={item.id === addressItemOpenedId}
           autoClose
@@ -89,7 +98,7 @@ const AddressList = () => {
         >
           <View
             className={styles['address-item']}
-            onClick={() => addressClick(item.id)}
+            onClick={() => addressClick(item)}
           >
             <View className={styles['info']}>
               <Text className={styles['info-top']}>

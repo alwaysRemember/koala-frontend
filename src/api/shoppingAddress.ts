@@ -22,3 +22,14 @@ export const getShoppingAddressList = () =>
     url: `${BASE}/get-shopping-address-list`,
     method: 'GET',
   });
+
+/**
+ * 删除收货地址
+ * @param params
+ */
+export const deleteShoppingAddress = (params: { id: number }) =>
+  request({
+    url: `${BASE}/delete-shopping-address`,
+    method: 'POST',
+    params,
+  });
