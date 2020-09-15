@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Taro, { useRouter } from '@tarojs/taro';
+import Taro, { useDidHide, useRouter } from '@tarojs/taro';
 import { AtInput, AtListItem, AtTextarea, AtButton, AtSwitch } from 'taro-ui';
 import { View, Picker } from '@tarojs/components';
 import styles from './index.module.scss';
-import { IAddShoppingAddressPathParams, ICityDataItem } from './interface';
+import {
+  IAddShoppingAddressParams,
+  IAddShoppingAddressPathParams,
+  ICityDataItem,
+} from './interface';
 import { EPageType } from './enums';
 import { PickerMultiSelectorProps } from '_@tarojs_components@3.0.8@@tarojs/components/types/Picker';
 import { checkPhone } from '../../utils';
@@ -11,10 +15,15 @@ import { showToast } from '../../utils/wxUtils';
 import city from '../../common/json/city.json';
 import { addShoppingAddress } from '../../api';
 import { EToastIcon } from '../../enums/EWXUtils';
+import { useDispatch, useMappedState } from 'redux-react-hook';
+import { IReducers } from 'src/store/reducers/interface';
+import { selectShoppingAddress } from '../../store/actions';
 const AddShoppingAddress = () => {
   const {
     params: { type = EPageType.ADD },
   } = useRouter<IAddShoppingAddressPathParams>();
+  const { shoppingAddress } = useMappedState<IReducers>((state) => state);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
@@ -23,8 +32,6 @@ const AddShoppingAddress = () => {
   const [isDefaultSelection, setIsDefaultSelection] = useState<boolean>(false); // 是否默认选择
 
   const [cityIndexList, setCityIndexList] = useState<Array<number>>([]);
-
-  const [cityData] = useState<Array<ICityDataItem>>(city.data); // 地区数据
 
   const [pickerData, setPickerData] = useState<Array<Array<ICityDataItem>>>([
     [],
@@ -76,13 +83,17 @@ const AddShoppingAddress = () => {
    */
   const submit = async () => {
     try {
-      await addShoppingAddress({
+      const params: IAddShoppingAddressParams = {
         name,
         phone,
         area,
         address,
         isDefaultSelection,
-      });
+      };
+      if (type === EPageType.UPDATE && shoppingAddress) {
+        params.id = shoppingAddress.id;
+      }
+      await addShoppingAddress(params);
       await showToast({
         title: '新增成功',
         icon: EToastIcon.SUCCESS,
@@ -91,23 +102,74 @@ const AddShoppingAddress = () => {
     } catch (e) {}
   };
 
-  // 监听获取的数据，设置默认的选择数据 [[0],[0],[0]]
-  useEffect(() => {
-    setPickerData((prev) => {
-      const list = JSON.parse(JSON.stringify(prev));
-      const parentData = cityData[0]?.children || [];
-      list[0] = cityData;
-      list[1] = parentData;
-      list[2] = parentData[0]?.children || [];
-      return list;
+  /**
+   * 根据redux中的area数据设置picker选择index
+   * @param area
+   */
+  const _setCityIndexToArea = (area: Array<string>) => {
+    let num: number = 0; // 当前遍历到的省市区数组下标位置
+    const resultList: Array<{ index: number; list: Array<ICityDataItem> }> = []; // 最终结果
+    const indexList: Array<number> = [];
+    const cityList: Array<Array<ICityDataItem>> = [];
+    /**
+     * 查询当前的地区所在下标
+     * @param arr  当前数组数据
+     * @param value 当前地区
+     */
+    const findIndex = (arr: Array<ICityDataItem>, value: string) => {
+      let index: number = 0;
+      const result = arr.find((item, i) => {
+        if (item.value === value) {
+          index = i;
+          num++;
+        }
+        return item.value === value;
+      });
+      if (result) {
+        resultList.push({ index, list: arr });
+      }
+      if (result?.children.length) {
+        findIndex(result.children, area[num]);
+      }
+    };
+
+    findIndex(city.data, area[num]);
+    resultList.forEach(({ index, list }) => {
+      indexList.push(index);
+      cityList.push(list);
     });
-  }, [cityData]);
+    setPickerData(cityList);
+    setCityIndexList(indexList);
+  };
+
+  // 判断是否为编辑模式
+  useEffect(() => {
+    if (type !== EPageType.UPDATE) {
+      // 设置默认选择第一组城市数据
+      setPickerData((prev) => {
+        const list = JSON.parse(JSON.stringify(prev));
+        const parentData = city.data[0]?.children || [];
+        list[0] = city.data;
+        list[1] = parentData;
+        list[2] = parentData[0]?.children || [];
+        return list;
+      });
+      return;
+    }
+    if (!shoppingAddress) return;
+    const { name, phone, isDefaultSelection, area, address } = shoppingAddress;
+    setName(name);
+    setPhone(phone);
+    setAddress(address);
+    setIsDefaultSelection(isDefaultSelection);
+    _setCityIndexToArea(area);
+  }, []);
 
   // 监听最终选择的地区picker
   useEffect(() => {
     const list: Array<string> = [];
     cityIndexList.forEach((index, i) => {
-      list.push(pickerData[i][index].value);
+      list.push(pickerData[i][index].value || '');
     });
     setArea(list);
   }, [cityIndexList]);
@@ -133,6 +195,11 @@ const AddShoppingAddress = () => {
   useEffect(() => {
     setDisable(!name || !checkPhone(phone) || !area.length || !address);
   }, [name, phone, area, address]);
+
+  useDidHide(() => {
+    // 清空redux地址数据
+    dispatch(selectShoppingAddress(null));
+  });
 
   return (
     <View className={styles['add-shopping-address-wrapper']}>

@@ -21,6 +21,10 @@
   }
   .image {
     width: 100%;
+    &.error {
+      width: 0;
+      height: 0;
+    }
   }
   @keyframes loading-move {
     from {

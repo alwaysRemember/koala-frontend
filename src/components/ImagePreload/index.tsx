@@ -40,12 +40,14 @@ const ImagePreload = ({
           )}
         </View>
       )}
-
       <Image
         src={src}
         mode="widthFix"
         lazyLoad
-        className={styles['image']}
+        className={setClassName([
+          styles['image'],
+          isError ? styles['error'] : '',
+        ])}
         style={{
           borderRadius: pxTransform(borderRadius),
         }}

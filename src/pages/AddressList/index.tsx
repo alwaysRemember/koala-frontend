@@ -7,11 +7,16 @@ import { IAddressItem, IAddressListPathParams } from './interface';
 import { getShoppingAddressList } from '../../api';
 import { EAddressListPathSource } from './enums';
 import { setClassName } from '../../utils';
+import { useDispatch } from 'redux-react-hook';
+import { selectShoppingAddress } from '../../store/actions';
+import { addShoppingAddressPath } from '../../router';
+import { EPageType } from '../AddShoppingAddress/enums';
 
 const AddressList = () => {
   const {
     params: { source = EAddressListPathSource.USER_CENTER },
   } = useRouter<IAddressListPathParams>();
+  const dispatch = useDispatch();
   const [data, setData] = useState<Array<IAddressItem>>([]);
 
   const [addressItemOpenedId, setAddressItemOpenedId] = useState<number>();
@@ -28,6 +33,8 @@ const AddressList = () => {
    * @param id
    */
   const addressClick = (id: number) => {
+    console.log('addressClick');
+
     if (source !== EAddressListPathSource.ORDER_CONFIRM) return;
   };
 
@@ -36,9 +43,24 @@ const AddressList = () => {
    * @param index
    */
   const actionClick = (index: number) => {
+    console.log('actionClick');
+
     // 删除
     if (index === 0) {
     }
+  };
+
+  /**
+   * 修改收货地址数据
+   * @param data
+   */
+  const modifyAddress = (data: IAddressItem) => {
+    console.log('modifyAddress');
+
+    dispatch(selectShoppingAddress(data));
+    Taro.navigateTo({
+      url: addShoppingAddressPath({ type: EPageType.UPDATE }),
+    });
   };
 
   useDidShow(() => {
@@ -53,14 +75,14 @@ const AddressList = () => {
 
   return (
     <View className={styles['address-list']}>
-      {data.map(({ id, name, phone, address, isDefaultSelection, area }) => (
+      {data.map((item) => (
         <AtSwipeAction
           onClick={(_, index) => {
             actionClick(index);
           }}
-          isOpened={id === addressItemOpenedId}
+          isOpened={item.id === addressItemOpenedId}
           autoClose
-          key={id}
+          key={item.id}
           options={[
             {
               text: '删除',
@@ -69,23 +91,23 @@ const AddressList = () => {
               },
             },
           ]}
-          onOpened={() => setAddressItemOpenedId(id)}
+          onOpened={() => setAddressItemOpenedId(item.id)}
         >
           <View
             className={styles['address-item']}
-            onClick={() => addressClick(id)}
+            onClick={() => addressClick(item.id)}
           >
             <View className={styles['info']}>
               <Text className={styles['info-top']}>
                 <Text className={styles['name-and-phone']}>
-                  {name} &nbsp; {phone}
+                  {item.name} &nbsp; {item.phone}
                 </Text>
-                {isDefaultSelection && (
+                {item.isDefaultSelection && (
                   <Text className={styles['default-selection']}>默认</Text>
                 )}
               </Text>
               <Text className={styles['address']}>
-                {area.join(' ')} {address}
+                {item.area.join(' ')} {item.address}
               </Text>
             </View>
             <View
@@ -94,6 +116,10 @@ const AddressList = () => {
                 'at-icon-settings',
                 styles['setting'],
               ])}
+              onClick={(e) => {
+                e.stopPropagation();
+                modifyAddress(item);
+              }}
             />
           </View>
         </AtSwipeAction>
