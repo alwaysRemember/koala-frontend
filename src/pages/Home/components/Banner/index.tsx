@@ -1,9 +1,10 @@
-import React from "react";
-import { Swiper, SwiperItem, Image } from "@tarojs/components";
-import { IBannerItem } from "../../interface";
-import styles from "./index.module.scss";
-import { EBannerTypeEnum } from "./enums";
-import { productDetailPath } from "../../../../router";
+import React from 'react';
+import { Swiper, SwiperItem, Image, View } from '@tarojs/components';
+import { IBannerItem } from '../../interface';
+import styles from './index.module.scss';
+import { EBannerTypeEnum } from './enums';
+import { productDetailPath } from '../../../../router';
+import ImagePreload from '../../../../components/ImagePreload';
 
 const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
   /**
@@ -17,17 +18,17 @@ const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
         url = productDetailPath({ productId: productId as string });
         break;
       default:
-        url = "";
+        url = '';
     }
     if (!url) return;
-    
+
     Taro.navigateTo({
-      url
+      url,
     });
   };
   return (
     <Swiper
-      className={styles["banner-wrapper"]}
+      className={styles['banner-wrapper']}
       indicatorDots
       circular
       autoplay
@@ -37,12 +38,18 @@ const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
     >
       {bannerList &&
         bannerList.map((data: IBannerItem) => (
-          <SwiperItem key={data.id} className={styles["banner-item"]}>
-            <Image
-              src={data.imgUrl}
-              className={styles["banner-img"]}
+          <SwiperItem key={data.id} className={styles['banner-item']}>
+            <View
+              className={styles['banner-img']}
               onClick={() => bannerClick(data)}
-            />
+            >
+              <ImagePreload width={750} height={340} src={data.imgUrl} />
+            </View>
+            {/* <Image
+              src={data.imgUrl}
+              className={styles['banner-img']}
+              onClick={() => bannerClick(data)}
+            /> */}
           </SwiperItem>
         ))}
     </Swiper>
