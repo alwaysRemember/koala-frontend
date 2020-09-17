@@ -8,7 +8,7 @@ import {
   IAddShoppingAddressPathParams,
   ICityDataItem,
 } from './interface';
-import { EPageType } from './enums';
+import { EPageSource, EPageType } from './enums';
 import { PickerMultiSelectorProps } from '_@tarojs_components@3.0.8@@tarojs/components/types/Picker';
 import { checkPhone } from '../../utils';
 import { showToast } from '../../utils/wxUtils';
@@ -20,7 +20,7 @@ import { IReducers } from 'src/store/reducers/interface';
 import { selectShoppingAddress } from '../../store/actions';
 const AddShoppingAddress = () => {
   const {
-    params: { type = EPageType.ADD },
+    params: { type = EPageType.ADD, source = EPageSource.ADDRESS_LIST },
   } = useRouter<IAddShoppingAddressPathParams>();
   const { shoppingAddress } = useMappedState<IReducers>((state) => state);
   const dispatch = useDispatch();
@@ -93,9 +93,13 @@ const AddShoppingAddress = () => {
       if (type === EPageType.UPDATE && shoppingAddress) {
         params.id = shoppingAddress.id;
       }
-      await addShoppingAddress(params);
+      const data = await addShoppingAddress(params);
+      //  如果来源为订单确认页面，则需要存入redux
+      if (source === EPageSource.ORDER_CONFIRM) {
+        dispatch(selectShoppingAddress(data));
+      }
       await showToast({
-        title: '新增成功',
+        title: type === EPageType.ADD ? '新增成功' : '修改成功',
         icon: EToastIcon.SUCCESS,
       });
       Taro.navigateBack();
@@ -197,8 +201,10 @@ const AddShoppingAddress = () => {
   }, [name, phone, area, address]);
 
   useDidHide(() => {
-    // 清空redux地址数据
-    dispatch(selectShoppingAddress(null));
+    // 如果页面来源不是订单确认页面 清空redux地址数据
+    if (source === EPageSource.ORDER_CONFIRM) {
+      dispatch(selectShoppingAddress(null));
+    }
   });
 
   return (

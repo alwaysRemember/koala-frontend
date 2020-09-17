@@ -7,9 +7,9 @@
  */
 export default {
   pages: [
+    'pages/Global/index',
     'pages/OrderConfirm/index',
     'pages/AddressList/index',
-    'pages/Global/index',
     'pages/AddShoppingAddress/index',
     'pages/ProductDetail/index',
     'pages/SearchPage/index',

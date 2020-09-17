@@ -9,7 +9,7 @@ import {
   IProductConfigModuleItem,
   IProductConfigModuleOption,
 } from '../../interface';
-import { setClassName } from '../../../../utils';
+import { setClassName, transferAmount } from '../../../../utils';
 import { showToast } from '../../../../utils/wxUtils';
 const SelectProductConfig = ({
   productShowAmount,
@@ -122,12 +122,13 @@ const SelectProductConfig = ({
   useEffect(() => {
     selectProductConfigOptionList.length &&
       setAmount(
-        selectProductConfigOptionList
-          .reduce((prev, current) => {
+        transferAmount(
+          selectProductConfigOptionList.reduce<number>((prev, current) => {
             prev += current.amount;
             return prev;
-          }, data.productAmount)
-          .toFixed(2),
+          }, data.productAmount),
+          'yuan',
+        ) as string,
       );
     selectProductConfigListChange(selectProductConfigOptionList);
   }, [selectProductConfigOptionList]);
@@ -152,7 +153,7 @@ const SelectProductConfig = ({
           </View>
           <View className={styles['product-info']}>
             <Text className={styles['amount']}>¥ {amount}</Text>
-            <Text className={styles['inventory']}>库存: --</Text>
+            <Text className={styles['inventory']}>库存: 充足</Text>
             <Text className={styles['selected']}>
               {!!selectProductConfigOptionList.length ? '已选: ' : '请选择:'}
               {!selectProductConfigOptionList.length &&

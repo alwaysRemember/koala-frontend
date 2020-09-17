@@ -1,8 +1,9 @@
+import { IAddressItem } from '../AddressList/interface';
 /*
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-09 17:28:13
- * @LastEditTime: 2020-09-15 18:05:30
+ * @LastEditTime: 2020-09-17 17:59:43
  * @FilePath: /koala-frontend/src/pages/OrderConfirm/interface.ts
  */
 
@@ -19,6 +20,10 @@ export interface IOrderConfirmDefaultParams {
   productShipping: number; //运费
 }
 
+export interface IBuyProductItem extends IOrderConfirmDefaultParams {
+  remarks: string;
+}
+
 /**
  * 下单接口所需参数
  */
@@ -29,8 +34,16 @@ export interface IBuyProductParams {
 /**
  * 下单产品参数
  */
-export interface IBuyProductItem {
+export interface IOrderItem {
   productId: string;
   buyQuantity: number; // 购买数量
   selectProductConfigList: Array<number>;
+}
+
+/**
+ * 获取默认收货地址接口response
+ */
+export interface IGetDefaultShoppingAddressResponse {
+  defaultAddress: IAddressItem;
+  addressLength: number;
 }
