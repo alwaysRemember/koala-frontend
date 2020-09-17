@@ -21,8 +21,8 @@ import ProductContent from './components/ProductContent';
 import SelectProductConfig from './components/SelectProductConfig';
 import { ISelectProductConfigRef } from './components/SelectProductConfig/interface';
 import { useDispatch } from 'redux-react-hook';
-import { updateOrderConfirmDefaultParams } from '../../store/actions';
 import { orderConfirmPath } from '../../router';
+import { updateOrderConfirmProductList } from '../../store/actions';
 const ProductDetail = () => {
   let { params, path } = useRouter<IProductDetailPathParams>();
   const productId = params.productId;
@@ -98,7 +98,7 @@ const ProductDetail = () => {
    */
   const buyNow = (type: 'page' | 'modal' = 'page') => {
     // 需要选择配置的情况 判断是否选择了配置
-    if (productConfigList.length && !selectProductConfigList?.length) {
+    if (productConfigList.length && !selectProductConfigList.length) {
       // 判断是否在主页调用的method
       if (type === 'page') {
         selectProductConfigRef.current.changeShow(true);
@@ -114,14 +114,17 @@ const ProductDetail = () => {
 
     // 存储下单数据
     dispatch(
-      updateOrderConfirmDefaultParams({
-        productId,
-        productAmount: data.productAmount,
-        selectProductConfigList: selectProductConfigList?.length
-          ? selectProductConfigList
-          : undefined,
-        buyQuantity: selectProductConfigRef.current.getBuyQuantity(),
-      }),
+      updateOrderConfirmProductList([
+        {
+          productId,
+          productAmount: data.productAmount,
+          selectProductConfigList: selectProductConfigList,
+          buyQuantity: selectProductConfigRef.current.getBuyQuantity(),
+          productShipping: data.productShipping,
+          productMainImg: data.productMainImg,
+          productName: data.productName,
+        },
+      ]),
     );
     // 在选择配置modal中下单则需要在跳转前关闭modal
     if (type === 'modal') {

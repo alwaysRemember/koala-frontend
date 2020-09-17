@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-09-04 16:47:10
+ * @LastEditTime: 2020-09-17 14:32:49
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from '@tarojs/taro';
@@ -12,7 +12,7 @@ import { showToast } from '../utils/wxUtils';
 import store from '../store';
 
 const mockUrl = 'http://192.168.50.199:3721';
-const serverTestUrl = 'http://yaer.guyubao.com';
+const serverTestUrl = 'http://thj.guyubao.com';
 
 const host =
   process.env.NODE_ENV === 'development' ? serverTestUrl : serverTestUrl;
