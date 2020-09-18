@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { AtList, AtListItem, AtInput } from 'taro-ui';
+import React, { useEffect, useMemo, useState } from 'react';
+import { AtList, AtListItem, AtInput, AtButton } from 'taro-ui';
 import Taro, { useDidShow } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 import { useMappedState } from 'redux-react-hook';
@@ -30,6 +30,8 @@ const OrderConfirm = () => {
   ); // 购买的产品数据
 
   const [shoppingAddressLength, setShoppingAddressLength] = useState<number>(); // 当前用户收货地址条数
+
+  const [totalAmount, setTotalAmount] = useState<number>(0); // 总付款金额
 
   // 获取默认收货地址
   const getDefaultAddress = async () => {
@@ -73,6 +75,32 @@ const OrderConfirm = () => {
     }
     getDefaultAddress();
   });
+
+  useEffect(() => {
+    const { orderConfirmProductList } = state;
+    const totalAmount: number = orderConfirmProductList.reduce<number>(
+      (
+        prev,
+        {
+          productAmount,
+          productShipping,
+          selectProductConfigList,
+          buyQuantity,
+        },
+      ) => {
+        // 单个商品金额为: (商品基础价格+选择的配置价格)*商品数量+商品运费
+        return (prev +=
+          selectProductConfigList.reduce<number>(
+            (prev, current) => (prev += current.amount),
+            productAmount,
+          ) *
+            buyQuantity +
+          productShipping);
+      },
+      0,
+    );
+    setTotalAmount(totalAmount);
+  }, [state]);
   return (
     <View className={styles['order-confirm-wrapper']}>
       {/* 收货地址 */}
@@ -119,6 +147,20 @@ const OrderConfirm = () => {
             }}
           />
         ))}
+      </View>
+      {/* footer pay */}
+      <View className={styles['pay-wrapper']}>
+        <View className={styles['pay-con']}>
+          <View className={styles['total-amount-wrapper']}>
+            <Text className={styles['label']}>订单金额:</Text>
+            <Text className={styles['total-amount']}>
+              ¥{transferAmount(totalAmount, 'yuan')}
+            </Text>
+          </View>
+          <AtButton className={styles['pay-now-btn']} type="primary">
+            立即支付
+          </AtButton>
+        </View>
       </View>
     </View>
   );

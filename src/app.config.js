@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:29:54
- * @LastEditTime: 2020-09-17 14:35:19
+ * @LastEditTime: 2020-09-18 14:56:42
  * @FilePath: /koala-frontend/src/app.config.js
  */
 export default {
