@@ -158,6 +158,7 @@ const AddShoppingAddress = () => {
         list[2] = parentData[0]?.children || [];
         return list;
       });
+      setCityIndexList([0, 0, 0]);
       return;
     }
     if (!shoppingAddress) return;
@@ -173,7 +174,7 @@ const AddShoppingAddress = () => {
   useEffect(() => {
     const list: Array<string> = [];
     cityIndexList.forEach((index, i) => {
-      list.push(pickerData[i][index].value || '');
+      list.push(pickerData[i][index]?.value || '');
     });
     setArea(list);
   }, [cityIndexList]);
