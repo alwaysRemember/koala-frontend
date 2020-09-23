@@ -5,14 +5,16 @@ import { View, Text } from '@tarojs/components';
 import { useMappedState } from 'redux-react-hook';
 import { IReducers } from '../../store/reducers/interface';
 import { IAddressItem } from '../AddressList/interface';
-import { getDefaultShoppingAddress } from '../../api';
+import { createOrder, getDefaultShoppingAddress } from '../../api';
 import styles from './index.module.scss';
 import { setClassName, transferAmount } from '../../utils';
 import { addressListPath, addShoppingAddressPath } from '../../router';
 import { EAddressListPathSource } from '../AddressList/enums';
 import { EPageSource, EPageType } from '../AddShoppingAddress/enums';
 import ImagePreload from '../../components/ImagePreload';
-import { IBuyProductItem } from './interface';
+import { IBuyProductItem, ICreateOrderParams } from './interface';
+import { showToast, wxPay } from '../../utils/wxUtils';
+import { EToastIcon } from 'src/enums/EWXUtils';
 
 const OrderConfirm = () => {
   const state = useMappedState<IReducers>((state) => state);
@@ -67,6 +69,41 @@ const OrderConfirm = () => {
     Taro.navigateTo({
       url,
     });
+  };
+
+  // 立即支付
+  const payNow = async () => {
+    if (!selectShoppingAddress) {
+      showToast({
+        title: '请选择收货地址',
+      });
+      return;
+    }
+    const params: ICreateOrderParams = {
+      buyProductList: buyProductList.map(
+        ({ productId, buyQuantity, remarks, selectProductConfigList }) => ({
+          productId,
+          buyQuantity,
+          remarks,
+          selectProductConfigList: selectProductConfigList.map((d) => d.id),
+        }),
+      ),
+      addressId: selectShoppingAddress.id,
+    };
+    try {
+      const data = await createOrder(params);
+      try {
+        await wxPay(data);
+        await showToast({
+          icon: EToastIcon.SUCCESS,
+          title: '支付成功',
+        });
+      } catch (e) {
+        showToast({
+          title: '微信支付失败，请稍后重试',
+        });
+      }
+    } catch (e) {}
   };
 
   useDidShow(() => {
@@ -157,7 +194,11 @@ const OrderConfirm = () => {
               ¥{transferAmount(totalAmount, 'yuan')}
             </Text>
           </View>
-          <AtButton className={styles['pay-now-btn']} type="primary">
+          <AtButton
+            className={styles['pay-now-btn']}
+            type="primary"
+            onClick={payNow}
+          >
             立即支付
           </AtButton>
         </View>

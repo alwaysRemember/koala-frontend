@@ -3,7 +3,7 @@ import { IAddressItem } from '../AddressList/interface';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-09 17:28:13
- * @LastEditTime: 2020-09-17 17:59:43
+ * @LastEditTime: 2020-09-23 12:24:28
  * @FilePath: /koala-frontend/src/pages/OrderConfirm/interface.ts
  */
 
@@ -27,8 +27,9 @@ export interface IBuyProductItem extends IOrderConfirmDefaultParams {
 /**
  * 下单接口所需参数
  */
-export interface IBuyProductParams {
-  buyProductList: Array<IBuyProductItem>;
+export interface ICreateOrderParams {
+  buyProductList: Array<IOrderItem>;
+  addressId: number;
 }
 
 /**
@@ -38,6 +39,7 @@ export interface IOrderItem {
   productId: string;
   buyQuantity: number; // 购买数量
   selectProductConfigList: Array<number>;
+  remarks: string;
 }
 
 /**
@@ -46,4 +48,11 @@ export interface IOrderItem {
 export interface IGetDefaultShoppingAddressResponse {
   defaultAddress: IAddressItem;
   addressLength: number;
+}
+
+export interface ICreateOrderResponse {
+  timeStamp: string;
+  nonceStr: string;
+  package: string;
+  paySign: string;
 }
