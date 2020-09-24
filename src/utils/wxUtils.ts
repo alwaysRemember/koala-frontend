@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-24 21:31:22
- * @LastEditTime: 2020-09-23 14:41:37
+ * @LastEditTime: 2020-09-24 14:09:39
  * @FilePath: /koala-frontend/src/utils/wxUtils.ts
  */
 import Taro from '@tarojs/taro';
@@ -45,15 +45,15 @@ export const wxPay = ({
   timeStamp,
   nonceStr,
 }: ICreateOrderResponse): Promise<null> => {
-  return new Promise((res, rej) => {
-    Taro.requestPayment({
+  return new Promise(async (res, rej) => {
+    await Taro.requestPayment({
       package: pk,
       paySign,
       timeStamp,
       nonceStr,
       signType: 'MD5',
-      fail() {
-        rej();
+      fail(data) {
+        rej(data);
       },
       success() {
         res();
