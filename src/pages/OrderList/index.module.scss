@@ -1,0 +1,11 @@
+.order-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  .search-product-wrapper {
+    height: 84px;
+  }
+  .order-list-tabs-wrapper {
+    flex: 1;
+  }
+}
