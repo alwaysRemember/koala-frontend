@@ -1,0 +1,122 @@
+@import '../../../../common/css/custom-theme.scss';
+$groupM: 10px;
+.order-item-wrapper {
+  padding: 20px;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 30px;
+  border-radius: 14px;
+  &:first-child {
+    margin-top: 30px;
+  }
+  .order-id {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 100%;
+    margin-bottom: $groupM;
+    .info {
+      flex: 1;
+      text-align: left;
+      margin-right: $groupM;
+      .label,
+      .value {
+        font-size: 24px;
+      }
+    }
+    .copy {
+      width: 32px;
+      text-align: center;
+    }
+  }
+  .order-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: $groupM;
+    .order-amount {
+      flex: 1;
+      margin-right: $groupM;
+      .label,
+      .value {
+        font-size: 24px;
+      }
+      .value {
+        font-weight: bold;
+        color: $color-brand;
+      }
+    }
+    .order-type {
+      font-size: 24px;
+      color: $color-brand;
+    }
+  }
+  .product-list {
+    margin-bottom: $groupM;
+    .product-item {
+      display: flex;
+      flex-direction: row;
+      .img {
+        width: 180px;
+        height: 180px;
+        border-radius: 14px;
+        margin-right: $groupM;
+      }
+      .product-info {
+        flex: 1;
+        .product-name {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          font-size: 28px;
+        }
+        .config-and-quantity {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .config {
+            color: #333;
+            font-size: 26px;
+            line-height: 30px;
+            margin-right: $groupM;
+          }
+          .quantity {
+            font-size: 26px;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+  }
+  .btn-wrappr {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    .btn {
+      font-size: 22px;
+      padding: 0 $groupM;
+      line-height: 38px;
+      height: 40px;
+      margin: 0;
+      margin-left: $groupM;
+      &.payment,
+      &.confirm-receipt,
+      &.comment {
+        color: $color-brand;
+        border-color: $color-brand;
+      }
+      &.view-logitics {
+        color: #333;
+        border-color: #666;
+      }
+      &.cancel-order,
+      &.return-of-goods {
+        color: rgb(122, 122, 122);
+        border-color: rgb(122, 122, 122);
+      }
+    }
+  }
+}

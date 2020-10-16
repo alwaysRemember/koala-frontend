@@ -4,22 +4,27 @@ import { EOrderType } from 'src/enums/EOrder';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-15 14:19:51
- * @LastEditTime: 2020-10-15 15:00:25
+ * @LastEditTime: 2020-10-16 16:57:52
  * @FilePath: /koala-frontend/src/pages/OrderList/interface.ts
  */
-export type TDeafultTabKey = 'ALL';
+export enum EDeafultTabKey {
+  ALL = 'ALL',
+}
 
+export interface IOrderListPathParams extends Partial<Record<string, string>> {
+  type: EOrderType | EDeafultTabKey;
+}
 export interface ITabDataItem {
-  key: EOrderType | TDeafultTabKey;
+  key: EOrderType | EDeafultTabKey;
   title: string;
   page: number;
+  total: number;
   list: Array<IOrderDataItem>;
 }
 
 export interface IGetOrderListRequestParams {
   page: number;
-  orderType: EOrderType;
-  searchProductName?: string;
+  orderType: EOrderType | EDeafultTabKey;
 }
 
 export interface IGetOrderListResponse {
@@ -32,6 +37,7 @@ export interface IOrderDataItem {
   orderType: EOrderType;
   amount: number;
   productList: Array<IProductItem>;
+  updateTime: Date;
 }
 
 export interface IProductItem {
@@ -40,5 +46,5 @@ export interface IProductItem {
   name: string;
   amount: string;
   buyQuantity: number;
-  productConfig: Array<string>;
+  productConfigList: Array<string>;
 }
