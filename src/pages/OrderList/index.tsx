@@ -1,6 +1,6 @@
 import { View, ScrollView } from '@tarojs/components';
 import Taro, { useRouter } from '@tarojs/taro';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getOrderList } from '../../api';
 import {
   AtTabs,
@@ -68,8 +68,8 @@ const OrderList = () => {
   const [isShowPageDataEnd, setIsShowPageDataEnd] = useState<boolean>(false); // 是否显示数据请求完毕
   const [isShowScrollMsg, setIsShowScrollMsg] = useState<boolean>(false); // 是否显示分页滚动提示
   const [isGetData, setIsGetData] = useState<boolean>(false); // 是否正在请求数据
-  const [scrollTop, setScrollTop] = useState<number>(0); // 滚动高度
-  // TODO 监听scroll事件，以防抖函数赋值，（或者使用useRef进行数据存储）
+  const scrollTop = useRef<number>(0); // 滚动高度
+  const scrollTimed = useRef<NodeJS.Timeout>(); // scroll方法监听
 
   /**
    *
@@ -116,7 +116,6 @@ const OrderList = () => {
     const { page, key, total } = tabData[currentTab];
     const p = page + 1;
     if (p > total) {
-      // TODO show end
       return;
     }
     setIsShowScrollMsg(true);
@@ -151,6 +150,7 @@ const OrderList = () => {
           tabList={tabData.map(({ title }) => ({ title }))}
           onClick={(index: number) => {
             setCurrentTab(index);
+            scrollTop.current = 0;
           }}
         >
           {tabData.map((item, index) => (
@@ -165,7 +165,13 @@ const OrderList = () => {
                 enableBackToTop
                 scrollY
                 onScrollToLower={scroll}
-                scrollTop={scrollTop}
+                scrollTop={scrollTop.current}
+                onScroll={({ detail: { scrollTop: top } }) => {
+                  scrollTimed.current && clearTimeout(scrollTimed.current);
+                  scrollTimed.current = setTimeout(() => {
+                    scrollTop.current = top;
+                  }, 500);
+                }}
               >
                 <View className={styles['order-list-con']}>
                   {item.list.map((data) => (
