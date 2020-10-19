@@ -6,6 +6,9 @@ $groupM: 10px;
   background: #fff;
   margin-bottom: 30px;
   border-radius: 14px;
+  &:last-child {
+    margin-bottom: 0;
+  }
   .order-id {
     display: flex;
     flex-direction: row;

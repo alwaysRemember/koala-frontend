@@ -9,8 +9,8 @@
     "css": "sass"
   },
   "scripts": {
-    "build:weapp": "taro build --type weapp",
-    "dev:weapp": " taro build --type weapp --watch",
+    "build:weapp": "NODE_ENV=production taro build --type weapp",
+    "dev:weapp": "taro build --type weapp --watch",
     "mock": "mocker ./mock"
   },
   "author": "always",

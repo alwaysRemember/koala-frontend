@@ -11,7 +11,7 @@ import { IGetOrderListAccordingToPayOrderId } from 'src/pages/PaymentResult/inte
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-15 15:07:02
+ * @LastEditTime: 2020-10-19 18:43:57
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import { request } from '../request';
@@ -45,10 +45,15 @@ export const getOrderListAccordingToPayOrderId = (params: {
 /**
  * 获取订单列表
  * @param params
+ * @param isShowLoading 是否显示loading组件
  */
-export const getOrderList = (params: IGetOrderListRequestParams) =>
+export const getOrderList = (
+  params: IGetOrderListRequestParams,
+  isShowLoading: boolean,
+) =>
   request<IGetOrderListResponse>({
     method: 'POST',
     url: `${BASE}/get-order-list`,
     params,
+    showLoading: isShowLoading,
   });
