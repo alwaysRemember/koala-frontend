@@ -20,35 +20,35 @@ const OrderList = () => {
     {
       title: '全部',
       key: EDeafultTabKey.ALL,
-      page: 1,
+      page: 0,
       total: 1,
       list: [],
     },
     {
       title: '待付款',
       key: EOrderType.PENDING_PAYMENT,
-      page: 1,
+      page: 0,
       total: 1,
       list: [],
     },
     {
       title: '待发货',
       key: EOrderType.TO_BE_DELIVERED,
-      page: 1,
+      page: 0,
       total: 1,
       list: [],
     },
     {
       title: '待收货',
       key: EOrderType.TO_BE_RECEIVED,
-      page: 1,
+      page: 0,
       total: 1,
       list: [],
     },
     {
       title: '待评价',
       key: EOrderType.COMMENT,
-      page: 1,
+      page: 0,
       total: 1,
       list: [],
     },
@@ -59,15 +59,10 @@ const OrderList = () => {
     currentTabIndex === -1 ? 0 : currentTabIndex,
   ); // 当前tab
 
-  // 搜索
-  const [searchName, setSearchName] = useState<string>('');
-
-  const searchProduct = () => {
-    // 搜索功能需跳转到tab = 0 ，page = 1， 再进行搜索功能
-  };
   /**
    *
    * @param page 对应tab的page
+   * @param t 获取的订单类型
    */
   const getData = async (
     page: number,
@@ -78,38 +73,29 @@ const OrderList = () => {
         orderType: t,
         page,
       });
-      // page === 1直接赋值对应item的list
       setTabData((prev) => {
         const data: Array<ITabDataItem> = JSON.parse(JSON.stringify(prev));
         data[currentTab].total = total;
         data[currentTab].list =
           page === 1 ? list : data[currentTab].list.concat(list);
-        if (searchName) {
-          data[currentTab].page = 1;
-        } else {
-          data[currentTab].page++;
-        }
+        data[currentTab].page = page;
         return data;
       });
     } catch (e) {}
   };
 
   useEffect(() => {
-    const { page, key } = tabData[currentTab];
-    getData(page, key);
+    getData(1, tabData[currentTab].key);
   }, [currentTab]);
+
   return (
     <View className={styles['order-list-wrapper']}>
       <View className={styles['search-product-wrapper']}>
         <AtSearchBar
           placeholder="输入搜索的商品名称"
-          value={searchName}
+          value=""
           fixed
-          onChange={(value: string) => {
-            setSearchName(value);
-          }}
-          onConfirm={searchProduct}
-          onActionClick={searchProduct}
+          onChange={() => {}}
         />
       </View>
       <View className={styles['order-list-tabs-wrapper']}>

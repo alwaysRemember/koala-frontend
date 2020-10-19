@@ -11,13 +11,13 @@
     color: #333333;
     margin: 0 auto;
     &::after {
-      content: "";
+      content: '';
       width: 60px;
       height: 2px;
       background: #cccccc;
     }
     &::before {
-      content: "";
+      content: '';
       width: 60px;
       height: 2px;
       background: #cccccc;
@@ -49,6 +49,10 @@
       flex-direction: column;
     }
     .prodcut-name {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
       font-size: 32px;
       color: #333;
     }
