@@ -6,15 +6,11 @@ $groupM: 10px;
   background: #fff;
   margin-bottom: 30px;
   border-radius: 14px;
-  &:first-child {
-    margin-top: 30px;
-  }
   .order-id {
     display: flex;
     flex-direction: row;
     text-align: center;
     width: 100%;
-    margin-bottom: $groupM;
     .info {
       flex: 1;
       text-align: left;
