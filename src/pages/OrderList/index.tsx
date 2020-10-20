@@ -1,4 +1,5 @@
-import { View, ScrollView } from '@tarojs/components';
+import { View, ScrollView, Text } from '@tarojs/components';
+import { AtIcon } from 'taro-ui';
 import Taro, { useRouter } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import { getOrderList } from '../../api';
@@ -179,6 +180,7 @@ const OrderList = () => {
                 }}
                 refresherTriggered={refresherTriggered.current}
                 refresherEnabled
+                refresherBackground="#f5f5f5"
                 onRefresherRefresh={() => {
                   refresherTriggered.current = true;
                   getData(1, tabData[currentTab].key, true);
@@ -198,6 +200,19 @@ const OrderList = () => {
                 )}
                 {/* 数据加载中 */}
                 {isShowScrollMsg && <AtLoadMore status="loading" />}
+
+                {/* 无订单 */}
+                {!!(!item.list.length && item.page) && (
+                  <View className={styles['no-order']}>
+                    <AtIcon
+                      prefixClass="icon"
+                      value="qunfengzanwudingdan"
+                      className={styles['no-order-icon']}
+                      size={44}
+                    />
+                    <Text className={styles['msg']}>暂无订单,赶紧下单吧~</Text>
+                  </View>
+                )}
               </ScrollView>
             </AtTabsPane>
           ))}
