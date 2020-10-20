@@ -70,6 +70,7 @@ const OrderList = () => {
   const [isGetData, setIsGetData] = useState<boolean>(false); // 是否正在请求数据
   const scrollTop = useRef<number>(0); // 滚动高度
   const scrollTimed = useRef<NodeJS.Timeout>(); // scroll方法监听
+  const refresherTriggered = useRef<boolean>(false);
 
   /**
    *
@@ -105,8 +106,12 @@ const OrderList = () => {
         setIsShowPageDataEnd(true);
       }
     } catch (e) {}
+    // 重置请求中提示
     isShowScrollMsg && setIsShowScrollMsg(false);
-
+    // 重置下拉刷新控件
+    if (refresherTriggered.current) {
+      refresherTriggered.current = false;
+    }
     setIsGetData(false);
   };
 
@@ -171,6 +176,12 @@ const OrderList = () => {
                   scrollTimed.current = setTimeout(() => {
                     scrollTop.current = top;
                   }, 500);
+                }}
+                refresherTriggered={refresherTriggered.current}
+                refresherEnabled
+                onRefresherRefresh={() => {
+                  refresherTriggered.current = true;
+                  getData(1, tabData[currentTab].key, true);
                 }}
               >
                 <View className={styles['order-list-con']}>
