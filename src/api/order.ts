@@ -1,3 +1,10 @@
+/*
+ * @Author: Always
+ * @LastEditors: Always
+ * @Date: 2020-09-23 12:23:18
+ * @LastEditTime: 2020-10-20 16:23:04
+ * @FilePath: /koala-frontend/src/api/order.ts
+ */
 import {
   ICreateOrderParams,
   ICreateOrderResponse,
@@ -7,13 +14,6 @@ import {
   IGetOrderListResponse,
 } from 'src/pages/OrderList/interface';
 import { IGetOrderListAccordingToPayOrderId } from 'src/pages/PaymentResult/interface';
-/*
- * @Author: Always
- * @LastEditors: Always
- * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-19 18:43:57
- * @FilePath: /koala-frontend/src/api/order.ts
- */
 import { request } from '../request';
 
 const BASE = '/order';
@@ -56,4 +56,15 @@ export const getOrderList = (
     url: `${BASE}/get-order-list`,
     params,
     showLoading: isShowLoading,
+  });
+
+/**
+ * 取消订单
+ * @param params
+ */
+export const cancelOrder = (params: { orderId: string }) =>
+  request({
+    method: 'POST',
+    url: `${BASE}/cancel-order`,
+    params,
   });

@@ -83,8 +83,9 @@ const OrderList = () => {
     page: number,
     t: EOrderType | EDeafultTabKey = type,
     isShowLoading: boolean = true,
+    isForciblyUpdate: boolean = false,
   ) => {
-    if (isGetData) return;
+    if (isGetData && !isForciblyUpdate) return;
     setIsGetData(true);
     try {
       const { total, list } = await getOrderList(
@@ -128,7 +129,6 @@ const OrderList = () => {
 
     getData(p, key, false);
   };
-
   useEffect(() => {
     setIsShowPageDataEnd(false);
     setIsShowScrollMsg(false);
@@ -188,11 +188,17 @@ const OrderList = () => {
               >
                 <View className={styles['order-list-con']}>
                   {item.list.map((data) => (
-                    <OrderItem data={data} key={data.orderId} />
+                    <OrderItem
+                      data={data}
+                      key={data.orderId}
+                      changeData={() => {
+                        getData(1, item.key, true, true);
+                      }}
+                    />
                   ))}
                 </View>
                 {/* 加载完毕所有数据 */}
-                {isShowPageDataEnd && (
+                {isShowPageDataEnd && !!item.list.length && (
                   <AtDivider
                     className={styles['page-data-end']}
                     content="没有更多订单了"

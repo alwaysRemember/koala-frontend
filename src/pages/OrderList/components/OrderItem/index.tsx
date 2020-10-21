@@ -7,14 +7,26 @@ import { IBtnProps, IOrderItemProps } from './interface';
 import { EOrderType, EOrderTypeTransferVal } from '../../../../enums/EOrder';
 import { setClassName, transferAmount } from '../../../../utils';
 import ImagePreload from '../../../../components/ImagePreload';
-const OrderItem = ({ data }: IOrderItemProps) => {
+import { cancelOrder } from '../../../../api';
+import { showToast } from '../../../../utils/wxUtils';
+const OrderItem = ({ data, changeData }: IOrderItemProps) => {
   const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
 
   // 退货
   const returnOfGoods = () => {};
 
   // 取消订单
-  const cancelOrder = () => {};
+  const cancelOrderFn = async () => {
+    try {
+      await cancelOrder({
+        orderId: data.orderId,
+      });
+      await showToast({
+        title: '取消成功',
+      });
+      changeData();
+    } catch (e) {}
+  };
 
   // 评价
   const comment = () => {};
@@ -36,7 +48,7 @@ const OrderItem = ({ data }: IOrderItemProps) => {
           [EOrderType.PENDING_PAYMENT, EOrderType.TO_BE_DELIVERED].findIndex(
             (value) => value === data.orderType,
           ) !== -1,
-        onClick: cancelOrder,
+        onClick: cancelOrderFn,
         className: 'cancel-order',
       },
       {
