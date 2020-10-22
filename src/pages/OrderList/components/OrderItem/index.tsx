@@ -7,8 +7,8 @@ import { IBtnProps, IOrderItemProps } from './interface';
 import { EOrderType, EOrderTypeTransferVal } from '../../../../enums/EOrder';
 import { setClassName, transferAmount } from '../../../../utils';
 import ImagePreload from '../../../../components/ImagePreload';
-import { cancelOrder } from '../../../../api';
-import { showToast } from '../../../../utils/wxUtils';
+import { cancelOrder, orderPayment } from '../../../../api';
+import { callWxPay, showToast } from '../../../../utils/wxUtils';
 const OrderItem = ({ data, changeData }: IOrderItemProps) => {
   const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
 
@@ -38,7 +38,13 @@ const OrderItem = ({ data, changeData }: IOrderItemProps) => {
   const confirmReceipt = () => {};
 
   // 付款
-  const payment = () => {};
+  const payment = async () => {
+    try {
+      const params = await orderPayment({ orderId: data.orderId });
+      await callWxPay(params, data.amount);
+      changeData();
+    } catch (e) {}
+  };
 
   useEffect(() => {
     setBtnList([

@@ -17,7 +17,7 @@ import { EAddressListPathSource } from '../AddressList/enums';
 import { EPageSource, EPageType } from '../AddShoppingAddress/enums';
 import ImagePreload from '../../components/ImagePreload';
 import { IBuyProductItem, ICreateOrderParams } from './interface';
-import { showToast, wxPay } from '../../utils/wxUtils';
+import { callWxPay, showToast, wxPay } from '../../utils/wxUtils';
 import { EToastIcon } from '../../enums/EWXUtils';
 import { EPaymentResultType } from '../PaymentResult/enum';
 
@@ -97,34 +97,7 @@ const OrderConfirm = () => {
     };
     try {
       const data = await createOrder(params);
-      let type: EPaymentResultType;
-      try {
-        await wxPay(data);
-        await showToast({
-          icon: EToastIcon.SUCCESS,
-          title: '支付成功',
-        });
-        type = EPaymentResultType.SUCCESS;
-      } catch (e) {
-        if (e.errMsg.indexOf('cancel') > -1) {
-          await showToast({
-            title: '您已取消支付',
-          });
-        } else {
-          await showToast({
-            title: '微信支付失败，请稍后重试',
-          });
-        }
-        type = EPaymentResultType.CANCEL;
-      }
-      // 清空历史跳转到支付结果页面
-      Taro.reLaunch({
-        url: paymentResultPath({
-          payOrderId: data.orderId,
-          type,
-          amount: String(totalAmount),
-        }),
-      });
+      callWxPay(data, totalAmount);
     } catch (e) {}
   };
 

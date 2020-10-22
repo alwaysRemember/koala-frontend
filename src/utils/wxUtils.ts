@@ -2,11 +2,13 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-24 21:31:22
- * @LastEditTime: 2020-09-24 14:09:39
+ * @LastEditTime: 2020-10-22 18:41:55
  * @FilePath: /koala-frontend/src/utils/wxUtils.ts
  */
 import Taro from '@tarojs/taro';
-import { ICreateOrderResponse } from 'src/pages/OrderConfirm/interface';
+import { ICreateOrderResponse } from '../pages/OrderConfirm/interface';
+import { EPaymentResultType } from '../pages/PaymentResult/enum';
+import { paymentResultPath } from '../router';
 import { EToastIcon } from '../enums/EWXUtils';
 
 /**
@@ -59,5 +61,44 @@ export const wxPay = ({
         res();
       },
     });
+  });
+};
+
+/**
+ * 使用微信支付
+ * @param data
+ * @param totalAmount 支付金额
+ */
+export const callWxPay = async (
+  data: ICreateOrderResponse,
+  totalAmount: number,
+) => {
+  let type: EPaymentResultType;
+  try {
+    await wxPay(data);
+    await showToast({
+      icon: EToastIcon.SUCCESS,
+      title: '支付成功',
+    });
+    type = EPaymentResultType.SUCCESS;
+  } catch (e) {
+    if (e.errMsg.indexOf('cancel') > -1) {
+      await showToast({
+        title: '您已取消支付',
+      });
+    } else {
+      await showToast({
+        title: '微信支付失败，请稍后重试',
+      });
+    }
+    type = EPaymentResultType.CANCEL;
+  }
+  // 清空历史跳转到支付结果页面
+  Taro.reLaunch({
+    url: paymentResultPath({
+      payOrderId: data.orderId,
+      type,
+      amount: String(totalAmount),
+    }),
   });
 };

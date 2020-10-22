@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-20 16:23:04
+ * @LastEditTime: 2020-10-22 18:01:30
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import {
@@ -66,5 +66,16 @@ export const cancelOrder = (params: { orderId: string }) =>
   request({
     method: 'POST',
     url: `${BASE}/cancel-order`,
+    params,
+  });
+
+/**
+ * 订单付款
+ * @param params
+ */
+export const orderPayment = (params: { orderId: string }) =>
+  request<ICreateOrderResponse>({
+    method: 'POST',
+    url: `${BASE}/order-payment`,
     params,
   });
