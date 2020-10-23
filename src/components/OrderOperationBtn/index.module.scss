@@ -1,0 +1,31 @@
+@import '../../common/css/custom-theme.scss';
+$groupM: 10px;
+.btn-wrappr {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  .btn {
+    font-size: 22px;
+    padding: 0 $groupM;
+    line-height: 38px;
+    height: 40px;
+    margin: 0;
+    margin-left: $groupM;
+    &.payment,
+    &.confirm-receipt,
+    &.comment {
+      color: $color-brand;
+      border-color: $color-brand;
+    }
+    &.view-logitics {
+      color: #333;
+      border-color: #666;
+    }
+    &.cancel-order,
+    &.return-of-goods {
+      color: rgb(122, 122, 122);
+      border-color: rgb(122, 122, 122);
+    }
+  }
+}

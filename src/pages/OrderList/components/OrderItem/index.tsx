@@ -1,101 +1,15 @@
-import { View, Text, Button } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
-import { AtButton, AtIcon } from 'taro-ui';
-import React, { useEffect, useState } from 'react';
+import { AtIcon } from 'taro-ui';
+import React from 'react';
 import styles from './index.module.scss';
-import { IBtnProps, IOrderItemProps } from './interface';
-import { EOrderType, EOrderTypeTransferVal } from '../../../../enums/EOrder';
-import { setClassName, transferAmount } from '../../../../utils';
+import { IOrderItemProps } from './interface';
+import { EOrderTypeTransferVal } from '../../../../enums/EOrder';
+import { transferAmount } from '../../../../utils';
 import ImagePreload from '../../../../components/ImagePreload';
-import { cancelOrder, orderPayment } from '../../../../api';
-import { callWxPay, showToast } from '../../../../utils/wxUtils';
+import OrderOperationBtn from '../../../../components/OrderOperationBtn';
+
 const OrderItem = ({ data, changeData }: IOrderItemProps) => {
-  const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
-
-  // 退货
-  const returnOfGoods = () => {};
-
-  // 取消订单
-  const cancelOrderFn = async () => {
-    try {
-      await cancelOrder({
-        orderId: data.orderId,
-      });
-      await showToast({
-        title: '取消成功',
-      });
-      changeData();
-    } catch (e) {}
-  };
-
-  // 评价
-  const comment = () => {};
-
-  // 查看物流
-  const viewLogitics = () => {};
-
-  // 确认收货
-  const confirmReceipt = () => {};
-
-  // 付款
-  const payment = async () => {
-    try {
-      const params = await orderPayment({ orderId: data.orderId });
-      await callWxPay(params, data.amount);
-      changeData();
-    } catch (e) {}
-  };
-
-  useEffect(() => {
-    setBtnList([
-      {
-        name: '取消订单',
-        show:
-          [EOrderType.PENDING_PAYMENT, EOrderType.TO_BE_DELIVERED].findIndex(
-            (value) => value === data.orderType,
-          ) !== -1,
-        onClick: cancelOrderFn,
-        className: 'cancel-order',
-      },
-      {
-        name: '退货',
-        show:
-          [
-            EOrderType.TO_BE_RECEIVED,
-            EOrderType.COMMENT,
-            EOrderType.FINISHED,
-          ].findIndex((value) => value === data.orderType) > -1 &&
-          new Date().getTime() - new Date(data.updateTime).getTime() <=
-            604800000, // 当前订单状态支持退货&&订单最后一次修改时间小于7天
-        onClick: returnOfGoods,
-        className: 'return-of-goods',
-      },
-      {
-        name: '查看物流',
-        show: data.orderType === EOrderType.TO_BE_RECEIVED,
-        onClick: viewLogitics,
-        className: 'view-logitics',
-      },
-      {
-        name: '评价',
-        show: data.orderType === EOrderType.COMMENT,
-        onClick: comment,
-        className: 'comment',
-      },
-      {
-        name: '付款',
-        show: data.orderType === EOrderType.PENDING_PAYMENT,
-        onClick: payment,
-        className: 'payment',
-      },
-      {
-        name: '确认收货',
-        show: data.orderType === EOrderType.TO_BE_RECEIVED,
-        onClick: confirmReceipt,
-        className: 'confirm-receipt',
-      },
-    ]);
-  }, []);
   return (
     <View className={styles['order-item-wrapper']}>
       <View className={styles['order-id']}>
@@ -148,22 +62,14 @@ const OrderItem = ({ data, changeData }: IOrderItemProps) => {
             </View>
           </View>
         ))}
-      </View>
-      <View className={styles['btn-wrappr']}>
-        {btnList
-          .filter((item) => item.show)
-          .map(({ className, name, onClick }) => (
-            <AtButton
-              key={className}
-              circle
-              size="small"
-              type="secondary"
-              className={setClassName([styles['btn'], styles[className]])}
-              onClick={onClick}
-            >
-              {name}
-            </AtButton>
-          ))}
+
+        <OrderOperationBtn
+          orderId={data.orderId}
+          amount={data.amount}
+          updateTime={data.updateTime}
+          orderType={data.orderType}
+          changeData={changeData}
+        />
       </View>
     </View>
   );
