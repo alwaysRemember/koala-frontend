@@ -4,7 +4,7 @@ import { EOrderType } from 'src/enums/EOrder';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-15 14:19:51
- * @LastEditTime: 2020-10-16 16:57:52
+ * @LastEditTime: 2020-10-23 14:47:45
  * @FilePath: /koala-frontend/src/pages/OrderList/interface.ts
  */
 export enum EDeafultTabKey {

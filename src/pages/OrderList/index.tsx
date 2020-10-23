@@ -18,6 +18,7 @@ import {
   IOrderListPathParams,
 } from './interface';
 import OrderItem from './components/OrderItem';
+import ReturnOfGoodsModal from '../../components/ReturnOfGoodsModal';
 const OrderList = () => {
   const {
     params: { type = EDeafultTabKey.ALL },
@@ -129,6 +130,9 @@ const OrderList = () => {
 
     getData(p, key, false);
   };
+
+  const returnOfGoodsConfirm = (reason: string) => {};
+
   useEffect(() => {
     setIsShowPageDataEnd(false);
     setIsShowScrollMsg(false);
@@ -224,6 +228,8 @@ const OrderList = () => {
           ))}
         </AtTabs>
       </View>
+      {/* 退款modal */}
+      <ReturnOfGoodsModal />
     </View>
   );
 };

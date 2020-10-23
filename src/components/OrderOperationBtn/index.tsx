@@ -6,8 +6,13 @@ import { View } from '@tarojs/components';
 import { setClassName } from '../../utils';
 import { AtButton } from 'taro-ui';
 import { EOrderType } from '../../enums/EOrder';
-import { cancelOrder, orderPayment } from '../../api';
+import { cancelOrder, orderPayment, returnOfGoods } from '../../api';
 import { callWxPay } from '../../utils/wxUtils';
+import { useDispatch } from 'redux-react-hook';
+import {
+  updateReturnOfGoodsModalInfo,
+  updateReturnOfGoodsModalType,
+} from '../../store/actions';
 
 const OrderOperationBtn = ({
   orderId,
@@ -17,9 +22,23 @@ const OrderOperationBtn = ({
   changeData,
 }: IOrderOperationBtnProps) => {
   const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
+  const dispatch = useDispatch();
 
   // 退货
-  const returnOfGoods = () => {};
+  const returnOfGoodsFn = () => {
+    dispatch(
+      updateReturnOfGoodsModalInfo({
+        amount,
+        confirm: async (reason: string) => {
+          try {
+            await returnOfGoods({ orderId, reason });
+            changeData();
+          } catch (e) {}
+        },
+      }),
+    );
+    dispatch(updateReturnOfGoodsModalType(true));
+  };
 
   // 取消订单
   const cancelOrderFn = async () => {
@@ -71,9 +90,8 @@ const OrderOperationBtn = ({
             EOrderType.COMMENT,
             EOrderType.FINISHED,
           ].findIndex((value) => value === orderType) > -1 &&
-          new Date().getTime() - new Date(updateTime).getTime() <=
-            604800000, // 当前订单状态支持退货&&订单最后一次修改时间小于7天
-        onClick: returnOfGoods,
+          new Date().getTime() - new Date(updateTime).getTime() <= 604800000, // 当前订单状态支持退货&&订单最后一次修改时间小于7天
+        onClick: returnOfGoodsFn,
         className: 'return-of-goods',
       },
       {

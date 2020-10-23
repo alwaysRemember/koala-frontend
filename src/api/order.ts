@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-22 18:01:30
+ * @LastEditTime: 2020-10-23 16:31:19
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import {
@@ -77,5 +77,16 @@ export const orderPayment = (params: { orderId: string }) =>
   request<ICreateOrderResponse>({
     method: 'POST',
     url: `${BASE}/order-payment`,
+    params,
+  });
+
+/**
+ * 申请退款
+ * @param params
+ */
+export const returnOfGoods = (params: { orderId: string; reason: string }) =>
+  request({
+    method: 'POST',
+    url: `${BASE}/return-of-goods`,
     params,
   });
