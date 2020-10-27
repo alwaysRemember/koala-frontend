@@ -20,6 +20,7 @@ const OrderOperationBtn = ({
   updateTime,
   amount,
   changeData,
+  orderCheck,
 }: IOrderOperationBtnProps) => {
   const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
   const dispatch = useDispatch();
@@ -58,7 +59,6 @@ const OrderOperationBtn = ({
 
   // 查看物流
   const viewLogitics = () => {};
-
   // 确认收货
   const confirmReceipt = () => {};
 
@@ -68,6 +68,12 @@ const OrderOperationBtn = ({
       const params = await orderPayment({ orderId: orderId });
       await callWxPay(params, amount);
       changeData();
+    } catch (e) {}
+  };
+
+  // 退款快递信息
+  const refundCourierInfoFn = () => {
+    try {
     } catch (e) {}
   };
 
@@ -93,6 +99,16 @@ const OrderOperationBtn = ({
           new Date().getTime() - new Date(updateTime).getTime() <= 604800000, // 当前订单状态支持退货&&订单最后一次修改时间小于7天
         onClick: returnOfGoodsFn,
         className: 'return-of-goods',
+      },
+      // 当前btn显示判断为 已完结||待评价 && 订单已签收
+      {
+        name: '退货快递信息',
+        show:
+          [EOrderType.COMMENT, EOrderType.FINISHED].findIndex(
+            (value) => value === orderType,
+          ) > -1 && orderCheck,
+        onClick: refundCourierInfoFn,
+        className: 'refund-courier-info',
       },
       {
         name: '查看物流',
