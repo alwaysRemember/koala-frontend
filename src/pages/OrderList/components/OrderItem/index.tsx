@@ -66,7 +66,8 @@ const OrderItem = ({ data, changeData }: IOrderItemProps) => {
         <OrderOperationBtn
           orderId={data.orderId}
           amount={data.amount}
-          updateTime={data.updateTime}
+          orderCheckTime={data.orderCheckTime}
+          orderCheck={data.orderCheck}
           orderType={data.orderType}
           changeData={changeData}
         />

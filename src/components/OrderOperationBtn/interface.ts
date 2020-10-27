@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-23 14:04:07
- * @LastEditTime: 2020-10-26 17:20:58
+ * @LastEditTime: 2020-10-27 14:37:46
  * @FilePath: /koala-frontend/src/components/OrderOperationBtn/interface.ts
  */
 
@@ -13,7 +13,7 @@ export interface IOrderOperationBtnProps {
   amount: number;
   orderType: EOrderType;
   orderCheck: boolean;
-  updateTime: Date;
+  orderCheckTime: Date;
   changeData: () => void;
 }
 

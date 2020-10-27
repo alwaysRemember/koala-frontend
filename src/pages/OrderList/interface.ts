@@ -4,7 +4,7 @@ import { EOrderType } from 'src/enums/EOrder';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-15 14:19:51
- * @LastEditTime: 2020-10-23 14:47:45
+ * @LastEditTime: 2020-10-27 14:46:14
  * @FilePath: /koala-frontend/src/pages/OrderList/interface.ts
  */
 export enum EDeafultTabKey {
@@ -37,7 +37,8 @@ export interface IOrderDataItem {
   orderType: EOrderType;
   amount: number;
   productList: Array<IProductItem>;
-  updateTime: Date;
+  orderCheck: boolean;
+  orderCheckTime: Date;
 }
 
 export interface IProductItem {

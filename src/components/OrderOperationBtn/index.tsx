@@ -22,7 +22,7 @@ import {
 const OrderOperationBtn = ({
   orderId,
   orderType,
-  updateTime,
+  orderCheckTime,
   amount,
   changeData,
   orderCheck,
@@ -111,7 +111,9 @@ const OrderOperationBtn = ({
             EOrderType.COMMENT,
             EOrderType.FINISHED,
           ].findIndex((value) => value === orderType) > -1 &&
-          new Date().getTime() - new Date(updateTime).getTime() <= 604800000, // 当前订单状态支持退货&&订单最后一次修改时间小于7天
+          new Date().getTime() -
+            new Date(orderCheckTime || new Date()).getTime() <=
+            604800000, // 当前订单状态支持退货&&签收时间在七天内
         onClick: returnOfGoodsFn,
         className: 'return-of-goods',
       },
@@ -119,9 +121,8 @@ const OrderOperationBtn = ({
       {
         name: '退货快递信息',
         show:
-          [EOrderType.COMMENT, EOrderType.FINISHED].findIndex(
-            (value) => value === orderType,
-          ) > -1 && orderCheck,
+          [EOrderType.REFUNDING].findIndex((value) => value === orderType) >
+            -1 && orderCheck,
         onClick: refundCourierInfoFn,
         className: 'refund-courier-info',
       },
@@ -150,7 +151,7 @@ const OrderOperationBtn = ({
         className: 'confirm-receipt',
       },
     ]);
-  }, [orderType, orderCheck]);
+  }, [orderType, orderCheck, orderCheckTime]);
 
   return (
     <View className={styles['btn-wrappr']}>
