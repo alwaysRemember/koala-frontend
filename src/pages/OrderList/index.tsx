@@ -19,6 +19,7 @@ import {
 } from './interface';
 import OrderItem from './components/OrderItem';
 import ReturnOfGoodsModal from '../../components/ReturnOfGoodsModal';
+import RefundCourierInfoModal from '../../components/RefundCourierInfoModal';
 const OrderList = () => {
   const {
     params: { type = EDeafultTabKey.ALL },
@@ -230,6 +231,8 @@ const OrderList = () => {
       </View>
       {/* 退款modal */}
       <ReturnOfGoodsModal />
+      {/* 退货信息填写 */}
+      <RefundCourierInfoModal />
     </View>
   );
 };

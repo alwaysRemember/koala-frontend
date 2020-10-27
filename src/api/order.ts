@@ -2,9 +2,10 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-27 14:07:50
+ * @LastEditTime: 2020-10-27 15:48:12
  * @FilePath: /koala-frontend/src/api/order.ts
  */
+import { IRefundCourierInfo } from 'src/components/OrderOperationBtn/interface';
 import {
   ICreateOrderParams,
   ICreateOrderResponse,
@@ -99,5 +100,16 @@ export const confirmOrder = (params: { orderId: string }) =>
   request({
     method: 'POST',
     url: `${BASE}/confirm-order`,
+    params,
+  });
+
+/**
+ * 添加退货快递信息
+ * @param params
+ */
+export const refundCourierInfo = (params: IRefundCourierInfo) =>
+  request({
+    method: 'POST',
+    url: `${BASE}/add-refund-courier-info`,
     params,
   });

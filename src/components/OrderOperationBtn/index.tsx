@@ -10,14 +10,18 @@ import {
   cancelOrder,
   confirmOrder,
   orderPayment,
+  refundCourierInfo,
   returnOfGoods,
 } from '../../api';
 import { callWxPay } from '../../utils/wxUtils';
 import { useDispatch } from 'redux-react-hook';
 import {
+  updateRefundCourierInfoModalInfo,
+  updateRefundCourierInfoModalType,
   updateReturnOfGoodsModalInfo,
   updateReturnOfGoodsModalType,
 } from '../../store/actions';
+import { EToastIcon } from '../../enums/EWXUtils';
 
 const OrderOperationBtn = ({
   orderId,
@@ -26,6 +30,7 @@ const OrderOperationBtn = ({
   amount,
   changeData,
   orderCheck,
+  hasRefundCourierInfo,
 }: IOrderOperationBtnProps) => {
   const dispatch = useDispatch();
 
@@ -88,8 +93,21 @@ const OrderOperationBtn = ({
 
   // 退款快递信息
   const refundCourierInfoFn = () => {
-    try {
-    } catch (e) {}
+    dispatch(
+      updateRefundCourierInfoModalInfo({
+        confirm: async (params) => {
+          try {
+            await refundCourierInfo({ ...params, orderId });
+            await showToast({
+              title: '添加快递信息成功',
+              icon: EToastIcon.SUCCESS,
+            });
+            changeData();
+          } catch (e) {}
+        },
+      }),
+    );
+    dispatch(updateRefundCourierInfoModalType(true));
   };
 
   useEffect(() => {
@@ -117,12 +135,14 @@ const OrderOperationBtn = ({
         onClick: returnOfGoodsFn,
         className: 'return-of-goods',
       },
-      // 当前btn显示判断为 已完结||待评价 && 订单已签收
+      // 当前btn显示判断为 退款中 && 订单已签收 && 未填写过退款快递信息
       {
-        name: '退货快递信息',
+        name: '退货快递信息填写',
         show:
           [EOrderType.REFUNDING].findIndex((value) => value === orderType) >
-            -1 && orderCheck,
+            -1 &&
+          orderCheck &&
+          !hasRefundCourierInfo,
         onClick: refundCourierInfoFn,
         className: 'refund-courier-info',
       },
@@ -151,7 +171,7 @@ const OrderOperationBtn = ({
         className: 'confirm-receipt',
       },
     ]);
-  }, [orderType, orderCheck, orderCheckTime]);
+  }, [orderType, orderCheck, orderCheckTime, hasRefundCourierInfo]);
 
   return (
     <View className={styles['btn-wrappr']}>

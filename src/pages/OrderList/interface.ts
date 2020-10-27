@@ -4,7 +4,7 @@ import { EOrderType } from 'src/enums/EOrder';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-15 14:19:51
- * @LastEditTime: 2020-10-27 14:46:14
+ * @LastEditTime: 2020-10-27 15:50:57
  * @FilePath: /koala-frontend/src/pages/OrderList/interface.ts
  */
 export enum EDeafultTabKey {
@@ -39,6 +39,7 @@ export interface IOrderDataItem {
   productList: Array<IProductItem>;
   orderCheck: boolean;
   orderCheckTime: Date;
+  hasRefundCourierInfo: boolean; // 是否填写了退款快递信息
 }
 
 export interface IProductItem {
