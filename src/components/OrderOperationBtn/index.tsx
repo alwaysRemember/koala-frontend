@@ -6,7 +6,12 @@ import { View } from '@tarojs/components';
 import { setClassName } from '../../utils';
 import { AtButton } from 'taro-ui';
 import { EOrderType } from '../../enums/EOrder';
-import { cancelOrder, orderPayment, returnOfGoods } from '../../api';
+import {
+  cancelOrder,
+  confirmOrder,
+  orderPayment,
+  returnOfGoods,
+} from '../../api';
 import { callWxPay } from '../../utils/wxUtils';
 import { useDispatch } from 'redux-react-hook';
 import {
@@ -22,8 +27,9 @@ const OrderOperationBtn = ({
   changeData,
   orderCheck,
 }: IOrderOperationBtnProps) => {
-  const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
   const dispatch = useDispatch();
+
+  const [btnList, setBtnList] = useState<Array<IBtnProps>>([]);
 
   // 退货
   const returnOfGoodsFn = () => {
@@ -59,8 +65,17 @@ const OrderOperationBtn = ({
 
   // 查看物流
   const viewLogitics = () => {};
+
   // 确认收货
-  const confirmReceipt = () => {};
+  const confirmOrderFn = async () => {
+    try {
+      await confirmOrder({ orderId });
+      await showToast({
+        title: '收货成功',
+      });
+      changeData();
+    } catch (e) {}
+  };
 
   // 付款
   const payment = async () => {
@@ -131,11 +146,12 @@ const OrderOperationBtn = ({
       {
         name: '确认收货',
         show: orderType === EOrderType.TO_BE_RECEIVED,
-        onClick: confirmReceipt,
+        onClick: confirmOrderFn,
         className: 'confirm-receipt',
       },
     ]);
-  }, []);
+  }, [orderType, orderCheck]);
+
   return (
     <View className={styles['btn-wrappr']}>
       {btnList

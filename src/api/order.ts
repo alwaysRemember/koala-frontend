@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-23 16:31:19
+ * @LastEditTime: 2020-10-27 14:07:50
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import {
@@ -88,5 +88,16 @@ export const returnOfGoods = (params: { orderId: string; reason: string }) =>
   request({
     method: 'POST',
     url: `${BASE}/return-of-goods`,
+    params,
+  });
+
+/**
+ * 确认收货
+ * @param params
+ */
+export const confirmOrder = (params: { orderId: string }) =>
+  request({
+    method: 'POST',
+    url: `${BASE}/confirm-order`,
     params,
   });
