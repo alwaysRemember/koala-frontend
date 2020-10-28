@@ -110,7 +110,7 @@ const PersonalCenter = () => {
             onClick={() => {
               Taro.navigateTo({
                 url: orderListPath({
-                  type: EOrderType.FINISHED,
+                  type: EOrderType.COMMENT,
                 }),
               });
             }}
@@ -118,7 +118,7 @@ const PersonalCenter = () => {
             <AtBadge value="">
               <Image src={completed} className={styles['icon']} />
             </AtBadge>
-            <Text>已完成</Text>
+            <Text>待评价</Text>
           </View>
         </View>
       </View>

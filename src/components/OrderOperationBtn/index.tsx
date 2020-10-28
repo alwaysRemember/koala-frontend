@@ -22,6 +22,7 @@ import {
   updateReturnOfGoodsModalType,
 } from '../../store/actions';
 import { EToastIcon } from '../../enums/EWXUtils';
+import { logisticsInfo } from '../../router';
 
 const OrderOperationBtn = ({
   orderId,
@@ -69,7 +70,13 @@ const OrderOperationBtn = ({
   const comment = () => {};
 
   // 查看物流
-  const viewLogitics = () => {};
+  const viewLogistics = () => {
+    Taro.navigateTo({
+      url: logisticsInfo({
+        orderId,
+      }),
+    });
+  };
 
   // 确认收货
   const confirmOrderFn = async () => {
@@ -148,9 +155,14 @@ const OrderOperationBtn = ({
       },
       {
         name: '查看物流',
-        show: orderType === EOrderType.TO_BE_RECEIVED,
-        onClick: viewLogitics,
-        className: 'view-logitics',
+        show:
+          [
+            EOrderType.TO_BE_RECEIVED,
+            EOrderType.COMMENT,
+            EOrderType.FINISHED,
+          ].findIndex((v) => v === orderType) > -1,
+        onClick: viewLogistics,
+        className: 'view-logistics',
       },
       {
         name: '评价',

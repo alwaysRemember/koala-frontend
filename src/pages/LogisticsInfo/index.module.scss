@@ -1,0 +1,39 @@
+@import '../../common/css/custom-theme.scss';
+.logitics-info-wrapper {
+  position: relative;
+  min-height: 100%;
+  .logitics-info {
+    .num {
+      :global {
+        .at-list__item-extra {
+          max-width: none;
+        }
+      }
+    }
+    .express-data {
+      padding: 0 30px;
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+  .no-logitics-info {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    .no-logitics-info-icon {
+      color: $color-brand;
+      margin: 0 auto 10px;
+    }
+    .msg {
+      font-size: 32px;
+      color: #666;
+      text-align: center;
+    }
+  }
+}

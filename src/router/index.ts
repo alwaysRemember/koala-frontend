@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:05:12
- * @LastEditTime: 2020-10-15 15:19:53
+ * @LastEditTime: 2020-10-28 18:24:27
  * @FilePath: /koala-frontend/src/router/index.ts
  */
 
@@ -12,6 +12,7 @@ import { IAddressListPathParams } from 'src/pages/AddressList/interface';
 import { IAddShoppingAddressPathParams } from 'src/pages/AddShoppingAddress/interface';
 import { IPaymentResultPathParams } from 'src/pages/PaymentResult/interface';
 import { IOrderListPathParams } from 'src/pages/OrderList/interface';
+import { ILogisticsInfoPathParams } from 'src/pages/LogisticsInfo/interface';
 
 type TPath<T extends {} | null> = (params?: T) => string;
 
@@ -66,3 +67,10 @@ export const paymentResultPath: TPath<IPaymentResultPathParams> = (params) =>
  */
 export const orderListPath: TPath<IOrderListPathParams> = (params) =>
   `/pages/OrderList/index${params ? pathParamsTransfer(params) : ''}`;
+
+/**
+ * 快递信息页面
+ * @param params
+ */
+export const logisticsInfo: TPath<ILogisticsInfoPathParams> = (params) =>
+  `/pages/LogisticsInfo/index${params ? pathParamsTransfer(params) : ''}`;

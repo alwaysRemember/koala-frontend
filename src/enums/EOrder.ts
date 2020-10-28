@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-15 14:15:52
- * @LastEditTime: 2020-10-26 17:23:22
+ * @LastEditTime: 2020-10-28 17:25:34
  * @FilePath: /koala-frontend/src/enums/EOrder.ts
  */
 export enum EOrderType {

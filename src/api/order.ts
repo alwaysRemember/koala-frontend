@@ -2,10 +2,11 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-27 15:48:12
+ * @LastEditTime: 2020-10-28 18:31:31
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import { IRefundCourierInfo } from 'src/components/OrderOperationBtn/interface';
+import { ILogisticsInfoResponseData } from 'src/pages/LogisticsInfo/interface';
 import {
   ICreateOrderParams,
   ICreateOrderResponse,
@@ -111,5 +112,12 @@ export const refundCourierInfo = (params: IRefundCourierInfo) =>
   request({
     method: 'POST',
     url: `${BASE}/add-refund-courier-info`,
+    params,
+  });
+
+export const getLogisticsInfo = (params: { orderId: string }) =>
+  request<ILogisticsInfoResponseData | null>({
+    url: `${BASE}/get-logistics-info`,
+    method: 'POST',
     params,
   });
