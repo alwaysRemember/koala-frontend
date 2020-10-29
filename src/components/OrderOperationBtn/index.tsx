@@ -16,13 +16,14 @@ import {
 import { callWxPay } from '../../utils/wxUtils';
 import { useDispatch } from 'redux-react-hook';
 import {
+  updateCommentPageData,
   updateRefundCourierInfoModalInfo,
   updateRefundCourierInfoModalType,
   updateReturnOfGoodsModalInfo,
   updateReturnOfGoodsModalType,
 } from '../../store/actions';
 import { EToastIcon } from '../../enums/EWXUtils';
-import { logisticsInfo } from '../../router';
+import { commentPagePath, logisticsInfo } from '../../router';
 
 const OrderOperationBtn = ({
   orderId,
@@ -32,6 +33,7 @@ const OrderOperationBtn = ({
   changeData,
   orderCheck,
   hasRefundCourierInfo,
+  productList,
 }: IOrderOperationBtnProps) => {
   const dispatch = useDispatch();
 
@@ -67,7 +69,12 @@ const OrderOperationBtn = ({
   };
 
   // 评价
-  const comment = () => {};
+  const comment = () => {
+    dispatch(updateCommentPageData({ productList }));
+    Taro.navigateTo({
+      url: commentPagePath({ orderId }),
+    });
+  };
 
   // 查看物流
   const viewLogistics = () => {

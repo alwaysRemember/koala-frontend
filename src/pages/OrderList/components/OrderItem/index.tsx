@@ -70,6 +70,7 @@ const OrderItem = ({ data, changeData }: IOrderItemProps) => {
           orderCheck={data.orderCheck}
           orderType={data.orderType}
           hasRefundCourierInfo={data.hasRefundCourierInfo}
+          productList={data.productList}
           changeData={changeData}
         />
       </View>

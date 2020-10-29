@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-24 15:36:56
- * @LastEditTime: 2020-10-23 15:20:12
+ * @LastEditTime: 2020-10-29 17:00:02
  * @FilePath: /koala-frontend/src/store/reducers/index.ts
  */
 
@@ -11,6 +11,7 @@ import * as user from './user';
 import * as shoppingAddress from './shoppingAddress';
 import * as orderConfirm from './orderConfirm';
 import * as order from './order';
+import * as global from './global';
 import { IReducers } from './interface';
 
 export default combineReducers<IReducers>({
@@ -18,4 +19,5 @@ export default combineReducers<IReducers>({
   ...shoppingAddress,
   ...orderConfirm,
   ...order,
+  ...global,
 });

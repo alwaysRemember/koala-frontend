@@ -2,10 +2,11 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-28 18:31:31
+ * @LastEditTime: 2020-10-29 16:35:42
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import { IRefundCourierInfo } from 'src/components/OrderOperationBtn/interface';
+import { IProductCommentRequestData } from 'src/pages/CommentPage/interface';
 import { ILogisticsInfoResponseData } from 'src/pages/LogisticsInfo/interface';
 import {
   ICreateOrderParams,
@@ -115,9 +116,24 @@ export const refundCourierInfo = (params: IRefundCourierInfo) =>
     params,
   });
 
+/**
+ * 获取快递信息
+ * @param params
+ */
 export const getLogisticsInfo = (params: { orderId: string }) =>
   request<ILogisticsInfoResponseData | null>({
     url: `${BASE}/get-logistics-info`,
+    method: 'POST',
+    params,
+  });
+
+/**
+ * 提交订单评价
+ * @param params
+ */
+export const submitOrderComment = (params: IProductCommentRequestData) =>
+  request({
+    url: `${BASE}/submit-order-comment`,
     method: 'POST',
     params,
   });

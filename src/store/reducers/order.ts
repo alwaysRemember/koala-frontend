@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-23 15:03:15
- * @LastEditTime: 2020-10-27 15:13:20
+ * @LastEditTime: 2020-10-29 15:19:53
  * @FilePath: /koala-frontend/src/store/reducers/order.ts
  */
 
@@ -15,7 +15,9 @@ import {
   IReturnOfGoodsModalDefaultData,
 } from 'src/components/ReturnOfGoodsModal/interface';
 import { IReduxAction } from 'src/interface/global';
+import { ICommentPageData } from 'src/pages/CommentPage/interface';
 import {
+  UPDATE_COMMENT_PAGE_DATA,
   UPDATE_REFUND_COURIER_INFO_MODAL_INFO,
   UPDATE_REFUND_COURIER_INFO_MODAL_TYPE,
   UPDATE_RETURN_OF_GOODS_MODAL_INFO,
@@ -74,5 +76,22 @@ export const refundCourierInfoModalData = (
       };
     default:
       return { showType: false, confirm: undefined };
+  }
+};
+
+/**
+ * 评价页面信息
+ * @param data
+ * @param actions
+ */
+export const commentPageData = (
+  data: ICommentPageData = { productList: [] },
+  actions: IReduxAction<ICommentPageData>,
+): ICommentPageData => {
+  switch (actions.type) {
+    case UPDATE_COMMENT_PAGE_DATA:
+      return actions.data;
+    default:
+      return data;
   }
 };

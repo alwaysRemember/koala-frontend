@@ -1,7 +1,9 @@
 import { IRefundCourierInfoDefaultData } from 'src/components/RefundCourierInfoModal/interface';
 import { IReturnOfGoodsModalDefaultData } from 'src/components/ReturnOfGoodsModal/interface';
 import { IReduxAction } from 'src/interface/global';
+import { ICommentPageData } from 'src/pages/CommentPage/interface';
 import {
+  UPDATE_COMMENT_PAGE_DATA,
   UPDATE_REFUND_COURIER_INFO_MODAL_INFO,
   UPDATE_REFUND_COURIER_INFO_MODAL_TYPE,
   UPDATE_RETURN_OF_GOODS_MODAL_INFO,
@@ -12,7 +14,7 @@ import {
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-23 15:02:11
- * @LastEditTime: 2020-10-27 15:01:22
+ * @LastEditTime: 2020-10-29 15:18:02
  * @FilePath: /koala-frontend/src/store/actions/order.ts
  */
 
@@ -57,5 +59,16 @@ export const updateRefundCourierInfoModalInfo = (
   data: IRefundCourierInfoDefaultData,
 ): IReduxAction<IRefundCourierInfoDefaultData> => ({
   type: UPDATE_REFUND_COURIER_INFO_MODAL_INFO,
+  data,
+});
+
+/**
+ * 更新评价页面数据
+ * @param data
+ */
+export const updateCommentPageData = (
+  data: ICommentPageData,
+): IReduxAction<ICommentPageData> => ({
+  type: UPDATE_COMMENT_PAGE_DATA,
   data,
 });

@@ -2,11 +2,12 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-23 14:04:07
- * @LastEditTime: 2020-10-27 16:39:12
+ * @LastEditTime: 2020-10-29 15:15:47
  * @FilePath: /koala-frontend/src/components/OrderOperationBtn/interface.ts
  */
 
 import { EOrderType } from 'src/enums/EOrder';
+import { IProductItem } from 'src/pages/OrderList/interface';
 
 export interface IOrderOperationBtnProps {
   orderId: string;
@@ -16,6 +17,7 @@ export interface IOrderOperationBtnProps {
   orderCheckTime: Date;
   hasRefundCourierInfo: boolean;
   changeData: () => void;
+  productList: Array<IProductItem>;
 }
 
 export interface IBtnProps {

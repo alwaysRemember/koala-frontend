@@ -1,6 +1,6 @@
 import { View, ScrollView, Text } from '@tarojs/components';
 import { AtIcon } from 'taro-ui';
-import Taro, { useRouter } from '@tarojs/taro';
+import Taro, { useDidShow, useRouter } from '@tarojs/taro';
 import React, { useEffect, useRef, useState } from 'react';
 import { getOrderList } from '../../api';
 import {
@@ -20,10 +20,15 @@ import {
 import OrderItem from './components/OrderItem';
 import ReturnOfGoodsModal from '../../components/ReturnOfGoodsModal';
 import RefundCourierInfoModal from '../../components/RefundCourierInfoModal';
+import { useDispatch, useMappedState } from 'redux-react-hook';
+import { IReducers } from '../../store/reducers/interface';
+import { updatePageChangeGetDataType } from '../../store/actions';
 const OrderList = () => {
   const {
     params: { type = EDeafultTabKey.ALL },
   } = useRouter<IOrderListPathParams>();
+  const dispatch = useDispatch();
+  const { pageChangeGetDataType } = useMappedState<IReducers>((state) => state);
   // tabs标签页数据
   const [tabData, setTabData] = useState<Array<ITabDataItem>>([
     {
@@ -132,8 +137,6 @@ const OrderList = () => {
     getData(p, key, false);
   };
 
-  const returnOfGoodsConfirm = (reason: string) => {};
-
   useEffect(() => {
     setIsShowPageDataEnd(false);
     setIsShowScrollMsg(false);
@@ -143,6 +146,13 @@ const OrderList = () => {
   useEffect(() => {
     if (isShowPageDataEnd) setIsShowScrollMsg(false);
   }, [isShowPageDataEnd]);
+
+  useDidShow(() => {
+    if (pageChangeGetDataType) {
+      getData(1, tabData[currentTab].key);
+      dispatch(updatePageChangeGetDataType(false));
+    }
+  });
 
   return (
     <View className={styles['order-list-wrapper']}>
