@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-23 12:23:18
- * @LastEditTime: 2020-10-29 16:35:42
+ * @LastEditTime: 2020-10-30 15:15:35
  * @FilePath: /koala-frontend/src/api/order.ts
  */
 import { IRefundCourierInfo } from 'src/components/OrderOperationBtn/interface';
@@ -17,6 +17,7 @@ import {
   IGetOrderListResponse,
 } from 'src/pages/OrderList/interface';
 import { IGetOrderListAccordingToPayOrderId } from 'src/pages/PaymentResult/interface';
+import { ISearchOrderRequestParams } from 'src/pages/SearchOrder/interface';
 import { request } from '../request';
 
 const BASE = '/order';
@@ -134,6 +135,17 @@ export const getLogisticsInfo = (params: { orderId: string }) =>
 export const submitOrderComment = (params: IProductCommentRequestData) =>
   request({
     url: `${BASE}/submit-order-comment`,
+    method: 'POST',
+    params,
+  });
+
+/**
+ *搜索订单
+ * @param params
+ */
+export const searchOrder = (params: ISearchOrderRequestParams) =>
+  request<IGetOrderListResponse>({
+    url: `${BASE}/search-order`,
     method: 'POST',
     params,
   });

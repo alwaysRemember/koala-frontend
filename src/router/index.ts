@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:05:12
- * @LastEditTime: 2020-10-29 16:46:22
+ * @LastEditTime: 2020-10-30 14:44:31
  * @FilePath: /koala-frontend/src/router/index.ts
  */
 
@@ -79,3 +79,7 @@ export const logisticsInfo: TPath<ILogisticsInfoPathParams> = (params) =>
 // 评价页面
 export const commentPagePath: TPath<ICommentPagePathParams> = (params) =>
   `/pages/CommentPage/index${params ? pathParamsTransfer(params) : ''}`;
+
+// 订单搜索页面
+export const searchOrderPagePath: TPath<null> = () =>
+  `/pages/SearchOrder/index`;

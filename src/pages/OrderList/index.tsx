@@ -23,6 +23,7 @@ import RefundCourierInfoModal from '../../components/RefundCourierInfoModal';
 import { useDispatch, useMappedState } from 'redux-react-hook';
 import { IReducers } from '../../store/reducers/interface';
 import { updatePageChangeGetDataType } from '../../store/actions';
+import { searchOrderPagePath } from '../../router';
 const OrderList = () => {
   const {
     params: { type = EDeafultTabKey.ALL },
@@ -156,8 +157,16 @@ const OrderList = () => {
 
   return (
     <View className={styles['order-list-wrapper']}>
-      <View className={styles['search-product-wrapper']}>
+      <View
+        className={styles['search-product-wrapper']}
+        onClick={() => {
+          Taro.navigateTo({
+            url: searchOrderPagePath(),
+          });
+        }}
+      >
         <AtSearchBar
+          disabled
           placeholder="输入搜索的商品名称"
           value=""
           fixed
