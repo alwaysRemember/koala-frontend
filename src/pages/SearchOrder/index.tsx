@@ -24,6 +24,8 @@ const SearchOrder = () => {
   const [data, setData] = useState<Array<IOrderDataItem>>([]);
   const [isShowPageDataEnd, setIsShowPageDataEnd] = useState<boolean>(false);
 
+  const isRequest = useRef<boolean>(false); // 是否请求过数据
+
   const scrollTop = useRef<number>(0); // 滚动高度
   const scrollTimed = useRef<NodeJS.Timeout>(); // scroll方法监听
 
@@ -39,6 +41,9 @@ const SearchOrder = () => {
       getData();
     } else {
       setPage(1);
+    }
+    if (!isRequest.current) {
+      isRequest.current = true;
     }
   };
 
@@ -128,7 +133,7 @@ const SearchOrder = () => {
               />
             )}
             {/* 无订单 */}
-            {!data.length && (
+            {!data.length && isRequest.current && (
               <View className={styles['no-order']}>
                 <AtIcon
                   prefixClass="icon"
