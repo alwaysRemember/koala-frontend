@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Taro, { usePageScroll } from '@tarojs/taro';
+import Taro, { useDidShow, usePageScroll } from '@tarojs/taro';
 import { View, Text, ScrollView } from '@tarojs/components';
 import styles from './index.module.scss';
 import { AtDivider, AtIcon, AtSearchBar } from 'taro-ui';
@@ -9,8 +9,14 @@ import { IOrderDataItem } from '../OrderList/interface';
 import OrderItem from '../OrderList/components/OrderItem';
 import ReturnOfGoodsModal from '../../components/ReturnOfGoodsModal';
 import RefundCourierInfoModal from '../../components/RefundCourierInfoModal';
+import { useDispatch, useMappedState } from 'redux-react-hook';
+import { IReducers } from '../../store/reducers/interface';
+import { updatePageChangeGetDataType } from '../../store/actions';
 
 const SearchOrder = () => {
+  const dispatch = useDispatch();
+  const { pageChangeGetDataType } = useMappedState<IReducers>((state) => state);
+
   const [searchValue, setSearchValue] = useState<string>('');
 
   const [page, setPage] = useState<number>(1);
@@ -62,6 +68,17 @@ const SearchOrder = () => {
       getData();
     }
   }, [page]);
+
+  useDidShow(() => {
+    if (pageChangeGetDataType) {
+      if (page === 1) {
+        getData();
+      } else {
+        setPage(1);
+      }
+      dispatch(updatePageChangeGetDataType(false));
+    }
+  });
 
   return (
     <View className={styles['search-order-wrapper']}>
