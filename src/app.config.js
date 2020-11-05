@@ -2,13 +2,14 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:29:54
- * @LastEditTime: 2020-10-30 16:49:38
+ * @LastEditTime: 2020-11-05 14:58:42
  * @FilePath: /koala-frontend/src/app.config.js
  */
 export default {
   pages: [
-    'pages/SearchOrder/index',
+    'pages/OrderDetail/index',
     'pages/OrderList/index',
+    'pages/SearchOrder/index',
     'pages/Global/index',
     'pages/CommentPage/index',
     'pages/LogisticsInfo/index',

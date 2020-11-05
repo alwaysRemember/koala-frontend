@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-10 15:54:26
- * @LastEditTime: 2020-09-17 16:04:55
+ * @LastEditTime: 2020-11-02 14:56:25
  * @FilePath: /koala-frontend/src/pages/AddShoppingAddress/interface.ts
  */
 
@@ -24,14 +24,16 @@ export interface ICityDataItem {
   children: Array<ICityDataItem>;
 }
 
-/**
- * 新增收货地址所需参数
- */
-export interface IAddShoppingAddressParams {
-  id?: number;
+export interface IShoppingAddress {
   name: string;
   phone: string;
   address: string;
   area: Array<string>;
+}
+/**
+ * 新增收货地址所需参数
+ */
+export interface IAddShoppingAddressParams extends IShoppingAddress {
+  id?: number;
   isDefaultSelection: boolean;
 }

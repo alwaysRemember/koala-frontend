@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Taro, { pxTransform } from '@tarojs/taro';
 import { IImagePreload } from './interface';
 import { View, Image } from '@tarojs/components';
-import styles from './index.module.scss';
 import { setClassName } from '../../utils';
 import { AtIcon } from 'taro-ui';
-
+import styles from './index.module.scss';
 /* 图片预加载 */
 const ImagePreload = ({
   src,

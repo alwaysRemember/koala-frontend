@@ -1,11 +1,11 @@
 import Taro, { showToast } from '@tarojs/taro';
 import React, { useEffect, useState } from 'react';
 import { IBtnProps, IOrderOperationBtnProps } from './interface';
-import styles from './index.module.scss';
 import { View } from '@tarojs/components';
 import { setClassName } from '../../utils';
 import { AtButton } from 'taro-ui';
 import { EOrderType } from '../../enums/EOrder';
+import styles from './index.module.scss';
 import {
   cancelOrder,
   confirmOrder,
@@ -203,7 +203,10 @@ const OrderOperationBtn = ({
             size="small"
             type="secondary"
             className={setClassName([styles['btn'], styles[className]])}
-            onClick={onClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick();
+            }}
           >
             {name}
           </AtButton>

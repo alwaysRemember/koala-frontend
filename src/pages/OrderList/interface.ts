@@ -1,12 +1,12 @@
-import { EOrderType } from 'src/enums/EOrder';
-
 /*
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-10-15 14:19:51
- * @LastEditTime: 2020-10-27 15:50:57
+ * @LastEditTime: 2020-11-05 14:43:45
  * @FilePath: /koala-frontend/src/pages/OrderList/interface.ts
  */
+import { EOrderType } from 'src/enums/EOrder';
+
 export enum EDeafultTabKey {
   ALL = 'ALL',
 }

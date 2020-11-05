@@ -51,42 +51,5 @@ $groupM: 10px;
       color: $color-brand;
     }
   }
-  .product-list {
-    margin-bottom: $groupM;
-    .product-item {
-      display: flex;
-      flex-direction: row;
-      .img {
-        width: 180px;
-        height: 180px;
-        border-radius: 14px;
-        margin-right: $groupM;
-      }
-      .product-info {
-        flex: 1;
-        .product-name {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
-          font-size: 28px;
-        }
-        .config-and-quantity {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          .config {
-            color: #333;
-            font-size: 26px;
-            line-height: 30px;
-            margin-right: $groupM;
-          }
-          .quantity {
-            font-size: 26px;
-            line-height: 30px;
-          }
-        }
-      }
-    }
-  }
+  
 }

@@ -6,12 +6,22 @@ import styles from './index.module.scss';
 import { IOrderItemProps } from './interface';
 import { EOrderTypeTransferVal } from '../../../../enums/EOrder';
 import { transferAmount } from '../../../../utils';
-import ImagePreload from '../../../../components/ImagePreload';
+import { orderDetailPagePath } from '../../../../router';
 import OrderOperationBtn from '../../../../components/OrderOperationBtn';
+import OrderProductItem from '../OrderProductItem';
 
 const OrderItem = ({ data, changeData }: IOrderItemProps) => {
   return (
-    <View className={styles['order-item-wrapper']}>
+    <View
+      className={styles['order-item-wrapper']}
+      onClick={() => {
+        Taro.navigateTo({
+          url: orderDetailPagePath({
+            orderId: data.orderId,
+          }),
+        });
+      }}
+    >
       <View className={styles['order-id']}>
         <View className={styles['info']}>
           <Text className={styles['label']}>订单号: </Text>
@@ -39,41 +49,19 @@ const OrderItem = ({ data, changeData }: IOrderItemProps) => {
           {EOrderTypeTransferVal[data.orderType]}
         </Text>
       </View>
-      <View className={styles['product-list']}>
-        {data.productList.map((item) => (
-          <View className={styles['product-item']} key={item.productId}>
-            <View className={styles['img']}>
-              <ImagePreload
-                src={item.img}
-                width={180}
-                height={180}
-                borderRadius={14}
-              />
-            </View>
-            {/* 商品信息 */}
-            <View className={styles['product-info']}>
-              <Text className={styles['product-name']}>{item.name}</Text>
-              <View className={styles['config-and-quantity']}>
-                <Text className={styles['config']}>
-                  {item.productConfigList.join(' ')}
-                </Text>
-                <Text className={styles['quantity']}>X {item.buyQuantity}</Text>
-              </View>
-            </View>
-          </View>
-        ))}
+      {/* 商品列表 */}
+      <OrderProductItem productList={data.productList} />
 
-        <OrderOperationBtn
-          orderId={data.orderId}
-          amount={data.amount}
-          orderCheckTime={data.orderCheckTime}
-          orderCheck={data.orderCheck}
-          orderType={data.orderType}
-          hasRefundCourierInfo={data.hasRefundCourierInfo}
-          productList={data.productList}
-          changeData={changeData}
-        />
-      </View>
+      <OrderOperationBtn
+        orderId={data.orderId}
+        amount={data.amount}
+        orderCheckTime={data.orderCheckTime}
+        orderCheck={data.orderCheck}
+        orderType={data.orderType}
+        hasRefundCourierInfo={data.hasRefundCourierInfo}
+        productList={data.productList}
+        changeData={changeData}
+      />
     </View>
   );
 };

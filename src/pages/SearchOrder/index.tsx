@@ -35,6 +35,7 @@ const SearchOrder = () => {
       showToast({
         title: '请输入正确的商品名称',
       });
+      return;
     }
     scrollTop.current = 0;
     if (page === 1) {
