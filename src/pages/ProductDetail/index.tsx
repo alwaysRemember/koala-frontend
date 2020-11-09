@@ -71,6 +71,11 @@ const ProductDetail = () => {
       const data = await getProductDetail({ productId });
       setData(data);
       setPageLoading(true);
+      if (data.productStatus !== EProductStatus.PUT_ON_SHELF) {
+        showToast({
+          title: '当前商品审核中或已下架 ',
+        });
+      }
     } catch (e) {}
   };
 
@@ -79,6 +84,12 @@ const ProductDetail = () => {
    * @param type  当前的收藏状态
    */
   const favoriteChange = async (type) => {
+    if (data.productStatus !== EProductStatus.PUT_ON_SHELF) {
+      showToast({
+        title: '当前商品不支持此操作',
+      });
+      return;
+    }
     try {
       const { favoriteType } = await favoriteProduct({
         productId,
@@ -289,6 +300,7 @@ const ProductDetail = () => {
 
       {/* 底部操作区 */}
       <BottomOperatingArea
+        productStatus={data.productStatus}
         favorites={data.productFavorites}
         favoriteChange={favoriteChange}
         buyNow={buyNow}

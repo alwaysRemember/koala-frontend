@@ -7,8 +7,10 @@ import { AtIcon } from 'taro-ui';
 import { IBottomOperatingArea } from './interface';
 import { setClassName } from '../../../../utils';
 import { appletHomePath } from '../../../../router';
+import { EProductStatus } from '../../../../enums/EProduct';
 
 const BottomOperatingArea = ({
+  productStatus,
   favorites = false,
   favoriteChange,
   buyNow,
@@ -44,6 +46,7 @@ const BottomOperatingArea = ({
         <AtButton
           type="primary"
           size="small"
+          disabled={!(productStatus === EProductStatus.PUT_ON_SHELF)}
           className={setClassName([
             styles['operating-area-item'],
             styles['btn'],
@@ -54,6 +57,7 @@ const BottomOperatingArea = ({
         <AtButton
           type="primary"
           size="small"
+          disabled={!(productStatus === EProductStatus.PUT_ON_SHELF)}
           className={setClassName([
             styles['operating-area-item'],
             styles['btn'],
