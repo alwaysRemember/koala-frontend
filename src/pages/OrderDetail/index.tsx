@@ -21,7 +21,7 @@ import OrderProductItem from '../OrderList/components/OrderProductItem';
 
 const OrderDetail = () => {
   const {
-    params: { orderId = 'b8b586c0-059e-4686-aa11-e0f93f020101' },
+    params: { orderId },
   } = useRouter<IOrderDetailPathParams>();
 
   const { pageChangeGetDataType } = useMappedState<IReducers>((state) => state);

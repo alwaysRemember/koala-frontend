@@ -1,0 +1,33 @@
+.product-comment-wrapper {
+  padding: 30px;
+  box-sizing: border-box;
+  min-height: 100%;
+  .comment-item {
+    margin-bottom: 30px;
+    .comment-content {
+      border-top: none;
+      :global {
+        .at-card__header {
+          border: none;
+          .at-card__header-extra {
+            max-width: none;
+          }
+          .at-card__header-thumb {
+            .at-card__header-thumb-info {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      .text {
+        display: block;
+        font-size: 26px;
+        line-height: 30px;
+        margin-top: 10px;
+      }
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
