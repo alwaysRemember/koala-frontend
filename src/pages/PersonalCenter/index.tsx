@@ -1,5 +1,5 @@
-import Taro from '@tarojs/taro';
-import React from 'react';
+import Taro, { useDidShow, usePullDownRefresh } from '@tarojs/taro';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import { AtAvatar, AtBadge, AtList, AtListItem, AtButton } from 'taro-ui';
 import { useMappedState } from 'redux-react-hook';
@@ -11,22 +11,73 @@ import toBeDelivered from '../../images/personalCenter/to_be_delivered.png';
 import toBeReceived from '../../images/personalCenter/to_be_received.png';
 import styles from './index.module.scss';
 import { menuList } from './data';
-import { IMenuItem } from './interface';
+import { IMenuItem, IOrderBtnItem } from './interface';
 import { orderListPath } from '../../router';
 import { EDeafultTabKey } from '../OrderList/interface';
 import { EOrderType } from '../../enums/EOrder';
+import { getPersonalCenterData } from '../../api';
 
 const PersonalCenter = () => {
   let { userInfo } = useMappedState<IReducers>((state) => state);
   userInfo = userInfo as IFrontUserLoginResponse;
 
+  const [orderBtnList, setOrderBtnList] = useState<Array<IOrderBtnItem>>([
+    {
+      type: EOrderType.PENDING_PAYMENT,
+      text: '待付款',
+      badgeNumber: 0,
+      icon: pendingPayment,
+    },
+    {
+      type: EOrderType.TO_BE_DELIVERED,
+      text: '待发货',
+      badgeNumber: 0,
+      icon: toBeDelivered,
+    },
+    {
+      type: EOrderType.TO_BE_RECEIVED,
+      text: '待收货',
+      badgeNumber: 0,
+      icon: toBeReceived,
+    },
+    {
+      type: EOrderType.COMMENT,
+      text: '待评价',
+      badgeNumber: 0,
+      icon: completed,
+    },
+  ]);
+
+  const getData = async () => {
+    try {
+      const { orderBtnListData } = await getPersonalCenterData();
+      setOrderBtnList((prev) => {
+        const data: Array<IOrderBtnItem> = JSON.parse(JSON.stringify(prev));
+        return data.map((item) => ({
+          ...item,
+          badgeNumber:
+            orderBtnListData.find((d) => d.type === item.type)?.badgeNumber ||
+            0,
+        }));
+      });
+    } catch (e) {}
+  };
+
   /**
    * 菜单点击
    * @param data
    */
-  const menuClick = (data: IMenuItem) => {
-    // TODO 菜单点击
+  const menuClick = ({ path }: IMenuItem) => {
+    Taro.navigateTo({
+      url: path,
+    });
   };
+
+  useDidShow(() => {
+    getData();
+  });
+
+  usePullDownRefresh(getData);
 
   return (
     <View className={styles['user-wrapper']}>
@@ -59,67 +110,25 @@ const PersonalCenter = () => {
           </View>
         </View>
         <View className={styles['order-status-list']}>
-          {/* TODO 菜单点击 */}
-          <View
-            className={styles['order-status-item']}
-            onClick={() => {
-              Taro.navigateTo({
-                url: orderListPath({
-                  type: EOrderType.PENDING_PAYMENT,
-                }),
-              });
-            }}
-          >
-            <AtBadge value={10}>
-              <Image src={pendingPayment} className={styles['icon']} />
-            </AtBadge>
-            <Text>待付款</Text>
-          </View>
-          <View
-            className={styles['order-status-item']}
-            onClick={() => {
-              Taro.navigateTo({
-                url: orderListPath({
-                  type: EOrderType.TO_BE_DELIVERED,
-                }),
-              });
-            }}
-          >
-            <AtBadge value={0}>
-              <Image src={toBeDelivered} className={styles['icon']} />
-            </AtBadge>
-            <Text>待发货</Text>
-          </View>
-          <View
-            className={styles['order-status-item']}
-            onClick={() => {
-              Taro.navigateTo({
-                url: orderListPath({
-                  type: EOrderType.TO_BE_RECEIVED,
-                }),
-              });
-            }}
-          >
-            <AtBadge value="">
-              <Image src={toBeReceived} className={styles['icon']} />
-            </AtBadge>
-            <Text>待收货</Text>
-          </View>
-          <View
-            className={styles['order-status-item']}
-            onClick={() => {
-              Taro.navigateTo({
-                url: orderListPath({
-                  type: EOrderType.COMMENT,
-                }),
-              });
-            }}
-          >
-            <AtBadge value="">
-              <Image src={completed} className={styles['icon']} />
-            </AtBadge>
-            <Text>待评价</Text>
-          </View>
+          {orderBtnList.map(({ type, text, badgeNumber, icon }) => (
+            <View
+              className={styles['order-status-item']}
+              onClick={() => {
+                Taro.navigateTo({
+                  url: orderListPath({
+                    type,
+                  }),
+                });
+              }}
+            >
+              {(!!badgeNumber && (
+                <AtBadge value={badgeNumber}>
+                  <Image src={icon} className={styles['icon']} />
+                </AtBadge>
+              )) || <Image src={icon} className={styles['icon']} />}
+              <Text>{text}</Text>
+            </View>
+          ))}
         </View>
       </View>
       {/* 菜单部分 */}

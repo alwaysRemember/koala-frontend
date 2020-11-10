@@ -2,11 +2,12 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:29:54
- * @LastEditTime: 2020-11-09 15:13:49
+ * @LastEditTime: 2020-11-10 14:33:46
  * @FilePath: /koala-frontend/src/app.config.js
  */
 export default {
   pages: [
+    'pages/PersonalCenter/index',
     'pages/Global/index',
     'pages/ProductComment/index',
     'pages/OrderDetail/index',
@@ -20,7 +21,6 @@ export default {
     'pages/AddressList/index',
     'pages/ProductDetail/index',
     'pages/SearchPage/index',
-    'pages/PersonalCenter/index',
     'pages/Login/index',
     'pages/Home/index',
   ],
