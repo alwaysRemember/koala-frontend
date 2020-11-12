@@ -132,7 +132,10 @@ const OrderDetail = () => {
       </View>
       {/* 产品列表 */}
       <View className={styles['product-list-wrapper']}>
-        <OrderProductItem productList={data?.productList || []} />
+        <OrderProductItem
+          productList={data?.productList || []}
+          canClickProduct={true}
+        />
         <AtListItem
           title="商品总价"
           extraText={`${transferAmount(data?.amount || 0, 'yuan')} 元`}

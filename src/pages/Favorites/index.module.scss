@@ -1,0 +1,66 @@
+@import '../../common/css/custom-theme.scss';
+.favorites-wrapper {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100%;
+  .favorites-list {
+    .favorites-item-wrapper {
+      box-sizing: border-box;
+      padding: 30px 20px;
+      border-bottom: 1px solid #efefef;
+      &:last-child {
+        border: none;
+      }
+      .favorites-item {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        .img {
+          width: 180px;
+          height: 180px;
+          border-radius: 14px;
+          margin-right: 10px;
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          .name {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            font-size: 28px;
+            margin-bottom: 10px;
+          }
+          .amount {
+            display: block;
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+  .no-favorites {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .no-favorites-icon {
+      color: $color-brand;
+    }
+    .msg {
+      font-size: 28px;
+      text-align: center;
+      color: $color-brand;
+      font-weight: bold;
+    }
+  }
+}

@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-10 15:54:26
- * @LastEditTime: 2020-11-02 14:56:25
+ * @LastEditTime: 2020-11-12 14:45:18
  * @FilePath: /koala-frontend/src/pages/AddShoppingAddress/interface.ts
  */
 
@@ -13,7 +13,7 @@ export type TCityItem = { [key: string]: any };
 export interface IAddShoppingAddressPathParams
   extends Partial<Record<string, string>> {
   type: EPageType; // 页面类型
-  source: EPageSource; // 页面来源
+  source?: EPageSource; // 页面来源
 }
 
 // 省市区参数
