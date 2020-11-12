@@ -35,6 +35,16 @@ const OrderDetail = () => {
     [],
   );
 
+  const [showStatusOfOperation] = useState<Array<EOrderType>>([
+    EOrderType.PENDING_PAYMENT,
+    EOrderType.TO_BE_DELIVERED,
+    EOrderType.TO_BE_RECEIVED,
+    EOrderType.COMMENT,
+    EOrderType.FINISHED,
+    EOrderType.REFUNDING,
+    EOrderType.FINISHED,
+  ]);
+
   const getData = async () => {
     if (!orderId) {
       showToast({
@@ -165,14 +175,16 @@ const OrderDetail = () => {
           ))}
       </View>
       {/* 订单操作栏 */}
-      <View className={styles['order-btn']}>
-        <View
-          className={styles['con']}
-          style={{
-            bottom: Taro.pxTransform(isIphoneX ? 64 : 0),
-          }}
-        >
-          {!!data && (
+      {!!(
+        data && !!showStatusOfOperation.find((v) => v === data.orderType)
+      ) && (
+        <View className={styles['order-btn']}>
+          <View
+            className={styles['con']}
+            style={{
+              bottom: Taro.pxTransform(isIphoneX ? 64 : 0),
+            }}
+          >
             <OrderOperationBtn
               orderCheck={data.orderCheck}
               orderCheckTime={data.orderCheckTime}
@@ -183,9 +195,9 @@ const OrderDetail = () => {
               productList={data.productList}
               changeData={getData}
             />
-          )}
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };
