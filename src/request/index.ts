@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-09-17 14:32:49
+ * @LastEditTime: 2020-11-16 15:47:39
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from '@tarojs/taro';
@@ -11,7 +11,7 @@ import codeType from './codeType';
 import { showToast } from '../utils/wxUtils';
 import store from '../store';
 
-const mockUrl = 'http://192.168.50.199:3721';
+const mockUrl = 'http://192.168.50.191:3721';
 const serverTestUrl = 'http://thj.guyubao.com';
 
 const host =

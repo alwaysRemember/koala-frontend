@@ -1,0 +1,50 @@
+.my-comment-wrapper {
+  height: 100%;
+  .my-comment-list {
+    box-sizing: border-box;
+    padding: 0 20px;
+    overflow: hidden;
+    height: 100%;
+    .comment-item {
+      box-sizing: border-box;
+      padding: 30px 0;
+      border-bottom: 1px solid #efefef;
+      &:last-child {
+        border: none;
+      }
+      .top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .user-info {
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          align-items: center;
+          .name {
+            font-size: 32px;
+            margin-left: 10px;
+          }
+        }
+        .create-time {
+          font-size: 26px;
+        }
+      }
+      .rate {
+        margin-top: 20px;
+      }
+      .content {
+        display: block;
+        margin-top: 20px;
+        font-size: 28px;
+        line-height: 32px;
+      }
+      .product {
+        width: 180px;
+        height: 180px;
+        margin-top: 20px;
+      }
+    }
+  }
+}

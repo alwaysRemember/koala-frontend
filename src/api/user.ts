@@ -2,10 +2,11 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 14:53:22
- * @LastEditTime: 2020-11-10 14:53:15
+ * @LastEditTime: 2020-11-13 15:08:00
  * @FilePath: /koala-frontend/src/api/user.ts
  */
 
+import { IMyCommentResponseData } from 'src/pages/MyComment/interface';
 import { IPersonalCenterResponseData } from 'src/pages/PersonalCenter/interface';
 import {
   IUserLoginParams,
@@ -45,4 +46,21 @@ export const getPersonalCenterData = () =>
     url: `/get-personal-center-data`,
     method: 'GET',
     contentType: 'json',
+  });
+
+/**
+ * 获取我的评价列表
+ * @param params
+ * @param showLoading
+ */
+export const getMyComment = (
+  params: { page: number },
+  showLoading: boolean = true,
+) =>
+  request<IMyCommentResponseData>({
+    url: `/get-my-comment`,
+    method: 'POST',
+    params,
+    contentType: 'json',
+    showLoading,
   });

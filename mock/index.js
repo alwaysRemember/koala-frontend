@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-23 16:54:12
- * @LastEditTime: 2020-09-04 16:24:28
+ * @LastEditTime: 2020-11-16 15:19:05
  * @FilePath: /koala-frontend/mock/index.js
  */
 
@@ -163,6 +163,27 @@ module.exports = {
           productSales: 100,
           productShipping: 1000,
           productFavorites: false,
+        }),
+      );
+    });
+  },
+  'POST /api/front/get-my-comment': (req, res) => {
+    delay(() => {
+      res.json(
+        responseData({
+          total: 5,
+          list: [...Array(10).keys()].map((k) => ({
+            id: Math.random() * 100,
+            rate: 5,
+            text: `产品非常好 ${req.body.page} ${k}`,
+            createTime: '2020-11-06T06:14:35.091Z',
+            product: {
+              productId: '9d3e5e9a-dc99-47ce-8520-63c4c937b44d',
+              url: 'http://localhost:8080/image/1599550545392_IMG_2389.JPG',
+            },
+            avatar:
+              'https://thirdwx.qlogo.cn/mmopen/vi_32/7icYslR11jBbaGjm6LAXib6VRxEuibQiagia2LicNPJEgbTacD2SH8dSauGD6Cp9ggicA1tmY3foDwL5NibwZv6F1SI7Vg/132',
+          })),
         }),
       );
     });
