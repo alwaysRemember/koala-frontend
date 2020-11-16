@@ -6,9 +6,14 @@ import { AtIcon, AtButton } from 'taro-ui';
 import { EPaymentResultType } from './enum';
 import styles from './index.module.scss';
 import { IPaymentResultPathParams } from './interface';
-import { appletHomePath } from '../../router';
+import {
+  appletHomePath,
+  orderDetailPagePath,
+  orderListPath,
+} from '../../router';
 import { getOrderListAccordingToPayOrderId } from '../../api';
 import { showToast } from '../../utils/wxUtils';
+import { EOrderType } from 'src/enums/EOrder';
 
 /**
  * 进入当前页面必须为关闭历史所有所有记录的情况在跳转进来
@@ -33,14 +38,21 @@ const PaymentResult = () => {
         showToast({
           title: '未找到对应订单',
         });
+        return;
       }
-      console.log(orderList);
-
+      let url: string = '';
       if (orderList.length === 1) {
-        // TODO 跳转到订单详情页面
+        url = orderDetailPagePath({
+          orderId: orderList[0],
+        });
       } else {
-        // TODO 跳转到订单列表中的待发货页面
+        url = orderListPath({
+          type: EOrderType.TO_BE_DELIVERED,
+        });
       }
+      Taro.redirectTo({
+        url,
+      });
     } catch (e) {}
   };
 

@@ -2,13 +2,13 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:29:54
- * @LastEditTime: 2020-11-16 14:24:14
+ * @LastEditTime: 2020-11-16 16:23:05
  * @FilePath: /koala-frontend/src/app.config.js
  */
 export default {
   pages: [
-    'pages/MyComment/index',
     'pages/Global/index',
+    'pages/MyComment/index',
     'pages/Favorites/index',
     'pages/PersonalCenter/index',
     'pages/ProductComment/index',
