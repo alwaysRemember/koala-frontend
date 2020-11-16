@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:05:12
- * @LastEditTime: 2020-11-13 14:28:06
+ * @LastEditTime: 2020-11-16 17:06:24
  * @FilePath: /koala-frontend/src/router/index.ts
  */
 
@@ -110,3 +110,8 @@ export const favoritesPagePath: TPath<null> = () => `/pages/Favorites/index`;
  * 我的评价页面
  */
 export const myCommentPagePath: TPath<null> = () => `/pages/MyComment/index`;
+
+/**
+ * 商品分类页面
+ */
+export const categoriesPagePath: TPath<null> = () => `/pages/Categories/index`;

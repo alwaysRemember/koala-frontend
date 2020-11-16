@@ -13,7 +13,7 @@ import {
 } from '../../router';
 import { getOrderListAccordingToPayOrderId } from '../../api';
 import { showToast } from '../../utils/wxUtils';
-import { EOrderType } from 'src/enums/EOrder';
+import { EOrderType } from '../../enums/EOrder';
 
 /**
  * 进入当前页面必须为关闭历史所有所有记录的情况在跳转进来

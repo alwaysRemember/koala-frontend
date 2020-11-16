@@ -1,18 +1,18 @@
-import React from "react";
-import Taro from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
-import { AtAvatar, AtIcon } from "taro-ui";
-import { ICategoriesItem } from "../../interface";
-import styles from "./index.module.scss";
+import React from 'react';
+import Taro from '@tarojs/taro';
+import { View, Text } from '@tarojs/components';
+import { AtAvatar, AtIcon } from 'taro-ui';
+import { ICategoriesItem } from '../../interface';
+import styles from './index.module.scss';
+import { categoriesPagePath } from '../../../../router';
 
 const Classification = ({
   categoriesList,
-  showCategoriesMore
+  showCategoriesMore,
 }: {
   categoriesList: Array<ICategoriesItem>;
   showCategoriesMore: boolean;
 }) => {
-  
   /**
    * 分类菜单点击
    * @param data
@@ -21,11 +21,11 @@ const Classification = ({
     // TODO 菜单点击
   };
   return (
-    <View className={styles["classification-wrapper"]}>
+    <View className={styles['classification-wrapper']}>
       {categoriesList &&
         categoriesList.map((item: ICategoriesItem) => (
           <View
-            className={styles["classification-item"]}
+            className={styles['classification-item']}
             key={item.id}
             onClick={() => menuClick(item)}
           >
@@ -33,26 +33,26 @@ const Classification = ({
               size="small"
               circle
               image={item.categoriesIconUrl}
-              className={styles["icon"]}
+              className={styles['icon']}
             />
-            <Text className={styles["name"]}>{item.categoriesName}</Text>
+            <Text className={styles['name']}>{item.categoriesName}</Text>
           </View>
         ))}
 
       {/* 是否显示更多分类项 */}
       {showCategoriesMore && (
-        <View className={styles["classification-item"]}>
-          <View className={styles["icon"]}>
+        <View
+          className={styles['classification-item']}
+          onClick={() => {
+            Taro.navigateTo({
+              url: categoriesPagePath(),
+            });
+          }}
+        >
+          <View className={styles['icon']}>
             <AtIcon value="list" size="24" color="#fff" />
           </View>
-          <Text
-            className={styles["name"]}
-            onClick={() => {
-              // TODO 更多点击
-            }}
-          >
-            更多
-          </Text>
+          <Text className={styles['name']}>更多</Text>
         </View>
       )}
     </View>

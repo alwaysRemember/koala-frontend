@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-11-16 15:47:39
+ * @LastEditTime: 2020-11-16 17:29:54
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from '@tarojs/taro';
