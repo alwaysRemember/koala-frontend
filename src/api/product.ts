@@ -2,11 +2,15 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 15:02:42
- * @LastEditTime: 2020-11-06 15:31:16
+ * @LastEditTime: 2020-11-18 15:08:30
  * @FilePath: /koala-frontend/src/api/product.ts
  */
 import { IProductCommentResponseData } from 'src/pages/ProductComment/interface';
 import { IProductDetailResponse } from 'src/pages/ProductDetail/interface';
+import {
+  IProductListRequestParams,
+  IProductListResponseData,
+} from 'src/pages/ProductList/interface';
 import { request } from '../request';
 
 /**
@@ -43,4 +47,20 @@ export const getProductComment = (params: { productId: string }) =>
     url: `/product/get-product-comment`,
     params,
     method: 'POST',
+  });
+
+/**
+ * 获取产品列表
+ * @param params
+ * @param showLoading
+ */
+export const getProductList = (
+  params: IProductListRequestParams,
+  showLoading: boolean,
+) =>
+  request<IProductListResponseData>({
+    url: `/product/get-product-list`,
+    method: 'POST',
+    params,
+    showLoading,
   });

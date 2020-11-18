@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-25 16:05:12
- * @LastEditTime: 2020-11-16 17:06:24
+ * @LastEditTime: 2020-11-17 14:14:48
  * @FilePath: /koala-frontend/src/router/index.ts
  */
 
@@ -16,6 +16,7 @@ import { ILogisticsInfoPathParams } from 'src/pages/LogisticsInfo/interface';
 import { ICommentPagePathParams } from 'src/pages/CommentPage/interface';
 import { IOrderDetailPathParams } from 'src/pages/OrderDetail/interface';
 import { IProductCommentPathParams } from 'src/pages/ProductComment/interface';
+import { IProductListPathParams } from 'src/pages/ProductList/interface';
 
 type TPath<T extends {} | null> = (params?: T) => string;
 
@@ -115,3 +116,10 @@ export const myCommentPagePath: TPath<null> = () => `/pages/MyComment/index`;
  * 商品分类页面
  */
 export const categoriesPagePath: TPath<null> = () => `/pages/Categories/index`;
+
+/**
+ * 商品列表页面
+ * @param params
+ */
+export const productListPagePath: TPath<IProductListPathParams> = (params) =>
+  `/pages/ProductList/index${params ? pathParamsTransfer(params) : ''}`;
