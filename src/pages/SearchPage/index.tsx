@@ -1,11 +1,12 @@
-import React from "react";
-import Taro, { Config } from "@tarojs/taro";
-import { useState, useEffect } from "react";
-import { View, Text } from "@tarojs/components";
-import SearchInput from "../../components/SearchInput";
-import { AtTag, AtButton } from "taro-ui";
-import styles from "./index.module.scss";
-import { ESearchHistoryRecordLocalKey } from "../../enums/EProduct";
+import React from 'react';
+import Taro, { Config } from '@tarojs/taro';
+import { useState, useEffect } from 'react';
+import { View, Text } from '@tarojs/components';
+import SearchInput from '../../components/SearchInput';
+import { AtTag, AtButton } from 'taro-ui';
+import styles from './index.module.scss';
+import { ESearchHistoryRecordLocalKey } from '../../enums/EProduct';
+import { productListPagePath } from '../../router';
 
 const SearchPage: { config: Config } = () => {
   const [searchHistoryRecordList, setSearchHistoryRecordList] = useState<
@@ -42,7 +43,11 @@ const SearchPage: { config: Config } = () => {
    */
   const goToProductList = (searchValue: string) => {
     // TODO  跳转产品列表页面(redirect),并且把搜索参数带过去进行请求数据
-    console.log(searchValue);
+    Taro.redirectTo({
+      url: productListPagePath({
+        searchName: searchValue,
+      }),
+    });
   };
 
   /**
@@ -60,19 +65,19 @@ const SearchPage: { config: Config } = () => {
   }, []);
 
   return (
-    <View className={styles["search-page-wrapper"]}>
+    <View className={styles['search-page-wrapper']}>
       {/* 搜索组件 */}
       <SearchInput searchConfirm={searchConfirm} />
       {/* 历史记录 */}
-      <View className={styles["search-history-record"]}>
-        <View className={styles["search-history-record-title"]}>
-          <Text className={styles["title"]}>历史记录</Text>
+      <View className={styles['search-history-record']}>
+        <View className={styles['search-history-record-title']}>
+          <Text className={styles['title']}>历史记录</Text>
           {!!searchHistoryRecordList.length && (
             <AtButton
               size="small"
               onClick={clearSearchHistoryRecord}
               type="primary"
-              className={styles["clear"]}
+              className={styles['clear']}
             >
               清除
             </AtButton>
@@ -80,7 +85,7 @@ const SearchPage: { config: Config } = () => {
         </View>
         {searchHistoryRecordList.map((item) => (
           <AtTag
-            className={styles["search-history-record-item"]}
+            className={styles['search-history-record-item']}
             key={item}
             type="primaray"
             size="small"
@@ -97,7 +102,7 @@ const SearchPage: { config: Config } = () => {
 };
 
 SearchPage.config = {
-  navigationBarTitleText: "搜索商品",
+  navigationBarTitleText: '搜索商品',
 };
 
 export default SearchPage;

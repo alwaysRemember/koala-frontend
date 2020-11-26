@@ -4,7 +4,7 @@ import { View, Text } from '@tarojs/components';
 import { AtAvatar, AtIcon } from 'taro-ui';
 import { ICategoriesItem } from '../../interface';
 import styles from './index.module.scss';
-import { categoriesPagePath } from '../../../../router';
+import { categoriesPagePath, productListPagePath } from '../../../../router';
 
 const Classification = ({
   categoriesList,
@@ -17,8 +17,13 @@ const Classification = ({
    * 分类菜单点击
    * @param data
    */
-  const menuClick = (data: ICategoriesItem) => {
-    // TODO 菜单点击
+  const menuClick = ({ id, categoriesName }: ICategoriesItem) => {
+    Taro.navigateTo({
+      url: productListPagePath({
+        searchName: categoriesName,
+        categoriesId: id,
+      }),
+    });
   };
   return (
     <View className={styles['classification-wrapper']}>

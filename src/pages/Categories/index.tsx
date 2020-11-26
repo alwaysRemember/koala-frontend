@@ -5,6 +5,7 @@ import { AtGrid } from 'taro-ui';
 import styles from './index.module.scss';
 import { ICategoriesItem } from './interface';
 import { getCategoriesList } from '../../api';
+import { productListPagePath } from '../../router';
 
 const Categories = () => {
   const [data, setData] = useState<Array<ICategoriesItem>>([]);
@@ -16,9 +17,13 @@ const Categories = () => {
     } catch (e) {}
   };
 
-  const categoriesClick = ({ name, id }: ICategoriesItem) => {
-    // TODO 传入分类名至产品列表页面
-    console.log(name, id);
+  const categoriesClick = ({ id, value }) => {
+    Taro.navigateTo({
+      url: productListPagePath({
+        searchName: value,
+        categoriesId: id,
+      }),
+    });
   };
 
   useEffect(() => {
@@ -28,9 +33,10 @@ const Categories = () => {
     <View className={styles['categories-wrapper']}>
       <AtGrid
         onClick={categoriesClick}
-        data={data.map(({ name, imgPath }) => ({
+        data={data.map(({ name, imgPath, id }) => ({
           image: imgPath,
           value: name,
+          id,
         }))}
       />
     </View>
