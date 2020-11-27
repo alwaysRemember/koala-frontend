@@ -18,6 +18,7 @@ const SelectProductConfig = ({
   cref,
   buyNow,
   selectProductConfigListChange,
+  saveToShoppingCart,
 }: ISelectProductConfig) => {
   useImperativeHandle(cref, () => ({
     changeShow: (type) => {
@@ -236,6 +237,9 @@ const SelectProductConfig = ({
               styles['add-shopping-cart'],
               styles['btn'],
             ])}
+            onClick={() => {
+              saveToShoppingCart('modal');
+            }}
           >
             加入购物车
           </AtButton>

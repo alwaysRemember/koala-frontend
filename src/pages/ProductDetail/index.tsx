@@ -23,6 +23,8 @@ import { ISelectProductConfigRef } from './components/SelectProductConfig/interf
 import { useDispatch } from 'redux-react-hook';
 import { orderConfirmPath } from '../../router';
 import { updateOrderConfirmProductList } from '../../store/actions';
+import { saveProductToShoppingCart } from '../../api';
+import { EToastIcon } from '../../enums/EWXUtils';
 const ProductDetail = () => {
   let { params, path } = useRouter<IProductDetailPathParams>();
   const productId = params.productId;
@@ -103,13 +105,46 @@ const ProductDetail = () => {
     } catch (e) {}
   };
 
+  // 添加至购物车
+  const saveToShoppingCart = async (type: 'modal' | 'page' = 'page') => {
+    // 判断是否选择了配置
+    if (
+      productConfigList.length &&
+      productConfigList.length !== selectProductConfigList.length
+    ) {
+      if (type === 'modal') {
+        showToast({
+          title: `请选择商品的${productConfigList.map(
+            ({ categoryName }) => categoryName,
+          )}`,
+        });
+      }
+      selectProductConfigRef.current.changeShow(true);
+      return;
+    }
+    try {
+      await saveProductToShoppingCart({
+        productId,
+        buyConfigList: selectProductConfigList.map(({ id }) => id),
+        buyQuantity: selectProductConfigRef.current.getBuyQuantity(),
+      });
+      showToast({
+        title: '添加成功',
+        icon: EToastIcon.SUCCESS,
+      });
+    } catch (e) {}
+  };
+
   /**
    * 立即购买
    * @param type  调用的地方
    */
   const buyNow = (type: 'page' | 'modal' = 'page') => {
     // 需要选择配置的情况 判断是否选择了配置
-    if (productConfigList.length && !selectProductConfigList.length) {
+    if (
+      productConfigList.length &&
+      productConfigList.length !== selectProductConfigList.length
+    ) {
       // 判断是否在主页调用的method
       if (type === 'page') {
         selectProductConfigRef.current.changeShow(true);
@@ -260,7 +295,9 @@ const ProductDetail = () => {
         {!!data.productConfigList.length && (
           <View
             className={styles['select-product-config']}
-            onClick={() => selectProductConfigRef.current.changeShow(true)}
+            onClick={() => {
+              selectProductConfigRef.current.changeShow(true);
+            }}
           >
             <Text className={styles['tips']}>
               {!!selectProductConfigList.length ? '当前选择' : '请选择'}
@@ -303,11 +340,13 @@ const ProductDetail = () => {
         productStatus={data.productStatus}
         favorites={data.productFavorites}
         favoriteChange={favoriteChange}
+        saveToShoppingCart={saveToShoppingCart}
         buyNow={buyNow}
       />
 
       {/* 选择产品配置 */}
       <SelectProductConfig
+        saveToShoppingCart={saveToShoppingCart}
         cref={selectProductConfigRef}
         productConfig={productConfigList}
         productShowAmount={productAmount}

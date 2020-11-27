@@ -14,6 +14,7 @@ const BottomOperatingArea = ({
   favorites = false,
   favoriteChange,
   buyNow,
+  saveToShoppingCart,
 }: IBottomOperatingArea) => {
   return (
     <View className={styles['operating-area-wrapper']}>
@@ -51,6 +52,7 @@ const BottomOperatingArea = ({
             styles['operating-area-item'],
             styles['btn'],
           ])}
+          onClick={saveToShoppingCart}
         >
           加入购物车
         </AtButton>

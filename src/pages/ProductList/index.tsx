@@ -12,6 +12,7 @@ import { getProductList } from '../../api/product';
 import { EProductSortType } from './enums';
 import ImagePreload from '../../components/ImagePreload';
 import { showToast } from '../../utils/wxUtils';
+import { productDetailPath } from '../../router';
 const ProductList = () => {
   const {
     params: { categoriesId, searchName },
@@ -163,7 +164,17 @@ const ProductList = () => {
             productSales,
             productDeliveryCity,
           }) => (
-            <View className={styles['product-item']} key={productId}>
+            <View
+              className={styles['product-item']}
+              key={productId}
+              onClick={() => {
+                Taro.navigateTo({
+                  url: productDetailPath({
+                    productId,
+                  }),
+                });
+              }}
+            >
               <View className={styles['product-img']}>
                 <ImagePreload
                   src={imgPath}
