@@ -2,11 +2,12 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:29:54
- * @LastEditTime: 2020-11-19 10:21:44
+ * @LastEditTime: 2020-12-01 14:13:05
  * @FilePath: /koala-frontend/src/app.config.js
  */
 export default {
   pages: [
+    'pages/ShoppingCart/index',
     'pages/Global/index',
     'pages/ProductList/index',
     'pages/Categories/index',
@@ -41,6 +42,12 @@ export default {
       {
         pagePath: 'pages/Home/index',
         text: '首页',
+        iconPath: './images/tabbar/home.png', // 35*38
+        selectedIconPath: './images/tabbar/home_selected.png',
+      },
+      {
+        pagePath: 'pages/ShoppingCart/index',
+        text: '购物车',
         iconPath: './images/tabbar/home.png', // 35*38
         selectedIconPath: './images/tabbar/home_selected.png',
       },

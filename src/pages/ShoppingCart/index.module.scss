@@ -1,0 +1,190 @@
+@import '../../common/css/custom-theme.scss';
+.shopping-cart-wrapper {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #efefef;
+  .top-wrapper {
+    height: 100px;
+    .top {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100px;
+      box-sizing: border-box;
+      padding: 0 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      background: #fff;
+      border-bottom: 1px solid #efefef;
+      .management {
+        display: block;
+        height: 100px;
+        line-height: 100px;
+        font-size: 28px;
+        color: #333;
+      }
+    }
+  }
+  .product-list {
+    position: relative;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    overflow: hidden;
+    flex: 1;
+    :global {
+      .at-swipe-action {
+        border-radius: 20px;
+        margin-bottom: 20px;
+      }
+    }
+    .product-item {
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background: #fff;
+      .select-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin-right: 10px;
+        .select-icon {
+          color: #ccc;
+          &.on {
+            color: $color-brand;
+          }
+        }
+      }
+      .product-img {
+        width: 180px;
+        height: 180px;
+        border-radius: 14px;
+        margin-right: 20px;
+      }
+      .info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .title {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          font-size: 28px;
+          color: #333;
+          margin-bottom: 10px;
+        }
+        .product-config {
+          font-size: 26px;
+          line-height: 28px;
+          color: #ccc;
+          margin-bottom: 10px;
+        }
+        .amount-and-quantity {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .amount,
+          .quantity {
+            font-size: 28px;
+            color: #333;
+          }
+        }
+        .shipping-and-total-amount {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          .shipping {
+            font-size: 26px;
+            color: #333;
+          }
+          .total-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: $color-brand;
+          }
+        }
+      }
+    }
+    .no-product {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      .no-product-con {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .no-product-icon {
+          color: $color-brand;
+        }
+        .msg {
+          font-size: 28px;
+          color: #333;
+          line-height: 40px;
+          margin: 20px 0;
+        }
+      }
+    }
+  }
+  .operation-wrapper {
+    width: 100%;
+    height: 100px;
+    .operation-con {
+      padding: 0 30px;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 100px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #efefef;
+      background: #fff;
+      .select-wrapper {
+        .select-icon {
+          color: #ccc;
+          &.on {
+            color: $color-brand;
+          }
+        }
+      }
+    }
+    .amount-and-buy {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .amount-wrapper {
+        margin-right: 10px;
+        .label {
+          font-size: 28px;
+          margin-right: 10px;
+        }
+        .amount {
+          font-size: 32px;
+          font-weight: bold;
+          color: $color-brand;
+        }
+      }
+      .pay {
+        width: 200px;
+        border-radius: 50px;
+      }
+    }
+  }
+}
