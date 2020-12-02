@@ -12,6 +12,7 @@ import {
 import ImagePreload from '../../components/ImagePreload';
 import { showToast } from '../../utils/wxUtils';
 import { appletHomePath, productDetailPath } from '../../router';
+import { EProductStatus } from '../../enums/EProduct';
 const ShoppingCart = () => {
   const [isSelectAll, setIsSelectAll] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>(
@@ -50,7 +51,7 @@ const ShoppingCart = () => {
     if (isGetData) return;
     const p = page + 1;
     if (p > total) return;
-    getData();
+    setPage(p);
   };
 
   /**
@@ -86,6 +87,7 @@ const ShoppingCart = () => {
       await showToast({
         title: '删除成功',
       });
+      scrollTop.current = 0;
       if (page === 1) {
         getData();
       } else {
@@ -223,7 +225,7 @@ const ShoppingCart = () => {
               <View className={styles['product-item']}>
                 <View
                   className={styles['select-wrapper']}
-                  onClick={(e) => {
+                  onClick={() => {
                     productSelect(shoppingCartId);
                   }}
                 >
@@ -292,6 +294,16 @@ const ShoppingCart = () => {
                     </Text>
                   </View>
                 </View>
+                {/* 失效产品 */}
+                {productStatus === EProductStatus.PUT_ON_SHELF && (
+                  <View className={styles['expired-product']}>
+                    <AtIcon
+                      value="blocked"
+                      className={styles['blocked']}
+                      size="80"
+                    />
+                  </View>
+                )}
               </View>
             </AtSwipeAction>
           ),
