@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Taro, { useDidShow } from '@tarojs/taro';
+import Taro, { useDidHide, useDidShow } from '@tarojs/taro';
 import { View, Text, ScrollView } from '@tarojs/components';
 import styles from './index.module.scss';
 import { AtButton, AtIcon, AtLoadMore, AtSwipeAction } from 'taro-ui';
@@ -110,7 +110,11 @@ const ShoppingCart = () => {
     );
     d[index].isSelect = !d[index].isSelect;
 
-    const hasNoSelect = !!d.filter((item) => !item.isSelect).length;
+    const hasNoSelect = !!d.filter((item) =>
+      item.productStatus === EProductStatus.PUT_ON_SHELF
+        ? !item.isSelect
+        : false,
+    ).length;
     setIsSelectAll(!hasNoSelect);
     setData(d);
   };
@@ -129,6 +133,18 @@ const ShoppingCart = () => {
   useDidShow(() => {
     getData();
   });
+  useDidHide(() => {
+    setData((prev) => {
+      const list: Array<IShoppingCartShowPageDataItem> = JSON.parse(
+        JSON.stringify(prev),
+      );
+      list.forEach((item) => {
+        item.isSelect = false;
+      });
+      return list;
+    });
+    setIsSelectAll(false);
+  });
 
   /* 监听全选或者反选 */
   useEffect(() => {
@@ -139,7 +155,10 @@ const ShoppingCart = () => {
       );
       return list.map((item) => ({
         ...item,
-        isSelect: isSelectAll,
+        isSelect:
+          item.productStatus === EProductStatus.PUT_ON_SHELF
+            ? isSelectAll
+            : false,
       }));
     });
   }, [isSelectAll]);
@@ -295,7 +314,7 @@ const ShoppingCart = () => {
                   </View>
                 </View>
                 {/* 失效产品 */}
-                {productStatus === EProductStatus.PUT_ON_SHELF && (
+                {productStatus !== EProductStatus.PUT_ON_SHELF && (
                   <View className={styles['expired-product']}>
                     <AtIcon
                       value="blocked"
