@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-11-27 18:09:05
- * @LastEditTime: 2020-12-02 14:54:39
+ * @LastEditTime: 2020-12-04 16:03:56
  * @FilePath: /koala-frontend/src/pages/ShoppingCart/interface.ts
  */
 
@@ -36,4 +36,9 @@ export interface IShoppingCartShowPageDataItem extends IShoppingCartItem {
   isSelect: boolean;
 }
 
-export type TBuyConfig = { id: number; name: string };
+export type TBuyConfig = {
+  id: number;
+  name: string;
+  categoryName: string;
+  amount: number;
+};

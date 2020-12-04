@@ -24,9 +24,10 @@ import { EPaymentResultType } from '../PaymentResult/enum';
 const OrderConfirm = () => {
   const state = useMappedState<IReducers>((state) => state);
 
-  const [selectShoppingAddress, setSelectShoppingAddress] = useState<
-    IAddressItem
-  >(); // 选择的收货地址
+  const [
+    selectShoppingAddress,
+    setSelectShoppingAddress,
+  ] = useState<IAddressItem>(); // 选择的收货地址
 
   const [buyProductList, setBuyProductList] = useState<Array<IBuyProductItem>>(
     state.orderConfirmProductList.map((data) =>

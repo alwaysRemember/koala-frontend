@@ -1,4 +1,4 @@
-import Taro, { showToast } from '@tarojs/taro';
+import Taro from '@tarojs/taro';
 import React, { useEffect, useState } from 'react';
 import { IBtnProps, IOrderOperationBtnProps } from './interface';
 import { View } from '@tarojs/components';
@@ -13,7 +13,7 @@ import {
   refundCourierInfo,
   returnOfGoods,
 } from '../../api';
-import { callWxPay } from '../../utils/wxUtils';
+import { callWxPay, showToast } from '../../utils/wxUtils';
 import { useDispatch } from 'redux-react-hook';
 import {
   updateCommentPageData,

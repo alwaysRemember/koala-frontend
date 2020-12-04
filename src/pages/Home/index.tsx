@@ -1,15 +1,15 @@
-import Taro, { usePullDownRefresh } from "@tarojs/taro";
-import React from "react";
-import { useState, useEffect } from "react";
-import { View } from "@tarojs/components";
-import Banner from "./components/Banner";
-import Classification from "./components/Classification";
-import styles from "./index.module.scss";
-import { IHomeData } from "./interface";
-import Featured from "./components/Featured";
-import HomeSkeleton from "./components/HomeSkeleton";
-import { getHomeInfo } from "../../api";
-import SearchInput from "../../components/SearchInput";
+import Taro, { usePullDownRefresh } from '@tarojs/taro';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { View } from '@tarojs/components';
+import Banner from './components/Banner';
+import Classification from './components/Classification';
+import styles from './index.module.scss';
+import { IHomeData } from './interface';
+import Featured from './components/Featured';
+import HomeSkeleton from './components/HomeSkeleton';
+import { getHomeInfo } from '../../api';
+import SearchInput from '../../components/SearchInput';
 
 const Home = () => {
   const [showPage, setShowPage] = useState<boolean>(false);
@@ -39,13 +39,12 @@ const Home = () => {
   return (
     <View>
       {showPage ? (
-        <View className={styles["home-wrapper"]}>
+        <View className={styles['home-wrapper']}>
           {/* 搜索 */}
-          {/* TODO 点击搜索 */}
           <View
             onClick={() => {
               Taro.navigateTo({
-                url: "/pages/SearchPage/index",
+                url: '/pages/SearchPage/index',
               });
             }}
           >

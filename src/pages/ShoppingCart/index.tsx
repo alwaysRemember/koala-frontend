@@ -11,9 +11,19 @@ import {
 } from '../../api';
 import ImagePreload from '../../components/ImagePreload';
 import { showToast } from '../../utils/wxUtils';
-import { appletHomePath, productDetailPath } from '../../router';
+import {
+  appletHomePath,
+  orderConfirmPath,
+  productDetailPath,
+} from '../../router';
 import { EProductStatus } from '../../enums/EProduct';
+import { useDispatch } from 'redux-react-hook';
+import { updateOrderConfirmProductList } from '../../store/actions';
+import { IOrderConfirmDefaultParams } from '../OrderConfirm/interface';
+import { IProductConfigModuleOption } from '../ProductDetail/interface';
 const ShoppingCart = () => {
+  const dispatch = useDispatch();
+
   const [isSelectAll, setIsSelectAll] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>(
     transferAmount(0, 'yuan') as string,
@@ -119,6 +129,50 @@ const ShoppingCart = () => {
     setData(d);
   };
 
+  const pay = () => {
+    const data = _getSelectProduct();
+    if (!data.length) {
+      showToast({
+        title: '请选择要购买的商品',
+      });
+      return;
+    }
+    dispatch(
+      updateOrderConfirmProductList(
+        data.map<IOrderConfirmDefaultParams>(
+          ({
+            productId,
+            productImg,
+            name,
+            buyQuantity,
+            buyConfigList,
+            amount,
+            productShipping,
+          }) => ({
+            productId,
+            productName: name,
+            productMainImg: productImg,
+            buyQuantity,
+            selectProductConfigList: buyConfigList.map<IProductConfigModuleOption>(
+              ({ id, name, categoryName, amount }) => ({
+                id,
+                name,
+                categoryName,
+                amount,
+                isSelect: true,
+              }),
+            ),
+            productAmount: amount,
+            productShipping,
+          }),
+        ),
+      ),
+    );
+    Taro.navigateTo({
+      url: orderConfirmPath(),
+    });
+  };
+
   /**
    * 获取选中的产品
    */
@@ -166,11 +220,17 @@ const ShoppingCart = () => {
   useEffect(() => {
     let amount = data
       .filter((item) => item.isSelect)
-      .reduce((prev, c) => {
-        console.log(c.amount, c.buyQuantity, c.productShipping);
-
-        return prev + (c.amount * c.buyQuantity + c.productShipping);
-      }, 0);
+      .reduce(
+        (prev, c) =>
+          prev +
+          (c.buyConfigList.reduce(
+            (p, current) => p + current.amount,
+            c.amount,
+          ) *
+            c.buyQuantity +
+            c.productShipping),
+        0,
+      );
     setAmount(transferAmount(amount, 'yuan') as string);
   }, [data]);
 
@@ -296,7 +356,11 @@ const ShoppingCart = () => {
                   </View>
                   <View className={styles['amount-and-quantity']}>
                     <Text className={styles['amount']}>
-                      单价: {transferAmount(amount, 'yuan')}
+                      单价:{' '}
+                      {transferAmount(
+                        buyConfigList.reduce((p, c) => p + c.amount, amount),
+                        'yuan',
+                      )}
                     </Text>
                     <Text className={styles['quantity']}>X {buyQuantity}</Text>
                   </View>
@@ -307,7 +371,9 @@ const ShoppingCart = () => {
                     <Text className={styles['total-amount']}>
                       ￥{' '}
                       {transferAmount(
-                        amount * buyQuantity + productShipping,
+                        buyConfigList.reduce((p, c) => p + c.amount, amount) *
+                          buyQuantity +
+                          productShipping,
                         'yuan',
                       )}
                     </Text>
@@ -402,7 +468,8 @@ const ShoppingCart = () => {
                 <Text className={styles['label']}>合计</Text>
                 <Text className={styles['amount']}>¥ {amount}</Text>
               </View>
-              <AtButton type="primary" className={styles['pay']}>
+              {/* TODO 下单功能 */}
+              <AtButton type="primary" className={styles['pay']} onClick={pay}>
                 支付
               </AtButton>
             </View>

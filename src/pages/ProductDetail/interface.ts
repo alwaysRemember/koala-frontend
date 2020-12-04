@@ -4,7 +4,7 @@ import { EProductStatus } from 'src/enums/EProduct';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-08-20 14:00:04
- * @LastEditTime: 2020-11-27 16:36:30
+ * @LastEditTime: 2020-12-03 11:44:41
  * @FilePath: /koala-frontend/src/pages/ProductDetail/interface.ts
  */
 
@@ -14,7 +14,6 @@ export interface IProductDetailPathParams
 }
 
 // 产品详情数据
-// TODO 缺少数据： 产品评价
 export interface IProductDetailResponse {
   productId: string;
   productVideo: IProductDetailVideo;

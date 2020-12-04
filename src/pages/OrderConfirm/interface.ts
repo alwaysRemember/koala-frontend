@@ -3,7 +3,7 @@ import { IAddressItem } from '../AddressList/interface';
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-09 17:28:13
- * @LastEditTime: 2020-09-24 15:16:42
+ * @LastEditTime: 2020-12-04 16:08:37
  * @FilePath: /koala-frontend/src/pages/OrderConfirm/interface.ts
  */
 

@@ -42,7 +42,6 @@ const SearchPage: { config: Config } = () => {
    * @param searchValue
    */
   const goToProductList = (searchValue: string) => {
-    // TODO  跳转产品列表页面(redirect),并且把搜索参数带过去进行请求数据
     Taro.redirectTo({
       url: productListPagePath({
         searchName: searchValue,
