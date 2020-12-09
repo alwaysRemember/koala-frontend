@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-09-03 17:29:54
- * @LastEditTime: 2020-12-09 12:06:33
+ * @LastEditTime: 2020-12-09 16:36:31
  * @FilePath: /koala-frontend/src/app.config.js
  */
 export default {
@@ -48,8 +48,8 @@ export default {
       {
         pagePath: 'pages/ShoppingCart/index',
         text: '购物车',
-        iconPath: './images/tabbar/home.png', // 35*38
-        selectedIconPath: './images/tabbar/home_selected.png',
+        iconPath: './images/tabbar/shopping_cart.png', // 35*38
+        selectedIconPath: './images/tabbar/shopping_cart_selected.png',
       },
       {
         pagePath: 'pages/PersonalCenter/index',

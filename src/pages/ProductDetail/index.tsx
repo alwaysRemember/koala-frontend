@@ -242,7 +242,7 @@ const ProductDetail = () => {
         `${_transferProductAmount('min')}-${_transferProductAmount('max')}`,
       );
     } else {
-      setProductAmount(productAmount.toFixed(2));
+      setProductAmount(transferAmount(productAmount, 'yuan') as string);
     }
 
     // 设置产品配置分类

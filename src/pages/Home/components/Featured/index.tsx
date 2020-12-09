@@ -6,6 +6,7 @@ import styles from './index.module.scss';
 import { IFeaturedItem } from '../../interface';
 import { productDetailPath } from '../../../../router';
 import ImagePreload from '../../../../components/ImagePreload';
+import { transferAmount } from '../../../../utils';
 
 const Featured = ({
   featuredList,
@@ -53,9 +54,16 @@ const Featured = ({
               <View className={styles['product-amount-wrapper']}>
                 <View className={styles['product-amount']}>
                   <Text className={styles['amount-label']}>限时价 </Text>
-                  <Text className={styles['amount']}>¥{item.amount / 100}</Text>
+                  <Text className={styles['amount']}>
+                    ¥ {transferAmount(item.amount, 'yuan')}
+                  </Text>
                 </View>
-                <AtButton type="primary" size="small" circle>
+                <AtButton
+                  type="primary"
+                  size="small"
+                  circle
+                  className={styles['buy']}
+                >
                   立即抢购
                 </AtButton>
               </View>

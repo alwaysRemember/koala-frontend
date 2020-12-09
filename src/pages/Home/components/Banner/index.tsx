@@ -1,4 +1,5 @@
 import React from 'react';
+import Taro from '@tarojs/taro';
 import { Swiper, SwiperItem, Image, View } from '@tarojs/components';
 import { IBannerItem } from '../../interface';
 import styles from './index.module.scss';
