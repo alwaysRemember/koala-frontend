@@ -9,9 +9,11 @@ import { categoriesPagePath, productListPagePath } from '../../../../router';
 const Classification = ({
   categoriesList,
   showCategoriesMore,
+  checkLogin,
 }: {
   categoriesList: Array<ICategoriesItem>;
   showCategoriesMore: boolean;
+  checkLogin: (cb) => void;
 }) => {
   /**
    * 分类菜单点击
@@ -32,7 +34,11 @@ const Classification = ({
           <View
             className={styles['classification-item']}
             key={item.id}
-            onClick={() => menuClick(item)}
+            onClick={() => {
+              checkLogin(() => {
+                menuClick(item);
+              });
+            }}
           >
             <AtAvatar
               size="small"

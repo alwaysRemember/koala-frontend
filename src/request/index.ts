@@ -2,7 +2,7 @@
  * @Author: Always
  * @LastEditors: Always
  * @Date: 2020-06-22 16:39:37
- * @LastEditTime: 2020-11-16 17:29:54
+ * @LastEditTime: 2020-12-08 16:32:47
  * @FilePath: /koala-frontend/src/request/index.ts
  */
 import Taro from '@tarojs/taro';
@@ -13,9 +13,9 @@ import store from '../store';
 
 const mockUrl = 'http://192.168.50.191:3721';
 const serverTestUrl = 'http://thj.guyubao.com';
+const prodUrl = 'https://zoomarket.xyz';
 
-const host =
-  process.env.NODE_ENV === 'development' ? serverTestUrl : serverTestUrl;
+const host = process.env.NODE_ENV === 'development' ? serverTestUrl : prodUrl;
 
 /**
  * 设置请求类型

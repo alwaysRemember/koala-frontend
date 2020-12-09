@@ -7,7 +7,13 @@ import { IFeaturedItem } from '../../interface';
 import { productDetailPath } from '../../../../router';
 import ImagePreload from '../../../../components/ImagePreload';
 
-const Featured = ({ featuredList }: { featuredList: Array<IFeaturedItem> }) => {
+const Featured = ({
+  featuredList,
+  checkLogin,
+}: {
+  featuredList: Array<IFeaturedItem>;
+  checkLogin: (cb) => void;
+}) => {
   /**
    * 产品跳转
    * @param id
@@ -25,7 +31,11 @@ const Featured = ({ featuredList }: { featuredList: Array<IFeaturedItem> }) => {
           <View
             className={styles['featured-product-item']}
             key={item.id}
-            onClick={() => productClick(item.id)}
+            onClick={() => {
+              checkLogin(() => {
+                productClick(item.id);
+              });
+            }}
           >
             <View className={styles['logo']}>
               <ImagePreload

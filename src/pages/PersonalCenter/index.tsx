@@ -12,7 +12,7 @@ import toBeReceived from '../../images/personalCenter/to_be_received.png';
 import styles from './index.module.scss';
 import { menuList } from './data';
 import { IMenuItem, IOrderBtnItem } from './interface';
-import { orderListPath } from '../../router';
+import { loginPath, orderListPath } from '../../router';
 import { EDeafultTabKey } from '../OrderList/interface';
 import { EOrderType } from '../../enums/EOrder';
 import { getPersonalCenterData } from '../../api';
@@ -20,7 +20,7 @@ import { getPersonalCenterData } from '../../api';
 const PersonalCenter = () => {
   let { userInfo } = useMappedState<IReducers>((state) => state);
   userInfo = userInfo as IFrontUserLoginResponse;
-
+  const isLogin = !!userInfo.openid; // 是否登录了
   const [orderBtnList, setOrderBtnList] = useState<Array<IOrderBtnItem>>([
     {
       type: EOrderType.PENDING_PAYMENT,
@@ -74,6 +74,7 @@ const PersonalCenter = () => {
   };
 
   useDidShow(() => {
+    if (!isLogin) return;
     getData();
   });
 
@@ -85,7 +86,23 @@ const PersonalCenter = () => {
       <View className={styles['user-avatar-wrpper']}>
         <AtAvatar circle image={userInfo.avatarUrl} />
         <View className={styles['user-info']}>
-          <Text className={styles['name']}>{userInfo.nickName}</Text>
+          {(isLogin && (
+            <Text className={styles['name']}>{userInfo.nickName}</Text>
+          )) || (
+            <AtButton
+              type="primary"
+              size="small"
+              circle
+              className={styles['please-login']}
+              onClick={() => {
+                Taro.navigateTo({
+                  url: loginPath(),
+                });
+              }}
+            >
+              请登录
+            </AtButton>
+          )}
           <Text className={styles['address']}>
             {userInfo.country} {userInfo.province}
           </Text>

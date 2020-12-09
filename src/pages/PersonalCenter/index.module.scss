@@ -5,6 +5,7 @@
     padding: 30px;
     display: flex;
     .user-info {
+      position: relative;
       padding: 0 24px;
       flex: 1;
       display: flex;
@@ -17,6 +18,12 @@
       .address {
         font-size: 28px;
         color: #666;
+      }
+      .please-login{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
       }
     }
   }

@@ -6,7 +6,13 @@ import { EBannerTypeEnum } from './enums';
 import { productDetailPath } from '../../../../router';
 import ImagePreload from '../../../../components/ImagePreload';
 
-const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
+const Banner = ({
+  bannerList,
+  checkLogin,
+}: {
+  bannerList: Array<IBannerItem>;
+  checkLogin: (cb) => void;
+}) => {
   /**
    * banner点击
    * @param data
@@ -41,7 +47,11 @@ const Banner = ({ bannerList }: { bannerList: Array<IBannerItem> }) => {
           <SwiperItem key={data.id} className={styles['banner-item']}>
             <View
               className={styles['banner-img']}
-              onClick={() => bannerClick(data)}
+              onClick={() =>
+                checkLogin(() => {
+                  bannerClick(data);
+                })
+              }
             >
               <ImagePreload width={750} height={340} src={data.imgUrl} />
             </View>
