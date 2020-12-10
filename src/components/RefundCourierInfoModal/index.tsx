@@ -29,30 +29,32 @@ const RefundCourierInfoModal = () => {
       }}
     >
       <AtModalHeader>请填写退货快递信息</AtModalHeader>
-      <AtModalContent>
-        <AtInput
-          name="courierName"
-          title="快递名称"
-          type="text"
-          placeholder="请输入快递名称"
-          value={courierName}
-          onChange={(v) => {
-            setCourierName(v as string);
-            return v;
-          }}
-        />
-        <AtInput
-          name="courierNum"
-          title="快递单号"
-          type="text"
-          placeholder="请输入快递单号"
-          value={courierNum}
-          onChange={(v) => {
-            setCourierNum(v as string);
-            return v;
-          }}
-        />
-      </AtModalContent>
+      {showType && (
+        <AtModalContent>
+          <AtInput
+            name="courierName"
+            title="快递名称"
+            type="text"
+            placeholder="请输入快递名称"
+            value={courierName}
+            onChange={(v) => {
+              setCourierName(v as string);
+              return v;
+            }}
+          />
+          <AtInput
+            name="courierNum"
+            title="快递单号"
+            type="text"
+            placeholder="请输入快递单号"
+            value={courierNum}
+            onChange={(v) => {
+              setCourierNum(v as string);
+              return v;
+            }}
+          />
+        </AtModalContent>
+      )}
       <AtModalAction>
         <Button
           onClick={() => {
